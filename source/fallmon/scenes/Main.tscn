@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjjtqeh6voi3l"]
+[gd_scene load_steps=3 format=3 uid="uid://bjjtqeh6voi3l"]
 
 [ext_resource type="Script" path="res://source/fallmon/scripts/Main.gd" id="1_iohxc"]
+[ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_cl3hb"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_iohxc")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 353.0
+offset_bottom = 177.0
+theme_override_fonts/font = ExtResource("2_cl3hb")
+text = "Hang on a bit"

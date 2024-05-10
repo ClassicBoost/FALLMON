@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7aevpcfajec0"]
+
+[ext_resource type="PackedScene" uid="uid://bufodnhbl7i07" path="res://source/fallmon/backend/overlay.tscn" id="1_6ydkv"]
+[ext_resource type="PackedScene" uid="uid://dpxmx3o7s44ok" path="res://source/fallmon/backend/volume.tscn" id="2_uos3y"]
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="Overlay" parent="." instance=ExtResource("1_6ydkv")]
+
+[node name="Volume" parent="." instance=ExtResource("2_uos3y")]

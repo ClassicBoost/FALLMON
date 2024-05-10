@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://dpxmx3o7s44ok"]
+
+[ext_resource type="Script" path="res://source/fallmon/scripts/volume.gd" id="1_l1j6m"]
+[ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_55ilh"]
+[ext_resource type="AudioStream" uid="uid://clg3iap674tl" path="res://assets/audios/sounds/ui/volume/change_volume.ogg" id="3_ci6rl"]
+[ext_resource type="AudioStream" uid="uid://si6hq8dkane4" path="res://assets/audios/sounds/ui/volume/cannot_change.ogg" id="4_cvcce"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ngoe2"]
+bg_color = Color(0, 0, 0, 0.741176)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tt5ej"]
+bg_color = Color(0.294118, 0.294118, 0.294118, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hmcv"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="Volume" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_l1j6m")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 512.0
+offset_right = 768.0
+offset_bottom = 48.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ngoe2")
+
+[node name="ProgressBar" type="ProgressBar" parent="Panel"]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 240.0
+offset_bottom = 24.0
+theme_override_styles/background = SubResource("StyleBoxFlat_tt5ej")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7hmcv")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 32.0
+offset_right = 160.0
+offset_bottom = 45.0
+theme_override_fonts/font = ExtResource("2_55ilh")
+theme_override_font_sizes/font_size = 14
+text = "VOLUME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="volume" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ci6rl")
+
+[node name="deny" type="AudioStreamPlayer" parent="volume"]
+stream = ExtResource("4_cvcce")
+
+[connection signal="value_changed" from="Panel/ProgressBar" to="." method="_on_progress_bar_value_changed"]

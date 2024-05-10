@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bufodnhbl7i07"]
+
+[ext_resource type="Script" path="res://source/fallmon/scripts/Overlay.gd" id="1_4xn0t"]
+[ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_2vnf5"]
+
+[node name="Overlay" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_4xn0t")
+
+[node name="counter" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_2vnf5")
+text = "60 FPS"
