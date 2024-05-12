@@ -2,6 +2,8 @@ extends Control
 
 var game_volume:int = 1
 
+var save_path = "user://volume.json"
+
 @export
 var bus_name: String
 
@@ -16,6 +18,7 @@ var muteAnyway:bool = false
 func _ready() -> void:
 	position.y = -300
 	volumeNum = game_volume
+	loadSettings()
 	bus_index = AudioServer.get_bus_index(bus_name)
 	
 func _process(delta):
@@ -36,6 +39,8 @@ func _process(delta):
 	
 	game_volume = volumeNum
 	
+	saveSettings()
+	
 	if timer < 0 and position.y > -100:
 		position.y -= 20 * delta
 	
@@ -46,3 +51,28 @@ func _process(delta):
 
 func _on_progress_bar_value_changed(value):
 	AudioServer.set_bus_volume_db(volumeNum, linear_to_db(value))
+
+func saveSettings():		
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	
+	var saved_data = {}
+	
+	saved_data["percent"] = volumeNum
+	
+	var json = JSON.stringify(saved_data)
+	
+	file.store_string(json)
+	file.close()
+	
+func loadSettings():
+	if FileAccess.file_exists(save_path):
+		var file = FileAccess.open(save_path, FileAccess.READ)
+		var json = file.get_as_text()
+		
+		var saved_data = JSON.parse_string(json)
+		
+		volumeNum = saved_data["percent"]
+		
+		file.close()
+	else:
+		print('bleh')

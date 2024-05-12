@@ -1,0 +1,125 @@
+[gd_scene load_steps=13 format=3 uid="uid://yqnn64y8b3vj"]
+
+[ext_resource type="Script" path="res://source/fallmon/scripts/pause.gd" id="1_ikuwa"]
+[ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_ehbas"]
+[ext_resource type="PackedScene" uid="uid://glxt465a7cxc" path="res://source/fallmon/subscenes/settings.tscn" id="3_bbybp"]
+[ext_resource type="Shader" path="res://source/shaders/crt.gdshader" id="3_jifof"]
+[ext_resource type="AudioStream" uid="uid://c2oosn0afscwm" path="res://assets/audios/sounds/menus/confirm.ogg" id="4_qo5jj"]
+[ext_resource type="AudioStream" uid="uid://5kqmh8lm2c3p" path="res://assets/audios/sounds/menus/vhs-change.ogg" id="5_iw05b"]
+[ext_resource type="AudioStream" uid="uid://bchjn7mhy860m" path="res://assets/audios/ambience/pause_ambience.ogg" id="6_d8ptl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pmulj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_heeyv"]
+bg_color = Color(0.203922, 0.203922, 0.203922, 0.568627)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddcp6"]
+bg_color = Color(1, 1, 1, 0.568627)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2wlq5"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ar07"]
+shader = ExtResource("3_jifof")
+shader_parameter/scan_line_size = 1000.0
+
+[node name="Pause" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1_ikuwa")
+
+[node name="bg" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0.568627)
+
+[node name="resume" type="Button" parent="bg"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 448.0
+offset_right = 512.0
+offset_bottom = 512.0
+theme_override_fonts/font = ExtResource("2_ehbas")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_pmulj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_heeyv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ddcp6")
+theme_override_styles/focus = SubResource("StyleBoxFlat_2wlq5")
+text = "RESUME"
+alignment = 0
+
+[node name="configuration" type="Button" parent="bg"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 512.0
+offset_right = 512.0
+offset_bottom = 576.0
+theme_override_fonts/font = ExtResource("2_ehbas")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_pmulj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_heeyv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ddcp6")
+theme_override_styles/focus = SubResource("StyleBoxFlat_2wlq5")
+text = "CONFIGURATION"
+alignment = 0
+
+[node name="quit" type="Button" parent="bg"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 576.0
+offset_right = 512.0
+offset_bottom = 640.0
+theme_override_fonts/font = ExtResource("2_ehbas")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_pmulj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_heeyv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ddcp6")
+theme_override_styles/focus = SubResource("StyleBoxFlat_2wlq5")
+text = "QUIT"
+alignment = 0
+
+[node name="time" type="Label" parent="bg"]
+layout_mode = 0
+offset_left = 760.0
+offset_top = 504.0
+offset_right = 1272.0
+offset_bottom = 712.0
+theme_override_fonts/font = ExtResource("2_ehbas")
+theme_override_font_sizes/font_size = 48
+text = "AM 12:00:00
+1/1/2000"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Settings" parent="." instance=ExtResource("3_bbybp")]
+visible = false
+
+[node name="CRT" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_0ar07")
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 719.0
+mouse_filter = 2
+
+[node name="confirm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_qo5jj")
+
+[node name="select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_iw05b")
+volume_db = -10.0
+
+[node name="ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_d8ptl")
+
+[connection signal="mouse_entered" from="bg/resume" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="bg/resume" to="." method="_on_resume_pressed"]
+[connection signal="mouse_entered" from="bg/configuration" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="bg/configuration" to="." method="_on_configuration_pressed"]
+[connection signal="mouse_entered" from="bg/quit" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="bg/quit" to="." method="_on_quit_pressed"]

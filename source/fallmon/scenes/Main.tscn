@@ -1,13 +1,64 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjjtqeh6voi3l"]
+[gd_scene load_steps=9 format=3 uid="uid://bjjtqeh6voi3l"]
 
-[ext_resource type="Script" path="res://source/fallmon/scripts/Main.gd" id="1_iohxc"]
+[ext_resource type="Script" path="res://source/fallmon/scripts/game/Main.gd" id="1_iohxc"]
 [ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_cl3hb"]
+[ext_resource type="Texture2D" uid="uid://x26p64rpf8d2" path="res://assets/title/classic.png" id="3_b4wnj"]
+[ext_resource type="Shader" path="res://source/shaders/crt.gdshader" id="3_p3psp"]
+[ext_resource type="Texture2D" uid="uid://s8hnyki7esl4" path="res://assets/title/godot.png" id="4_1jmgl"]
+[ext_resource type="PackedScene" uid="uid://bufodnhbl7i07" path="res://source/fallmon/backend/overlay.tscn" id="6_r3hql"]
+[ext_resource type="PackedScene" uid="uid://dpxmx3o7s44ok" path="res://source/fallmon/backend/volume.tscn" id="7_uw64s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lq6io"]
+shader = ExtResource("3_p3psp")
+shader_parameter/scan_line_size = 1000.0
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_iohxc")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="ColorRect"]
+visible = false
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 280.0
+theme_override_fonts/font = ExtResource("2_cl3hb")
+theme_override_font_sizes/font_size = 70
+text = "GAME BY
+CLASSIC1926"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="me" type="Sprite2D" parent="ColorRect"]
+visible = false
+position = Vector2(640, 440)
+scale = Vector2(0.776667, 0.776667)
+texture = ExtResource("3_b4wnj")
+
+[node name="godot" type="Sprite2D" parent="ColorRect"]
+visible = false
+position = Vector2(640, 384)
+scale = Vector2(0.686667, 0.686667)
+texture = ExtResource("4_1jmgl")
+
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_right = 353.0
 offset_bottom = 177.0
 theme_override_fonts/font = ExtResource("2_cl3hb")
 text = "Hang on a bit"
+
+[node name="CRT" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_lq6io")
+offset_right = 1280.0
+offset_bottom = 719.0
+
+[node name="Overlay" type="CanvasLayer" parent="."]
+
+[node name="Overlay" parent="Overlay" instance=ExtResource("6_r3hql")]
+
+[node name="Volume" parent="Overlay" instance=ExtResource("7_uw64s")]

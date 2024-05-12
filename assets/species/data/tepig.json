@@ -3,5 +3,22 @@
 	
 	"sprite_male": "tepig",
 	"sprite_female": "tepig",
-	"portrait": "tepig"
+	"portrait": "tepig",
+
+    "type": "fire",
+
+    "str": 4,
+    "per": 0,
+    "end": -1,
+    "cha": 1,
+    "int": 1,
+    "agl": 0,
+    "luk": 0,
+
+    "hp": 8,
+    "stamina": 0,
+    "pp": 0,
+
+    "radresist": 3,
+    "ac": 0
 }

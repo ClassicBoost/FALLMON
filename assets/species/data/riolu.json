@@ -3,5 +3,22 @@
 	
 	"sprite_male": "riolu",
 	"sprite_female": "riolu",
-	"portrait": "riolu"
+	"portrait": "riolu",
+
+	"type": "fighting",
+
+	"str": 4,
+    "per": 1,
+    "end": 2,
+    "cha": 1,
+    "int": 0,
+    "agl": 2,
+    "luk": 0,
+
+    "hp": -5,
+    "stamina": 0,
+    "pp": -5,
+
+    "radresist": -5,
+    "ac": 2
 }

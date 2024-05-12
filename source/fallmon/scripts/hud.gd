@@ -1,34 +1,33 @@
 extends Control
 
-var highlighted:bool = false
-@onready var image = $NinePatchRect
+var highlighted:String = ''
+@onready var image = $HP
+@onready var portraitSprite = $HP/front/portrait
 
 @onready var player = get_owner().get_node("Player")
+@onready var portraitThingy = get_owner().get_node("UI/HUD/HP/front/portrait")
 var portrait:String = 'unown'
 
 func _ready():
 	image.modulate.a = 0.5
+	$Stamina.modulate.a = 0.5
 	
 func _process(delta):
-	if image.modulate.a > 0.5 and not highlighted:
+	if image.modulate.a > 0.5 and highlighted != 'health':
 		image.modulate.a -= 0.1 * delta
-	$NinePatchRect/healthBar.value = (player.health/player.maxHealth) * 100
+	if $Stamina.modulate.a > 0.5 and highlighted != 'stamina':
+		$Stamina.modulate.a -= 0.1 * delta
 	
-	$NinePatchRect/front/portrait.texture = load("res://assets/graphics/portraits/" + portrait + ".png")
+	$HP/front/healthBar.value = (player.health/player.maxHealth) * 100
+	$Stamina/stamina/staminaBar.value = (player.stamina/player.maxStamina) * 100
 	
-	get_json()
+	portraitSprite.texture = load("res://assets/graphics/portraits/" + portrait + ".png")
+	if portraitSprite.texture == null:  # prevent crashing
+		portraitSprite.texture = load("res://assets/graphics/portraits/unown.png")
 	
+	get_json("res://assets/species/data/" + player.charSpecies.to_lower() + ".json")
 
-func _on_mouse_entered():
-	image.modulate.a = 1
-	highlighted = true
-
-func _on_mouse_exited():
-	highlighted = false
-
-@onready var json_path = "res://assets/species/data/" + player.charSpecies.to_lower() + ".json"
-	
-func get_json():
+func get_json(json_path:String):
 	if FileAccess.file_exists(json_path):
 		var file = FileAccess.open(json_path, FileAccess.READ)
 		var json = file.get_as_text()
@@ -39,5 +38,23 @@ func get_json():
 		
 		file.close()
 	else:
-		print('bleh')
 		portrait = 'unown'
+
+func _on_hp_mouse_entered():
+	image.modulate.a = 1
+	highlighted = 'health'
+
+func _on_stamina_mouse_entered():
+	$Stamina.modulate.a = 1
+	highlighted = 'stamina'
+
+
+func _on_mouse_exited():
+	highlighted = ''
+
+func _on_stamina_bar_value_changed(_value):
+	$Stamina.modulate.a = 1
+
+
+func _on_health_bar_value_changed(_value):
+	image.modulate.a = 1

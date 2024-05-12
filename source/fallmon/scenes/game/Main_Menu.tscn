@@ -1,10 +1,121 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7aevpcfajec0"]
+[gd_scene load_steps=14 format=3 uid="uid://c7aevpcfajec0"]
 
 [ext_resource type="PackedScene" uid="uid://bufodnhbl7i07" path="res://source/fallmon/backend/overlay.tscn" id="1_6ydkv"]
+[ext_resource type="Script" path="res://source/fallmon/scripts/game/Main_Menu.gd" id="1_73ydg"]
+[ext_resource type="Shader" path="res://source/shaders/crt.gdshader" id="1_dg7jq"]
+[ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_npo1v"]
 [ext_resource type="PackedScene" uid="uid://dpxmx3o7s44ok" path="res://source/fallmon/backend/volume.tscn" id="2_uos3y"]
+[ext_resource type="PackedScene" uid="uid://glxt465a7cxc" path="res://source/fallmon/subscenes/settings.tscn" id="2_ykjtb"]
+[ext_resource type="AudioStream" uid="uid://c2oosn0afscwm" path="res://assets/audios/sounds/menus/confirm.ogg" id="7_gunb1"]
+[ext_resource type="AudioStream" uid="uid://5kqmh8lm2c3p" path="res://assets/audios/sounds/menus/vhs-change.ogg" id="8_6y828"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5sytj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvsmi"]
+bg_color = Color(0.345098, 0.345098, 0.345098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rm5fl"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3d2t"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vlxpa"]
+shader = ExtResource("1_dg7jq")
+shader_parameter/scan_line_size = 1000.0
 
 [node name="MainMenu" type="Node2D"]
+script = ExtResource("1_73ydg")
 
-[node name="Overlay" parent="." instance=ExtResource("1_6ydkv")]
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
 
-[node name="Volume" parent="." instance=ExtResource("2_uos3y")]
+[node name="PLAY" type="Button" parent="ColorRect"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 384.0
+offset_right = 448.0
+offset_bottom = 448.0
+theme_override_fonts/font = ExtResource("2_npo1v")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_5sytj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kvsmi")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rm5fl")
+theme_override_styles/focus = SubResource("StyleBoxFlat_u3d2t")
+text = "PLAY"
+alignment = 0
+
+[node name="SETTINGS" type="Button" parent="ColorRect"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 448.0
+offset_right = 448.0
+offset_bottom = 512.0
+theme_override_fonts/font = ExtResource("2_npo1v")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_5sytj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kvsmi")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rm5fl")
+theme_override_styles/focus = SubResource("StyleBoxFlat_u3d2t")
+text = "CONFIGURATION"
+alignment = 0
+
+[node name="EXIT" type="Button" parent="ColorRect"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 576.0
+offset_right = 448.0
+offset_bottom = 640.0
+theme_override_fonts/font = ExtResource("2_npo1v")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_5sytj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kvsmi")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rm5fl")
+theme_override_styles/focus = SubResource("StyleBoxFlat_u3d2t")
+text = "EXIT"
+alignment = 0
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 648.0
+offset_right = 328.0
+offset_bottom = 712.0
+theme_override_fonts/font = ExtResource("2_npo1v")
+theme_override_font_sizes/font_size = 20
+text = "Game created by Classic1926.
+Made with Godot Engine"
+vertical_alignment = 2
+
+[node name="Settings" parent="." instance=ExtResource("2_ykjtb")]
+visible = false
+
+[node name="CRT" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_vlxpa")
+offset_right = 1280.0
+offset_bottom = 719.0
+mouse_filter = 2
+
+[node name="Overlay" type="CanvasLayer" parent="."]
+
+[node name="Overlay" parent="Overlay" instance=ExtResource("1_6ydkv")]
+
+[node name="Volume" parent="Overlay" instance=ExtResource("2_uos3y")]
+
+[node name="confirm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_gunb1")
+
+[node name="select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_6y828")
+volume_db = -10.0
+
+[connection signal="mouse_entered" from="ColorRect/PLAY" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="ColorRect/PLAY" to="." method="_on_play_pressed"]
+[connection signal="mouse_entered" from="ColorRect/SETTINGS" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="ColorRect/SETTINGS" to="." method="_on_settings_pressed"]
+[connection signal="mouse_entered" from="ColorRect/EXIT" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="ColorRect/EXIT" to="." method="_on_exit_pressed"]

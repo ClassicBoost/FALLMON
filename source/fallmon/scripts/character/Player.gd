@@ -9,18 +9,43 @@ var moveSpeed:float = 130
 @onready var anim_player:AnimationPlayer = $fours
 @onready var anim_player_six:AnimationPlayer = $fours/sixs
 
-@export var charSpecies:String = 'tepig'
+@export var charSpecies:String = 'snivy'
+var checkPackage:bool = false
+var packageFolder:String = 'assets'
 
 @export var isFemale:bool = false
 
-@export var health:float = 35
-@export var maxHealth:int = 35
+@export var health:float = 999
+var maxHealth:float = 35
+
+@export var stamina:float = 999
+var maxStamina:float = 50
 
 @export var realHP:int = 30
 
-var moving:bool = false
+@onready var portraitThingy = get_owner().get_node("UI/HUD/HP/front/portrait")
 
+# SPECIAL
+@export var strength_default:int = 5
+@export var perception_default:int = 5
+@export var endurance_default:int = 5
+@export var charisma_default:int = 5
+@export var intelligence_default:int = 5
+@export var agility_default:int = 5
+@export var luck_default:int = 5
+var strength:int = 3
+var perception:int = 3
+var endurance:int = 3
+var charisma:int = 3
+var intelligence:int = 3
+var agility:int = 3
+var luck:int = 3
+
+@export var radiation:float = 0
+
+var moving:bool = false
 var running:bool = false
+var exhausted:bool = false
 
 # json
 var species_sprite:String = 'example'
@@ -29,6 +54,18 @@ func _ready():
 	updateAnim(Vector2(0, 1))
 
 func _physics_process(delta):
+	portraitThingy.expression = 0
+	strength = strength_default
+	perception = perception_default
+	endurance = endurance_default
+	charisma = charisma_default
+	intelligence = intelligence_default
+	agility = agility_default
+	luck = luck_default
+	# $Label.text = str(strength) + str(perception) + str(endurance) + str(charisma) + str(intelligence) + str(agility) + str(luck)
+	maxStamina = agility*10
+	maxHealth = 20 + (endurance*2) + strength
+
 	moving = false
 	running = false
 	var input_direction = Vector2(
@@ -36,10 +73,22 @@ func _physics_process(delta):
 		Input.get_action_strength("down") - Input.get_action_strength("up")
 	)
 	
-	get_json()
+	if checkPackage:
+		get_json("res://packages/species/data/" + charSpecies.to_lower() + ".json")
+	else:
+		get_json("res://assets/species/data/" + charSpecies.to_lower() + ".json")
 	
 	if health > maxHealth:
 		health = maxHealth
+	if stamina > maxStamina:
+		stamina = maxStamina
+	if stamina < 0:
+		stamina = 0
+		exhausted = true
+	if stamina > 10:
+		exhausted = false
+	
+	runPortraitUpdate()
 	
 	if health < 0:
 		realHP -= 1
@@ -53,11 +102,16 @@ func _physics_process(delta):
 		if Input.is_action_pressed("sprint"):
 			running = true
 	
-	if running and moving:
+	if running and moving and not exhausted:
 		moveSpeed = 400
+		stamina -= 8 * delta
 		anim_player.set_speed_scale(3)
 	else:
 		moveSpeed = 130
+		if moving:
+			stamina += agility * (delta/3)
+		else:
+			stamina += (agility) * delta
 		anim_player.set_speed_scale(1)
 	
 	velocity = (input_direction * moveSpeed) * (delta * 60)
@@ -67,35 +121,49 @@ func _physics_process(delta):
 	move_and_slide()
 	new_anim_state()
 
+func runPortraitUpdate():
+	if stamina <= 10 or health <= 10:
+		portraitThingy.expression = 2
+	if health <= 4:
+		portraitThingy.expression = 13
+
 func updateAnim(anim:Vector2):
 	if (anim != Vector2.ZERO):
 		animation_tree.set("parameters/Idle/blend_position", anim)
 
 func new_anim_state():
+	if species_sprite == '' or species_sprite == null:
+		pass
+	
 	var current_anim:String = 'idle'
 	
 	if (velocity != Vector2.ZERO):
-		sprite.texture = load("res://assets/species/species/" + species_sprite + "/walk.png")
+		sprite.texture = load("res://" + packageFolder + "/species/sprites/" + species_sprite + "/walk.png")
 		current_anim = 'walk'
 	else:
-		sprite.texture = load("res://assets/species/species/" + species_sprite + "/idle.png")
+		sprite.texture = load("res://" + packageFolder + "/species/sprites/" + species_sprite + "/idle.png")
 		current_anim = 'idle'
+	
+	if sprite.texture == null: # prevent crashing
+		sprite.texture = load("res://assets/species/sprites/example/blank.png")
 	
 	update_offsets(current_anim)
 
-
 func update_offsets(current_anim:String):
-	sprite.set_hframes(4)
-	animation_tree.set_animation_player(NodePath("../fours"))
 	match current_anim:
 		'idle':
 			if charSpecies == 'tepig' or charSpecies == 'oshawott' or charSpecies == 'pikachu':
 				sprite.set_hframes(6)
 				animation_tree.set_animation_player(NodePath("../fours/sixs"))
+			else:
+				sprite.set_hframes(4)
+				animation_tree.set_animation_player(NodePath("../fours"))
+		_:
+			sprite.set_hframes(4)
+			animation_tree.set_animation_player(NodePath("../fours"))
 
-var json_path = "res://assets/species/data/" + charSpecies.to_lower() + ".json"
-
-func get_json():
+var isMissing:bool = false
+func get_json(json_path:String):
 	if FileAccess.file_exists(json_path):
 		var file = FileAccess.open(json_path, FileAccess.READ)
 		var json = file.get_as_text()
@@ -107,6 +175,19 @@ func get_json():
 		if isFemale:
 			species_sprite = saved_data["sprite_female"]
 		
+		if checkPackage and isMissing:
+			print('Json file found through package folder!')
+		
+		if checkPackage:
+			packageFolder = 'packages'
+		else:
+			packageFolder = 'assets'
+		
+		isMissing = false
+		
 		file.close()
 	else:
-		print('bleh')
+		if not isMissing:
+			print(charSpecies + '.json file is missing or unable to load.')
+			isMissing = true
+		checkPackage = !checkPackage # check to see if the sprite exists in the package folder

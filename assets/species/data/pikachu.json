@@ -3,5 +3,22 @@
 	
 	"sprite_male": "pikachu-male",
 	"sprite_female": "pikachu-female",
-	"portrait": "pikachu"
+	"portrait": "pikachu",
+
+    "type": "electric",
+
+    "str": 1,
+    "per": 0,
+    "end": 0,
+    "cha": 0,
+    "int": 0,
+    "agl": 2,
+    "luk": 0,
+
+    "hp": -1,
+    "stamina": 5,
+    "pp": 0,
+
+    "radresist": 1,
+    "ac": 0
 }

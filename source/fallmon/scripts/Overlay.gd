@@ -14,6 +14,8 @@ func _process(delta):
 	# loadSettings()
 	var fps = Engine.get_frames_per_second()
 	
+	$counter.text = ''
+	
 	if OS.is_debug_build():
 		$counter.text = 'DEBUG MODE\n'
 	$counter.text += str(fps) + ' FPS'
