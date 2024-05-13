@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://source/fallmon/scripts/settings.gd" id="1_1t307"]
 [ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_3ky4x"]
 [ext_resource type="AudioStream" uid="uid://c2oosn0afscwm" path="res://assets/audios/sounds/menus/confirm.ogg" id="3_ni0gp"]
-[ext_resource type="AudioStream" uid="uid://5kqmh8lm2c3p" path="res://assets/audios/sounds/menus/vhs-change.ogg" id="4_g22t7"]
+[ext_resource type="AudioStream" uid="uid://btu87w1gnj5xo" path="res://assets/audios/sounds/menus/select.ogg" id="4_oefm8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m0rr"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -58,6 +58,31 @@ text = "ON"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="overlay_info" type="Button" parent="bg"]
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 448.0
+offset_bottom = 192.0
+theme_override_fonts/font = ExtResource("2_3ky4x")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_8m0rr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h8vuo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_e4h4d")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vuprl")
+text = "OVERLAY"
+alignment = 0
+
+[node name="setting" type="Label" parent="bg/overlay_info"]
+layout_mode = 0
+offset_left = 256.0
+offset_right = 384.0
+offset_bottom = 64.0
+theme_override_fonts/font = ExtResource("2_3ky4x")
+theme_override_font_sizes/font_size = 32
+text = "ON"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="leave" type="Button" parent="bg"]
 layout_mode = 0
 offset_left = 64.0
@@ -87,12 +112,13 @@ horizontal_alignment = 1
 stream = ExtResource("3_ni0gp")
 
 [node name="select" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_g22t7")
-volume_db = -10.0
+stream = ExtResource("4_oefm8")
 
-[connection signal="mouse_entered" from="bg/shaders" to="." method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="bg/shaders" to="." method="_on_shaders_mouse_entered"]
+[connection signal="mouse_entered" from="bg/shaders" to="." method="_on_mouse_entered" binds= ["shaders"]]
 [connection signal="mouse_exited" from="bg/shaders" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="bg/shaders" to="." method="_on_shaders_pressed"]
-[connection signal="mouse_entered" from="bg/leave" to="." method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="bg/overlay_info" to="." method="_on_mouse_entered" binds= ["overlay"]]
+[connection signal="mouse_exited" from="bg/overlay_info" to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="bg/overlay_info" to="." method="_on_overlay_info_pressed"]
+[connection signal="mouse_entered" from="bg/leave" to="." method="_on_mouse_entered" binds= ["nothing"]]
 [connection signal="pressed" from="bg/leave" to="." method="_on_leave_pressed"]

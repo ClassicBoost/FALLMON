@@ -1,0 +1,24 @@
+{
+	"name": "Wooper",
+	
+	"sprite_male": "wooper-male",
+	"sprite_female": "wooper-female",
+	"portrait": "wooper",
+
+	"type": "water",
+
+	"str": -1,
+	"per": -3,
+	"end": -2,
+	"cha": 3,
+	"int": 0,
+	"agl": -3,
+	"luk": 0,
+
+	"hp": 5,
+	"stamina": -20,
+	"pp": 0,
+
+	"radresist": 5,
+	"ac": 5
+}

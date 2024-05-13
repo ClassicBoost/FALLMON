@@ -16,20 +16,21 @@ func _process(delta):
 	
 	$counter.text = ''
 	
-	if OS.is_debug_build():
-		$counter.text = 'DEBUG MODE\n'
-	$counter.text += str(fps) + ' FPS'
-	
-	if not fps_counter and not showDebug:
-		$counter.text = ''
-	if showDebug:
-		$counter.text += '\nMemory: ' + str(round(Performance.get_monitor(Performance.MEMORY_STATIC)/10000)/100) + 'mb / ' + str(round(Performance.get_monitor(Performance.MEMORY_STATIC_MAX)/10000)/100) + 'mb'
-		$counter.text += '\n' + str((roundf(timeInState * 100) / 100))
+	if fps_counter:
+		$counter.text += str(fps) + ' FPS'
+		$counter.text += '\n' + str(round(Performance.get_monitor(Performance.MEMORY_STATIC)/10000)/100) + 'mb / ' + str(round(Performance.get_monitor(Performance.MEMORY_STATIC_MAX)/10000)/100) + 'mb\n'
+		
+		if OS.is_debug_build():
+			$counter.text += 'DEBUG MODE'
+		if showDebug:
+			$counter.text += '\n' + str((roundf(timeInState * 100) / 100))
 	
 	if OS.is_debug_build() and Input.is_action_just_pressed("debug"):
 		showDebug = !showDebug
 	
 	timeInState += 1 * delta
+	
+	loadSettings()
 
 func tree_entered():
 	timeInState = 0
@@ -41,7 +42,7 @@ func loadSettings():
 		
 		var saved_data = JSON.parse_string(json)
 		
-		fps_counter = saved_data["fps_counter"]
+		fps_counter = saved_data["overlay"]
 		
 		file.close()
 	else:

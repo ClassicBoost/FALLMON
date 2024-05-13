@@ -34,6 +34,7 @@ offset_bottom = 720.0
 color = Color(0, 0, 0, 1)
 
 [node name="INTRO" type="Button" parent="ColorRect"]
+layout_mode = 0
 offset_left = 64.0
 offset_top = 320.0
 offset_right = 448.0

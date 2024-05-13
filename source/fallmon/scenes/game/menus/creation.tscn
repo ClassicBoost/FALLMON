@@ -1,18 +1,19 @@
-[gd_scene load_steps=24 format=3 uid="uid://dj3pom6skylyg"]
+[gd_scene load_steps=25 format=3 uid="uid://dj3pom6skylyg"]
 
 [ext_resource type="Script" path="res://source/fallmon/scripts/game/menus/char_creation.gd" id="1_5tsut"]
 [ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_lhrp0"]
 [ext_resource type="AudioStream" uid="uid://c2oosn0afscwm" path="res://assets/audios/sounds/menus/confirm.ogg" id="3_6o5s4"]
 [ext_resource type="FontFile" uid="uid://u2gi1c8bl7f2" path="res://assets/fonts/tech.ttf" id="3_33re6"]
-[ext_resource type="AudioStream" uid="uid://5kqmh8lm2c3p" path="res://assets/audios/sounds/menus/vhs-change.ogg" id="4_4ruxx"]
 [ext_resource type="Texture2D" uid="uid://cf5vjex2cr02a" path="res://assets/graphics/portraits/creation/pikachu.png" id="4_rwr2s"]
 [ext_resource type="Texture2D" uid="uid://cwp4xjioxho18" path="res://assets/graphics/portraits/creation/snivy.png" id="5_wgqex"]
 [ext_resource type="Texture2D" uid="uid://88vpl2ku03te" path="res://assets/graphics/portraits/creation/tepig.png" id="6_aby2j"]
 [ext_resource type="Texture2D" uid="uid://thmfju6jb8hn" path="res://assets/graphics/portraits/creation/oshawott.png" id="7_s1hux"]
 [ext_resource type="Texture2D" uid="uid://4dhowitcjiph" path="res://assets/graphics/portraits/creation/axew.png" id="8_eo84b"]
 [ext_resource type="Texture2D" uid="uid://bd8wmqw2f03sd" path="res://assets/graphics/portraits/creation/riolu.png" id="9_ihpoa"]
+[ext_resource type="Texture2D" uid="uid://bjk5v45bwbl6l" path="res://assets/graphics/portraits/creation/wooper.png" id="10_36wmy"]
 [ext_resource type="Theme" uid="uid://c1qdlt5jsbi6x" path="res://source/themes/stupid.tres" id="10_fpa0a"]
 [ext_resource type="AudioStream" uid="uid://bgqdqq38sug5f" path="res://assets/audios/sounds/ui/nah.ogg" id="12_86gqq"]
+[ext_resource type="AudioStream" uid="uid://btu87w1gnj5xo" path="res://assets/audios/sounds/menus/select.ogg" id="13_xpsug"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjudk"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -330,7 +331,7 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/panel = SubResource("StyleBoxFlat_ackta")
 theme_override_styles/focus = SubResource("StyleBoxFlat_5566x")
 allow_rmb_select = true
-item_count = 6
+item_count = 7
 item_0/text = "Pikachu"
 item_0/icon = ExtResource("4_rwr2s")
 item_1/text = "Snivy"
@@ -343,6 +344,8 @@ item_4/text = "Axew"
 item_4/icon = ExtResource("8_eo84b")
 item_5/text = "Riolu"
 item_5/icon = ExtResource("9_ihpoa")
+item_6/text = "Wooper"
+item_6/icon = ExtResource("10_36wmy")
 
 [node name="Gender" type="Button" parent="Top"]
 layout_mode = 0
@@ -374,11 +377,20 @@ prefix = "AGE:"
 stream = ExtResource("3_6o5s4")
 
 [node name="select" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_4ruxx")
-volume_db = -10.0
+stream = ExtResource("13_xpsug")
 
 [node name="nah" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_86gqq")
+
+[node name="ERROR" type="Label" parent="."]
+offset_left = 320.0
+offset_top = 640.0
+offset_right = 960.0
+offset_bottom = 706.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="mouse_entered" from="Buttons/BACK" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="Buttons/BACK" to="." method="_on_back_pressed"]

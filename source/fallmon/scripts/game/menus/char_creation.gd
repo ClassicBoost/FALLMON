@@ -36,6 +36,14 @@ var pkmnPP:int = 0
 var pkmnRAD:int = 0
 var pkmnAC:int = 0
 
+var totalSTR = 0
+var totalPER = 0
+var totalEND = 0
+var totalCHA = 0
+var totalINT = 0
+var totalAGL = 0
+var totalLUK = 0
+
 func _ready():
 	preload("res://source/fallmon/scenes/game/testing_room.tscn").instantiate()
 		
@@ -49,6 +57,14 @@ func _process(_delta):
 	$SPECIAL/Text.text += '\nLUCK: ' + str(startLuk) + ' (' + str(startLuk+pkmnLUK) + ')'
 	$SPECIAL/Text.text += '\nPOINTS LEFT: ' + str(pointsLeft)
 	
+	totalSTR = startStr+pkmnSTR
+	totalPER = startPer+pkmnPER
+	totalEND = startEnd+pkmnEND
+	totalCHA = startCha+pkmnCHA
+	totalINT = startInt+pkmnINT
+	totalAGL = startAgl+pkmnAGL
+	totalLUK = startLuk+pkmnLUK
+	
 	loadPokemon()
 
 func _on_mouse_entered():
@@ -61,8 +77,15 @@ func _on_back_pressed():
 	listPage.show()
 
 func _on_create_pressed():
-	if charName != '' and charName != 'loadinfo':
+	$ERROR.text = ''
+	if charName != '' and (totalSTR > 0 and totalPER > 0 and totalEND > 0 and totalCHA > 0 and totalINT > 0 and totalAGL > 0 and totalLUK > 0):
 		saveChar()
+	else:
+		$nah.play()
+		if charName == '':
+			$ERROR.text += 'ADD A NAME'
+		if (totalSTR <= 0 or totalPER <= 0 or totalEND <= 0 or totalCHA <= 0 or totalINT <= 0 or totalAGL <= 0 or totalLUK <= 0):
+			$ERROR.text += '\nSTAT(S) IS AT OR BELOW 0'
 
 func _on_special_stat_pressed(type, increase):
 	$confirm.play()
@@ -142,6 +165,8 @@ func _on_species_selected(index):
 			charSpecies = 'axew'
 		5:
 			charSpecies = 'riolu'
+		6:
+			charSpecies = 'wooper'
 		_:
 			pass
 	speciesInfo = "res://assets/species/data/" + str(charSpecies) + ".json"

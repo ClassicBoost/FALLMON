@@ -7,6 +7,7 @@ var moveSpeed:float = 130
 
 # animations have different frames
 @onready var anim_player:AnimationPlayer = $fours
+@onready var anim_player_twos:AnimationPlayer = $fours/twos
 @onready var anim_player_six:AnimationPlayer = $fours/sixs
 
 @export var charSpecies:String = 'example'
@@ -126,11 +127,11 @@ func _physics_process(delta):
 			running = true
 	
 	if running and moving and not exhausted:
-		moveSpeed = 400
+		moveSpeed = 400+(agility*2)
 		stamina -= 8 * delta
 		anim_player.set_speed_scale(3)
 	else:
-		moveSpeed = 130
+		moveSpeed = 130+agility
 		if moving:
 			stamina += agility * (delta/3)
 		else:
@@ -181,6 +182,16 @@ func update_offsets(current_anim:String):
 			if charSpecies == 'tepig' or charSpecies == 'oshawott' or charSpecies == 'pikachu':
 				sprite.set_hframes(6)
 				animation_tree.set_animation_player(NodePath("../fours/sixs"))
+			elif charSpecies == 'wooper':
+				sprite.set_hframes(2)
+				animation_tree.set_animation_player(NodePath("../fours/twos"))
+			else:
+				sprite.set_hframes(4)
+				animation_tree.set_animation_player(NodePath("../fours"))
+		'walk':
+			if charSpecies == 'wooper':
+				sprite.set_hframes(8)
+				animation_tree.set_animation_player(NodePath("../fours/eights"))
 			else:
 				sprite.set_hframes(4)
 				animation_tree.set_animation_player(NodePath("../fours"))
