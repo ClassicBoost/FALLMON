@@ -5,20 +5,20 @@
 	"sprite_female": "snivy",
 	"portrait": "snivy",
 
-    "type": "grass",
+	"type": "grass",
 
-    "str": -1,
-    "per": 0,
-    "end": -1,
-    "cha": 1,
-    "int": 1,
-    "agl": 4,
-    "luk": 0,
+	"str": -1,
+	"per": 0,
+	"end": -1,
+	"cha": 1,
+	"int": 1,
+	"agl": 4,
+	"luk": 0,
 
-    "hp": 0,
-    "stamina": 10,
-    "pp": 0,
+	"hp": 0,
+	"stamina": 10,
+	"pp": 0,
 
-    "radresist": 2,
-    "ac": 0
+	"radresist": 2,
+	"ac": 0
 }

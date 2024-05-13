@@ -5,20 +5,20 @@
 	"sprite_female": "oshawott",
 	"portrait": "oshawott",
 
-    "type": "water",
+	"type": "water",
 
-    "str": 1,
-    "per": 0,
-    "end": 2,
-    "cha": 1,
-    "int": 1,
-    "agl": 2,
-    "luk": 0,
+	"str": 1,
+	"per": 0,
+	"end": 2,
+	"cha": 1,
+	"int": 1,
+	"agl": 2,
+	"luk": 0,
 
-    "hp": 0,
-    "stamina": 0,
-    "pp": 4,
+	"hp": 0,
+	"stamina": 0,
+	"pp": 4,
 
-    "radresist": 1,
-    "ac": 1
+	"radresist": 1,
+	"ac": 1
 }

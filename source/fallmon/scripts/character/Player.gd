@@ -14,6 +14,13 @@ var checkPackage:bool = false
 var packageFolder:String = 'assets'
 var stopLoading:bool = false
 
+var pkmnType:String = ''
+var pkmnHP:int = 0
+var pkmnSTM:int = 0
+var pkmnPP:int = 0
+var pkmnRAD:int = 0
+var pkmnAC:int = 0
+
 var save_path = "user://saves/saved_game.json"
 
 @export var charName:String = ''
@@ -76,8 +83,9 @@ func _physics_process(delta):
 	agility = agility_default
 	luck = luck_default
 	# $Label.text = str(strength) + str(perception) + str(endurance) + str(charisma) + str(intelligence) + str(agility) + str(luck)
-	maxStamina = agility*10
-	maxHealth = 20 + (endurance*2) + strength
+	maxStamina = agility*10+pkmnSTM
+	maxHealth = 20+(endurance*2)+strength+pkmnHP
+	maxPP = (strength*2)+pkmnPP
 
 	moving = false
 	running = false
@@ -95,6 +103,8 @@ func _physics_process(delta):
 		health = maxHealth
 	if stamina > maxStamina:
 		stamina = maxStamina
+	if PP > maxPP:
+		PP = maxPP
 	if stamina < 0:
 		stamina = 0
 		exhausted = true
@@ -221,6 +231,13 @@ func loadData():
 		
 		var saved_data = JSON.parse_string(json)
 		
+		pkmnType = saved_data["type"]
+		pkmnHP = saved_data['hp_pkmn']
+		pkmnSTM = saved_data['stm_pkmn']
+		pkmnPP = saved_data['pp_pkmn']
+		pkmnRAD = saved_data['rad_pkmn']
+		pkmnAC = saved_data['ac_pkmn']
+		
 		charName = saved_data["name"]
 		charSpecies = saved_data["species"]
 		isFemale = saved_data["female"]
@@ -254,7 +271,14 @@ func saveChar():
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
 	
 	var saved_data = {}
-		
+	
+	saved_data["type"] = pkmnType
+	saved_data['hp_pkmn'] = pkmnHP
+	saved_data['stm_pkmn'] = pkmnSTM
+	saved_data['pp_pkmn'] = pkmnPP
+	saved_data['rad_pkmn'] = pkmnRAD
+	saved_data['ac_pkmn'] = pkmnAC
+	
 	saved_data["name"] = charName
 	saved_data["species"] = charSpecies
 	saved_data["female"] = isFemale

@@ -1,6 +1,7 @@
 extends Control
 
 @onready var listPage = get_owner().get_node("BG/List")
+@onready var speciesInfo = "res://assets/species/data/pikachu.json"
 
 var startStr:int = 5
 var startPer:int = 5
@@ -17,18 +18,38 @@ var isFemale:bool = false
 var charName:String = '' # to prevent showing as blank
 var charSpecies:String = 'pikachu' # to prevent showing as blank
 
+# I should probably use arrays. But I'm dumb and lazy
+var pkmnType:String = ""
+
+var pkmnSTR:int = 0
+var pkmnPER:int = 0
+var pkmnEND:int = 0
+var pkmnCHA:int = 0
+var pkmnINT:int = 0
+var pkmnAGL:int = 0
+var pkmnLUK:int = 0
+
+var pkmnHP:int = 0
+var pkmnSTM:int = 0
+var pkmnPP:int = 0
+
+var pkmnRAD:int = 0
+var pkmnAC:int = 0
+
 func _ready():
 	preload("res://source/fallmon/scenes/game/testing_room.tscn").instantiate()
 		
 func _process(_delta):
-	$SPECIAL/Text.text = 'STRENGTH: ' + str(startStr)
-	$SPECIAL/Text.text += '\nPERCEPTION: ' + str(startPer)
-	$SPECIAL/Text.text += '\nENDURANCE: ' + str(startEnd)
-	$SPECIAL/Text.text += '\nCHARISMA: ' + str(startCha)
-	$SPECIAL/Text.text += '\nINTELLIGENCE: ' + str(startInt)
-	$SPECIAL/Text.text += '\nAGILITY: ' + str(startAgl)
-	$SPECIAL/Text.text += '\nLUCK: ' + str(startLuk)
+	$SPECIAL/Text.text = 'STRENGTH: ' + str(startStr) + ' (' + str(startStr+pkmnSTR) + ')'
+	$SPECIAL/Text.text += '\nPERCEPTION: ' + str(startPer) + ' (' + str(startPer+pkmnPER) + ')'
+	$SPECIAL/Text.text += '\nENDURANCE: ' + str(startEnd) + ' (' + str(startEnd+pkmnEND) + ')'
+	$SPECIAL/Text.text += '\nCHARISMA: ' + str(startCha) + ' (' + str(startCha+pkmnCHA) + ')'
+	$SPECIAL/Text.text += '\nINTELLIGENCE: ' + str(startInt) + ' (' + str(startInt+pkmnINT) + ')'
+	$SPECIAL/Text.text += '\nAGILITY: ' + str(startAgl) + ' (' + str(startAgl+pkmnAGL) + ')'
+	$SPECIAL/Text.text += '\nLUCK: ' + str(startLuk) + ' (' + str(startLuk+pkmnLUK) + ')'
 	$SPECIAL/Text.text += '\nPOINTS LEFT: ' + str(pointsLeft)
+	
+	loadPokemon()
 
 func _on_mouse_entered():
 	$select.play()
@@ -123,7 +144,34 @@ func _on_species_selected(index):
 			charSpecies = 'riolu'
 		_:
 			pass
+	speciesInfo = "res://assets/species/data/" + str(charSpecies) + ".json"
 	print('Species swapped to ' + str(charSpecies.to_upper()))
+
+func loadPokemon():
+	if FileAccess.file_exists(speciesInfo):
+		var file = FileAccess.open(speciesInfo, FileAccess.READ)
+		var json = file.get_as_text()
+		
+		var saved_data = JSON.parse_string(json)
+		
+		pkmnType = saved_data["type"]
+		
+		pkmnSTR = saved_data["str"]
+		pkmnPER = saved_data["per"]
+		pkmnEND = saved_data["end"]
+		pkmnCHA = saved_data["cha"]
+		pkmnINT = saved_data["int"]
+		pkmnAGL = saved_data["agl"]
+		pkmnLUK = saved_data["luk"]
+		
+		pkmnHP = saved_data["hp"]
+		pkmnSTM = saved_data["stamina"]
+		pkmnPP = saved_data["pp"]
+		
+		pkmnRAD = saved_data["radresist"]
+		pkmnAC = saved_data["ac"]
+		
+		file.close()
 
 var save_path:String = "user://saves/saved_game.json"
 func saveChar():
@@ -137,18 +185,25 @@ func saveChar():
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
 	
 	var saved_data = {}
+	
+	saved_data["type"] = pkmnType
+	saved_data['hp_pkmn'] = pkmnHP
+	saved_data['stm_pkmn'] = pkmnSTM
+	saved_data['pp_pkmn'] = pkmnPP
+	saved_data['rad_pkmn'] = pkmnRAD
+	saved_data['ac_pkmn'] = pkmnAC
 		
 	saved_data["name"] = charName
 	saved_data["species"] = charSpecies
 	saved_data["female"] = isFemale # kupe
 		
-	saved_data["str"] = startStr
-	saved_data["per"] = startPer
-	saved_data["end"] = startEnd
-	saved_data["cha"] = startCha
-	saved_data["int"] = startInt
-	saved_data["agl"] = startAgl
-	saved_data["luk"] = startLuk
+	saved_data["str"] = startStr + pkmnSTR
+	saved_data["per"] = startPer + pkmnPER
+	saved_data["end"] = startEnd + pkmnEND
+	saved_data["cha"] = startCha + pkmnCHA
+	saved_data["int"] = startInt + pkmnINT
+	saved_data["agl"] = startAgl + pkmnAGL
+	saved_data["luk"] = startLuk + pkmnLUK
 	
 	saved_data["stamina"] = 999
 	saved_data["pp"] = 999

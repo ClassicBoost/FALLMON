@@ -329,6 +329,7 @@ theme_override_fonts/font = ExtResource("3_33re6")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/panel = SubResource("StyleBoxFlat_ackta")
 theme_override_styles/focus = SubResource("StyleBoxFlat_5566x")
+allow_rmb_select = true
 item_count = 6
 item_0/text = "Pikachu"
 item_0/icon = ExtResource("4_rwr2s")
@@ -344,6 +345,7 @@ item_5/text = "Riolu"
 item_5/icon = ExtResource("9_ihpoa")
 
 [node name="Gender" type="Button" parent="Top"]
+layout_mode = 0
 offset_left = 832.0
 offset_top = 64.0
 offset_right = 960.0
