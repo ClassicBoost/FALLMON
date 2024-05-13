@@ -5,14 +5,18 @@ func _ready():
 	pass
 
 func _process(_delta):
-	if Input.is_action_just_pressed("debug2") and OS.is_debug_build():
-		get_tree().change_scene_to_file("res://source/fallmon/scenes/game/testing_room.tscn")
+	#if Input.is_action_just_pressed("debug2") and OS.is_debug_build():
+	#	get_tree().change_scene_to_file("res://source/fallmon/scenes/game/testing_room.tscn")
 							
 	loadSettings()
 	if shaders:
 		$CRT.show()
 	else:
 		$CRT.hide()
+	
+	$ColorRect/version.text = ProjectSettings.get("application/config/version")
+	if OS.is_debug_build():
+		$ColorRect/version.text += '\nDebug Build'
 
 var save_path = "user://settings.json"
 func loadSettings():
@@ -40,3 +44,4 @@ func _on_settings_pressed():
 
 func _on_play_pressed():
 	$confirm.play()
+	get_tree().change_scene_to_file("res://source/fallmon/scenes/game/character_menu.tscn")

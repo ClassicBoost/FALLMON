@@ -1,0 +1,415 @@
+[gd_scene load_steps=24 format=3 uid="uid://dj3pom6skylyg"]
+
+[ext_resource type="Script" path="res://source/fallmon/scripts/game/menus/char_creation.gd" id="1_5tsut"]
+[ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_lhrp0"]
+[ext_resource type="AudioStream" uid="uid://c2oosn0afscwm" path="res://assets/audios/sounds/menus/confirm.ogg" id="3_6o5s4"]
+[ext_resource type="FontFile" uid="uid://u2gi1c8bl7f2" path="res://assets/fonts/tech.ttf" id="3_33re6"]
+[ext_resource type="AudioStream" uid="uid://5kqmh8lm2c3p" path="res://assets/audios/sounds/menus/vhs-change.ogg" id="4_4ruxx"]
+[ext_resource type="Texture2D" uid="uid://cf5vjex2cr02a" path="res://assets/graphics/portraits/creation/pikachu.png" id="4_rwr2s"]
+[ext_resource type="Texture2D" uid="uid://cwp4xjioxho18" path="res://assets/graphics/portraits/creation/snivy.png" id="5_wgqex"]
+[ext_resource type="Texture2D" uid="uid://88vpl2ku03te" path="res://assets/graphics/portraits/creation/tepig.png" id="6_aby2j"]
+[ext_resource type="Texture2D" uid="uid://thmfju6jb8hn" path="res://assets/graphics/portraits/creation/oshawott.png" id="7_s1hux"]
+[ext_resource type="Texture2D" uid="uid://4dhowitcjiph" path="res://assets/graphics/portraits/creation/axew.png" id="8_eo84b"]
+[ext_resource type="Texture2D" uid="uid://bd8wmqw2f03sd" path="res://assets/graphics/portraits/creation/riolu.png" id="9_ihpoa"]
+[ext_resource type="Theme" uid="uid://c1qdlt5jsbi6x" path="res://source/themes/stupid.tres" id="10_fpa0a"]
+[ext_resource type="AudioStream" uid="uid://bgqdqq38sug5f" path="res://assets/audios/sounds/ui/nah.ogg" id="12_86gqq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjudk"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b0uel"]
+bg_color = Color(0.345098, 0.345098, 0.345098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_noa4k"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcmme"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vqbkf"]
+line_spacing = 30.0
+font = ExtResource("2_lhrp0")
+font_size = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jfdln"]
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hjx6w"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ackta"]
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5566x"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w33sd"]
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[node name="Creation" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1_5tsut")
+
+[node name="Buttons" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BACK" type="Button" parent="Buttons"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 640.0
+offset_right = 448.0
+offset_bottom = 704.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "BACK"
+alignment = 0
+
+[node name="CREATE" type="Button" parent="Buttons"]
+layout_mode = 0
+offset_left = 832.0
+offset_top = 640.0
+offset_right = 1216.0
+offset_bottom = 704.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "CREATE"
+alignment = 2
+
+[node name="SPECIAL" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 576.0
+
+[node name="Text" type="Label" parent="SPECIAL"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 425.0
+offset_bottom = 570.0
+text = "STRENGTH: 5 (5)
+PERCEPTION: 5 (5)
+ENDURANCE: 5 (5)
+CHARISMA: 5 (5)
+INTELLIGENCE: 5 (5)
+AGILITY: 5 (5)
+LUCK: 5 (5)
+POINTS LEFT: 5"
+label_settings = SubResource("LabelSettings_vqbkf")
+vertical_alignment = 1
+
+[node name="STR UP" type="Button" parent="SPECIAL"]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 128.0
+offset_right = 512.0
+offset_bottom = 160.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "+"
+
+[node name="STR DOWN" type="Button" parent="SPECIAL/STR UP"]
+layout_mode = 0
+offset_left = -448.0
+offset_right = -384.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "-"
+
+[node name="PER UP" type="Button" parent="SPECIAL"]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 184.0
+offset_right = 512.0
+offset_bottom = 216.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "+"
+
+[node name="PER DOWN" type="Button" parent="SPECIAL/PER UP"]
+layout_mode = 0
+offset_left = -448.0
+offset_right = -384.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "-"
+
+[node name="END UP" type="Button" parent="SPECIAL"]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 240.0
+offset_right = 512.0
+offset_bottom = 272.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "+"
+
+[node name="END DOWN" type="Button" parent="SPECIAL/END UP"]
+layout_mode = 0
+offset_left = -448.0
+offset_right = -384.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "-"
+
+[node name="CHA UP" type="Button" parent="SPECIAL"]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 304.0
+offset_right = 512.0
+offset_bottom = 336.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "+"
+
+[node name="CHA DOWN" type="Button" parent="SPECIAL/CHA UP"]
+layout_mode = 0
+offset_left = -448.0
+offset_right = -384.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "-"
+
+[node name="INT UP" type="Button" parent="SPECIAL"]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 360.0
+offset_right = 512.0
+offset_bottom = 392.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "+"
+
+[node name="INT DOWN" type="Button" parent="SPECIAL/INT UP"]
+layout_mode = 0
+offset_left = -448.0
+offset_right = -384.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "-"
+
+[node name="AGL UP" type="Button" parent="SPECIAL"]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 424.0
+offset_right = 512.0
+offset_bottom = 456.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "+"
+
+[node name="AGL DOWN" type="Button" parent="SPECIAL/AGL UP"]
+layout_mode = 0
+offset_left = -448.0
+offset_right = -384.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "-"
+
+[node name="LUK UP" type="Button" parent="SPECIAL"]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 480.0
+offset_right = 512.0
+offset_bottom = 512.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "+"
+
+[node name="LUK DOWN" type="Button" parent="SPECIAL/LUK UP"]
+layout_mode = 0
+offset_left = -448.0
+offset_right = -384.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("2_lhrp0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "-"
+
+[node name="Top" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 128.0
+
+[node name="Name" type="LineEdit" parent="Top"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 512.0
+offset_bottom = 128.0
+theme_override_fonts/font = ExtResource("3_33re6")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_jfdln")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hjx6w")
+placeholder_text = "PUT YOUR NAME HERE"
+max_length = 32
+clear_button_enabled = true
+
+[node name="SpeciesList" type="ItemList" parent="Top"]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 64.0
+offset_right = 832.0
+offset_bottom = 192.0
+theme_override_fonts/font = ExtResource("3_33re6")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/panel = SubResource("StyleBoxFlat_ackta")
+theme_override_styles/focus = SubResource("StyleBoxFlat_5566x")
+item_count = 6
+item_0/text = "Pikachu"
+item_0/icon = ExtResource("4_rwr2s")
+item_1/text = "Snivy"
+item_1/icon = ExtResource("5_wgqex")
+item_2/text = "Tepig"
+item_2/icon = ExtResource("6_aby2j")
+item_3/text = "Oshawott"
+item_3/icon = ExtResource("7_s1hux")
+item_4/text = "Axew"
+item_4/icon = ExtResource("8_eo84b")
+item_5/text = "Riolu"
+item_5/icon = ExtResource("9_ihpoa")
+
+[node name="Gender" type="Button" parent="Top"]
+offset_left = 832.0
+offset_top = 64.0
+offset_right = 960.0
+offset_bottom = 128.0
+theme_override_fonts/font = ExtResource("3_33re6")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_w33sd")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b0uel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_noa4k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dcmme")
+text = "MALE"
+
+[node name="Age" type="SpinBox" parent="Top"]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 64.0
+offset_right = 1088.0
+offset_bottom = 128.0
+theme = ExtResource("10_fpa0a")
+min_value = 10.0
+max_value = 50.0
+value = 16.0
+prefix = "AGE:"
+
+[node name="confirm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6o5s4")
+
+[node name="select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_4ruxx")
+volume_db = -10.0
+
+[node name="nah" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_86gqq")
+
+[connection signal="mouse_entered" from="Buttons/BACK" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="Buttons/BACK" to="." method="_on_back_pressed"]
+[connection signal="mouse_entered" from="Buttons/CREATE" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="Buttons/CREATE" to="." method="_on_create_pressed"]
+[connection signal="mouse_entered" from="SPECIAL/STR UP" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SPECIAL/STR UP" to="." method="_on_special_stat_pressed" binds= ["str", true]]
+[connection signal="mouse_entered" from="SPECIAL/STR UP/STR DOWN" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SPECIAL/STR UP/STR DOWN" to="." method="_on_special_stat_pressed" binds= ["str", false]]
+[connection signal="mouse_entered" from="SPECIAL/PER UP" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SPECIAL/PER UP" to="." method="_on_special_stat_pressed" binds= ["per", true]]
+[connection signal="mouse_entered" from="SPECIAL/PER UP/PER DOWN" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SPECIAL/PER UP/PER DOWN" to="." method="_on_special_stat_pressed" binds= ["per", false]]
+[connection signal="mouse_entered" from="SPECIAL/END UP" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SPECIAL/END UP" to="." method="_on_special_stat_pressed" binds= ["end", true]]
+[connection signal="mouse_entered" from="SPECIAL/END UP/END DOWN" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SPECIAL/END UP/END DOWN" to="." method="_on_special_stat_pressed" binds= ["end", false]]
+[connection signal="mouse_entered" from="SPECIAL/CHA UP" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SPECIAL/CHA UP" to="." method="_on_special_stat_pressed" binds= ["cha", true]]
+[connection signal="mouse_entered" from="SPECIAL/CHA UP/CHA DOWN" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SPECIAL/CHA UP/CHA DOWN" to="." method="_on_special_stat_pressed" binds= ["cha", false]]
+[connection signal="mouse_entered" from="SPECIAL/INT UP" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SPECIAL/INT UP" to="." method="_on_special_stat_pressed" binds= ["int", true]]
+[connection signal="mouse_entered" from="SPECIAL/INT UP/INT DOWN" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SPECIAL/INT UP/INT DOWN" to="." method="_on_special_stat_pressed" binds= ["int", false]]
+[connection signal="mouse_entered" from="SPECIAL/AGL UP" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SPECIAL/AGL UP" to="." method="_on_special_stat_pressed" binds= ["agl", true]]
+[connection signal="mouse_entered" from="SPECIAL/AGL UP/AGL DOWN" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SPECIAL/AGL UP/AGL DOWN" to="." method="_on_special_stat_pressed" binds= ["agl", false]]
+[connection signal="mouse_entered" from="SPECIAL/LUK UP" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SPECIAL/LUK UP" to="." method="_on_special_stat_pressed" binds= ["luk", true]]
+[connection signal="mouse_entered" from="SPECIAL/LUK UP/LUK DOWN" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SPECIAL/LUK UP/LUK DOWN" to="." method="_on_special_stat_pressed" binds= ["luk", false]]
+[connection signal="text_changed" from="Top/Name" to="." method="_on_name_text_changed"]
+[connection signal="item_selected" from="Top/SpeciesList" to="." method="_on_species_selected"]
+[connection signal="mouse_entered" from="Top/Gender" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="Top/Gender" to="." method="_on_gender_pressed"]

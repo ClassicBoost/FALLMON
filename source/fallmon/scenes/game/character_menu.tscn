@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://b8e15wq33c30o"]
+
+[ext_resource type="Script" path="res://source/fallmon/scripts/game/menus/char_menu.gd" id="1_ijtm6"]
+[ext_resource type="PackedScene" uid="uid://ddjmq0gtiqxpo" path="res://source/fallmon/scenes/game/menus/list.tscn" id="2_dwpv6"]
+[ext_resource type="Shader" path="res://source/shaders/crt.gdshader" id="3_r3yse"]
+[ext_resource type="PackedScene" uid="uid://dj3pom6skylyg" path="res://source/fallmon/scenes/game/menus/creation.tscn" id="3_wb0ng"]
+[ext_resource type="PackedScene" uid="uid://bufodnhbl7i07" path="res://source/fallmon/backend/overlay.tscn" id="4_c3egv"]
+[ext_resource type="PackedScene" uid="uid://dpxmx3o7s44ok" path="res://source/fallmon/backend/volume.tscn" id="5_lcdok"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yrtk1"]
+shader = ExtResource("3_r3yse")
+shader_parameter/scan_line_size = 1000.0
+
+[node name="CharacterPage" type="Node2D"]
+script = ExtResource("1_ijtm6")
+
+[node name="BG" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="List" parent="BG" instance=ExtResource("2_dwpv6")]
+
+[node name="Creation" parent="BG" instance=ExtResource("3_wb0ng")]
+visible = false
+
+[node name="CRT" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_yrtk1")
+offset_right = 1280.0
+offset_bottom = 719.0
+mouse_filter = 2
+
+[node name="Overlay" type="CanvasLayer" parent="."]
+
+[node name="Overlay" parent="Overlay" instance=ExtResource("4_c3egv")]
+
+[node name="Volume" parent="Overlay" instance=ExtResource("5_lcdok")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
+process_priority = 5
+process_physics_priority = 1
+position = Vector2(640, 360)

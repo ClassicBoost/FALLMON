@@ -25,6 +25,7 @@ config/windows_native_icon="res://icons/windows.ico"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="res://icons/bad_curser.png"
 
 [input]
 

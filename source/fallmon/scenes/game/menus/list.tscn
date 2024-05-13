@@ -1,0 +1,151 @@
+[gd_scene load_steps=11 format=3 uid="uid://ddjmq0gtiqxpo"]
+
+[ext_resource type="Script" path="res://source/fallmon/scripts/game/menus/char_list.gd" id="1_fnofj"]
+[ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_tc7mr"]
+[ext_resource type="AudioStream" uid="uid://c2oosn0afscwm" path="res://assets/audios/sounds/menus/confirm.ogg" id="3_gjs2m"]
+[ext_resource type="AudioStream" uid="uid://5kqmh8lm2c3p" path="res://assets/audios/sounds/menus/vhs-change.ogg" id="4_ls1xn"]
+[ext_resource type="FontFile" uid="uid://u2gi1c8bl7f2" path="res://assets/fonts/tech.ttf" id="5_dmvm1"]
+[ext_resource type="AudioStream" uid="uid://bgqdqq38sug5f" path="res://assets/audios/sounds/ui/nah.ogg" id="6_ks70h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gq04o"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_soli4"]
+bg_color = Color(0.345098, 0.345098, 0.345098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0llmq"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ib8o"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="List" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1_fnofj")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="PLAY" type="Button" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 384.0
+offset_right = 448.0
+offset_bottom = 448.0
+theme_override_fonts/font = ExtResource("2_tc7mr")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_gq04o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_soli4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0llmq")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0ib8o")
+text = "PLAY"
+alignment = 0
+
+[node name="NEW" type="Button" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 448.0
+offset_right = 448.0
+offset_bottom = 512.0
+theme_override_fonts/font = ExtResource("2_tc7mr")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_gq04o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_soli4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0llmq")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0ib8o")
+text = "NEW"
+alignment = 0
+
+[node name="DELETE" type="Button" parent="NinePatchRect"]
+visible = false
+layout_mode = 0
+offset_left = 64.0
+offset_top = 512.0
+offset_right = 448.0
+offset_bottom = 576.0
+theme_override_fonts/font = ExtResource("2_tc7mr")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_gq04o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_soli4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0llmq")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0ib8o")
+text = "DELETE"
+alignment = 0
+
+[node name="BACK" type="Button" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 576.0
+offset_right = 448.0
+offset_bottom = 640.0
+theme_override_fonts/font = ExtResource("2_tc7mr")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_gq04o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_soli4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0llmq")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0ib8o")
+text = "BACK"
+alignment = 0
+
+[node name="SAVE_FOLDER" type="Button" parent="NinePatchRect"]
+visible = false
+layout_mode = 0
+offset_left = 832.0
+offset_top = 640.0
+offset_right = 1216.0
+offset_bottom = 704.0
+theme_override_fonts/font = ExtResource("2_tc7mr")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_gq04o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_soli4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0llmq")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0ib8o")
+text = "OPEN SAVES"
+alignment = 2
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 512.0
+offset_top = 128.0
+offset_right = 1216.0
+offset_bottom = 640.0
+
+[node name="LineEdit" type="LineEdit" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 512.0
+offset_top = 384.0
+offset_right = 960.0
+offset_bottom = 448.0
+theme_override_fonts/font = ExtResource("5_dmvm1")
+theme_override_font_sizes/font_size = 24
+placeholder_text = "TYPE IN CHARACTER NAME"
+max_length = 32
+
+[node name="confirm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_gjs2m")
+
+[node name="select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ls1xn")
+volume_db = -10.0
+
+[node name="nah" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ks70h")
+
+[connection signal="mouse_entered" from="NinePatchRect/PLAY" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="NinePatchRect/PLAY" to="." method="_on_play_pressed"]
+[connection signal="mouse_entered" from="NinePatchRect/NEW" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="NinePatchRect/NEW" to="." method="_on_new_pressed"]
+[connection signal="mouse_entered" from="NinePatchRect/DELETE" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="NinePatchRect/DELETE" to="." method="_on_delete_pressed"]
+[connection signal="mouse_entered" from="NinePatchRect/BACK" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="NinePatchRect/BACK" to="." method="_on_back_pressed"]
+[connection signal="mouse_entered" from="NinePatchRect/SAVE_FOLDER" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="NinePatchRect/SAVE_FOLDER" to="." method="_on_save_folder_pressed"]
+[connection signal="text_changed" from="LineEdit" to="." method="_on_line_edit_text_changed"]

@@ -9,9 +9,14 @@ var moveSpeed:float = 130
 @onready var anim_player:AnimationPlayer = $fours
 @onready var anim_player_six:AnimationPlayer = $fours/sixs
 
-@export var charSpecies:String = 'snivy'
+@export var charSpecies:String = 'example'
 var checkPackage:bool = false
 var packageFolder:String = 'assets'
+var stopLoading:bool = false
+
+var save_path = "user://saves/saved_game.json"
+
+@export var charName:String = ''
 
 @export var isFemale:bool = false
 
@@ -20,6 +25,9 @@ var maxHealth:float = 35
 
 @export var stamina:float = 999
 var maxStamina:float = 50
+
+@export var PP:float = 10
+var maxPP:float = 10
 
 @export var realHP:int = 30
 
@@ -41,6 +49,8 @@ var intelligence:int = 3
 var agility:int = 3
 var luck:int = 3
 
+var input_direction = Vector2(0,0)
+
 @export var radiation:float = 0
 
 var moving:bool = false
@@ -52,8 +62,11 @@ var species_sprite:String = 'example'
 
 func _ready():
 	updateAnim(Vector2(0, 1))
+	stopLoading = false
 
 func _physics_process(delta):
+	#save_path = "user://saves/" + charName.to_lower() + ".json"
+	loadData()
 	portraitThingy.expression = 0
 	strength = strength_default
 	perception = perception_default
@@ -68,7 +81,7 @@ func _physics_process(delta):
 
 	moving = false
 	running = false
-	var input_direction = Vector2(
+	input_direction = Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up")
 	)
@@ -120,6 +133,9 @@ func _physics_process(delta):
 
 	move_and_slide()
 	new_anim_state()
+	
+	if charName != '' and charName != null:
+		saveChar()
 
 func runPortraitUpdate():
 	if stamina <= 10 or health <= 10:
@@ -145,7 +161,7 @@ func new_anim_state():
 		current_anim = 'idle'
 	
 	if sprite.texture == null: # prevent crashing
-		sprite.texture = load("res://assets/species/sprites/example/blank.png")
+		sprite.texture = load("res://assets/graphics/missing.png")
 	
 	update_offsets(current_anim)
 
@@ -191,3 +207,76 @@ func get_json(json_path:String):
 			print(charSpecies + '.json file is missing or unable to load.')
 			isMissing = true
 		checkPackage = !checkPackage # check to see if the sprite exists in the package folder
+		
+func loadData():
+	var file_two = FileAccess.open("user://zarade.json", FileAccess.READ)
+	var json_two = file_two.get_as_text()
+		
+	var saved_data_two = JSON.parse_string(json_two)
+		
+	charName = saved_data_two["name"]
+	if FileAccess.file_exists(save_path):
+		var file = FileAccess.open(save_path, FileAccess.READ)
+		var json = file.get_as_text()
+		
+		var saved_data = JSON.parse_string(json)
+		
+		charName = saved_data["name"]
+		charSpecies = saved_data["species"]
+		isFemale = saved_data["female"]
+		
+		strength_default = saved_data["str"]
+		perception_default = saved_data["per"]
+		endurance_default = saved_data["end"]
+		charisma_default = saved_data["cha"]
+		intelligence_default = saved_data["int"]
+		agility_default = saved_data["agl"]
+		luck_default = saved_data["luk"]
+		
+		if not stopLoading:
+			input_direction = saved_data["direction"]
+			stamina = saved_data["stamina"]
+			PP = saved_data["pp"]
+			health = saved_data['health']
+			realHP = saved_data['real_hp']
+			
+			self.global_position.x = saved_data["pos_x"]
+			self.global_position.y = saved_data["pos_y"]
+			print("hello, " + charName)
+			stopLoading = true
+		
+		file.close()
+	else:
+		print('missing from: ' + save_path)
+		get_tree().change_scene_to_file("res://source/fallmon/scenes/game/character_menu.tscn")
+
+func saveChar():
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	
+	var saved_data = {}
+		
+	saved_data["name"] = charName
+	saved_data["species"] = charSpecies
+	saved_data["female"] = isFemale
+		
+	saved_data["str"] = strength_default
+	saved_data["per"] = perception_default
+	saved_data["end"] = endurance_default
+	saved_data["cha"] = charisma_default
+	saved_data["int"] = intelligence_default
+	saved_data["agl"] = agility_default
+	saved_data["luk"] = luck_default
+	
+	saved_data["direction"] = input_direction
+	saved_data["stamina"] = stamina
+	saved_data["pp"] = PP
+	saved_data['health'] = health
+	saved_data['real_hp'] = realHP
+	
+	saved_data["pos_x"] = self.global_position.x
+	saved_data["pos_y"] = self.global_position.y
+	
+	var json = JSON.stringify(saved_data)
+		
+	file.store_string(json)
+	file.close()
