@@ -28,8 +28,8 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_vqbkf"]
 line_spacing = 30.0
-font = ExtResource("2_lhrp0")
-font_size = 32
+font = ExtResource("3_33re6")
+font_size = 28
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jfdln"]
 bg_color = Color(0.180392, 0.180392, 0.180392, 1)
@@ -99,6 +99,7 @@ offset_left = 64.0
 offset_top = 128.0
 offset_right = 425.0
 offset_bottom = 570.0
+theme_override_fonts/font = ExtResource("3_33re6")
 text = "STRENGTH: 5 (5)
 PERCEPTION: 5 (5)
 ENDURANCE: 5 (5)
@@ -140,9 +141,9 @@ text = "-"
 [node name="PER UP" type="Button" parent="SPECIAL"]
 layout_mode = 0
 offset_left = 448.0
-offset_top = 184.0
+offset_top = 187.0
 offset_right = 512.0
-offset_bottom = 216.0
+offset_bottom = 219.0
 theme_override_fonts/font = ExtResource("2_lhrp0")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
@@ -167,9 +168,9 @@ text = "-"
 [node name="END UP" type="Button" parent="SPECIAL"]
 layout_mode = 0
 offset_left = 448.0
-offset_top = 240.0
+offset_top = 250.0
 offset_right = 512.0
-offset_bottom = 272.0
+offset_bottom = 282.0
 theme_override_fonts/font = ExtResource("2_lhrp0")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
@@ -194,9 +195,9 @@ text = "-"
 [node name="CHA UP" type="Button" parent="SPECIAL"]
 layout_mode = 0
 offset_left = 448.0
-offset_top = 304.0
+offset_top = 309.0
 offset_right = 512.0
-offset_bottom = 336.0
+offset_bottom = 341.0
 theme_override_fonts/font = ExtResource("2_lhrp0")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
@@ -221,9 +222,9 @@ text = "-"
 [node name="INT UP" type="Button" parent="SPECIAL"]
 layout_mode = 0
 offset_left = 448.0
-offset_top = 360.0
+offset_top = 372.0
 offset_right = 512.0
-offset_bottom = 392.0
+offset_bottom = 404.0
 theme_override_fonts/font = ExtResource("2_lhrp0")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
@@ -248,9 +249,9 @@ text = "-"
 [node name="AGL UP" type="Button" parent="SPECIAL"]
 layout_mode = 0
 offset_left = 448.0
-offset_top = 424.0
+offset_top = 435.0
 offset_right = 512.0
-offset_bottom = 456.0
+offset_bottom = 467.0
 theme_override_fonts/font = ExtResource("2_lhrp0")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
@@ -275,9 +276,9 @@ text = "-"
 [node name="LUK UP" type="Button" parent="SPECIAL"]
 layout_mode = 0
 offset_left = 448.0
-offset_top = 480.0
+offset_top = 497.0
 offset_right = 512.0
-offset_bottom = 512.0
+offset_bottom = 529.0
 theme_override_fonts/font = ExtResource("2_lhrp0")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_vjudk")
