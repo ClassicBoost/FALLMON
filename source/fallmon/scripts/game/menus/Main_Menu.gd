@@ -45,3 +45,7 @@ func _on_settings_pressed():
 func _on_play_pressed():
 	$confirm.play()
 	get_tree().change_scene_to_file("res://source/fallmon/scenes/game/character_menu.tscn")
+
+
+func _on_intro_pressed():
+	get_tree().change_scene_to_file("res://source/fallmon/scenes/game/video.tscn")

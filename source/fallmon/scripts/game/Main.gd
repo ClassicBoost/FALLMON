@@ -26,7 +26,7 @@ func _process(delta):
 		$ColorRect/Label.hide()
 		$ColorRect/godot.hide()
 	if wait > 7 or Input.is_action_just_pressed("accept"):
-		get_tree().change_scene_to_file("res://source/fallmon/scenes/game/Main_Menu.tscn")
+		get_tree().change_scene_to_file("res://source/fallmon/scenes/game/video.tscn")
 
 var save_path = "user://settings.json"
 func loadSettings():

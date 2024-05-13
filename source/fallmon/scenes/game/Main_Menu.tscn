@@ -33,6 +33,20 @@ offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0, 0, 0, 1)
 
+[node name="INTRO" type="Button" parent="ColorRect"]
+offset_left = 64.0
+offset_top = 320.0
+offset_right = 448.0
+offset_bottom = 384.0
+theme_override_fonts/font = ExtResource("2_npo1v")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_5sytj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kvsmi")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rm5fl")
+theme_override_styles/focus = SubResource("StyleBoxFlat_u3d2t")
+text = "INTRO"
+alignment = 0
+
 [node name="PLAY" type="Button" parent="ColorRect"]
 layout_mode = 0
 offset_left = 64.0
@@ -125,6 +139,8 @@ stream = ExtResource("7_gunb1")
 stream = ExtResource("8_6y828")
 volume_db = -10.0
 
+[connection signal="mouse_entered" from="ColorRect/INTRO" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="ColorRect/INTRO" to="." method="_on_intro_pressed"]
 [connection signal="mouse_entered" from="ColorRect/PLAY" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="ColorRect/PLAY" to="." method="_on_play_pressed"]
 [connection signal="mouse_entered" from="ColorRect/SETTINGS" to="." method="_on_mouse_entered"]
