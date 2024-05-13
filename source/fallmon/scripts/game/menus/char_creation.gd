@@ -35,6 +35,8 @@ var pkmnPP:int = 0
 
 var pkmnRAD:int = 0
 var pkmnAC:int = 0
+var pkmnDIF:String = ''
+var pkmnLMB:String = ''
 
 var totalSTR = 0
 var totalPER = 0
@@ -195,6 +197,8 @@ func loadPokemon():
 		
 		pkmnRAD = saved_data["radresist"]
 		pkmnAC = saved_data["ac"]
+		pkmnDIF = saved_data['holding_difficulty']
+		pkmnLMB = saved_data['extra_limb']
 		
 		file.close()
 
@@ -234,7 +238,17 @@ func saveChar():
 	saved_data["pp"] = 999
 	saved_data['health'] = 999
 	saved_data['real_hp'] = 30
+	saved_data["weapon_difficulty"] = pkmnDIF
+	saved_data["extra_limb"] = pkmnLMB
 	saved_data['direction'] = Vector2(0,1)
+	
+	saved_data["head_cnd"] = 200 
+	saved_data["chest_cnd"] = 300 
+	saved_data["larm_cnd"] = 50 
+	saved_data["rarm_cnd"] = 50
+	saved_data["lleg_cnd"] = 50
+	saved_data["rleg_cnd"] = 50
+	saved_data["other_cnd"] = 999
 	
 	saved_data["pos_x"] = -288
 	saved_data["pos_y"] = -96

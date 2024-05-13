@@ -20,5 +20,7 @@
 	"pp": 4,
 
 	"radresist": 1,
-	"ac": 1
+	"ac": 1,
+	"holding_difficulty": "none",
+	"extra_limb": "tail"
 }

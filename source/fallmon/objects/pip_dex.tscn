@@ -1,0 +1,242 @@
+[gd_scene load_steps=13 format=3 uid="uid://tnrqq6pbhkgh"]
+
+[ext_resource type="Texture2D" uid="uid://bv00brvhlvusa" path="res://assets/graphics/pip-dex/bg.png" id="1_csuyn"]
+[ext_resource type="Script" path="res://source/fallmon/scripts/objects/pip_dex.gd" id="1_ji7u5"]
+[ext_resource type="FontFile" uid="uid://u2gi1c8bl7f2" path="res://assets/fonts/tech.ttf" id="3_dckmk"]
+[ext_resource type="AudioStream" uid="uid://c0jg5uvoltpb6" path="res://assets/audios/ambience/device_static.ogg" id="4_knh70"]
+[ext_resource type="AudioStream" uid="uid://irqtie42ed7n" path="res://assets/audios/sounds/device/device_select.ogg" id="5_sijbw"]
+[ext_resource type="AudioStream" uid="uid://btu87w1gnj5xo" path="res://assets/audios/sounds/menus/select.ogg" id="6_x0a1h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekq7a"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w7rby"]
+bg_color = Color(0.270588, 0.270588, 0.270588, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xinp4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bovod"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_svs15"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3g2v"]
+bg_color = Color(0, 1, 0.564706, 1)
+
+[node name="PIP-DEX" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1_ji7u5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0.878431)
+
+[node name="Device" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 96.0
+offset_right = 1136.0
+offset_bottom = 608.0
+texture = ExtResource("1_csuyn")
+
+[node name="Screen" type="NinePatchRect" parent="Device"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 64.0
+offset_right = 888.0
+offset_bottom = 448.0
+
+[node name="important" type="Label" parent="Device/Screen"]
+layout_mode = 0
+offset_right = 411.0
+offset_bottom = 49.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 20
+text = "PLAYERNAMESOLONG
+LE: 35/35 // STM: 100/100 // PP: 20/20"
+
+[node name="Stats" type="NinePatchRect" parent="Device/Screen"]
+layout_mode = 0
+offset_right = 568.0
+offset_bottom = 384.0
+
+[node name="conditions" type="Button" parent="Device/Screen/Stats"]
+layout_mode = 0
+offset_top = 96.0
+offset_right = 192.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_ekq7a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w7rby")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xinp4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_bovod")
+text = "[CONDITIONS]"
+alignment = 0
+
+[node name="radiation" type="Button" parent="Device/Screen/Stats"]
+offset_top = 136.0
+offset_right = 192.0
+offset_bottom = 170.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_ekq7a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w7rby")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xinp4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_bovod")
+text = "[RADIATION]"
+alignment = 0
+
+[node name="effects" type="Button" parent="Device/Screen/Stats"]
+offset_top = 176.0
+offset_right = 192.0
+offset_bottom = 210.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_ekq7a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w7rby")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xinp4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_bovod")
+text = "[EFFECTS]"
+alignment = 0
+
+[node name="special" type="Button" parent="Device/Screen/Stats"]
+offset_top = 216.0
+offset_right = 192.0
+offset_bottom = 250.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_ekq7a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w7rby")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xinp4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_bovod")
+text = "[SPECIAL]"
+alignment = 0
+
+[node name="Conditions" type="NinePatchRect" parent="Device/Screen/Stats"]
+layout_mode = 0
+offset_right = 568.0
+offset_bottom = 384.0
+
+[node name="cnd" type="Label" parent="Device/Screen/Stats/Conditions"]
+offset_left = 192.0
+offset_top = 96.0
+offset_right = 512.0
+offset_bottom = 352.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 24
+text = "HEAD: 100%
+CHEST: 100%
+ARMS - L: 100% - R: 100%
+LEGS - L: 100% - R: 100%
+BLAH: 100%"
+horizontal_alignment = 2
+
+[node name="Radiation" type="NinePatchRect" parent="Device/Screen/Stats"]
+visible = false
+layout_mode = 0
+offset_right = 568.0
+offset_bottom = 384.0
+
+[node name="rad_bar" type="ProgressBar" parent="Device/Screen/Stats/Radiation"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 288.0
+offset_right = 552.0
+offset_bottom = 312.0
+theme_override_styles/background = SubResource("StyleBoxFlat_svs15")
+theme_override_styles/fill = SubResource("StyleBoxFlat_f3g2v")
+max_value = 1000.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Device/Screen/Stats/Radiation"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 312.0
+offset_right = 560.0
+offset_bottom = 368.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 24
+text = "Radiation Exposure:"
+
+[node name="percent" type="Label" parent="Device/Screen/Stats/Radiation"]
+offset_left = 440.0
+offset_top = 312.0
+offset_right = 560.0
+offset_bottom = 368.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 46
+text = "100%"
+horizontal_alignment = 2
+
+[node name="SPECIAL" type="NinePatchRect" parent="Device/Screen/Stats"]
+visible = false
+layout_mode = 0
+offset_right = 568.0
+offset_bottom = 384.0
+
+[node name="special" type="Label" parent="Device/Screen/Stats/SPECIAL"]
+offset_left = 192.0
+offset_top = 96.0
+offset_right = 448.0
+offset_bottom = 275.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 24
+text = "STRENGTH: 0
+PERCEPTION: 0
+ENDURANCE: 0
+CHARISMA: 0
+INTELLIGENCE: 0
+AGILITY: 0
+LUCK: 0"
+
+[node name="ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_knh70")
+
+[node name="confirm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_sijbw")
+
+[node name="select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_x0a1h")
+
+[connection signal="mouse_entered" from="Device/Screen/Stats/conditions" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Device/Screen/Stats/conditions" to="." method="_on_stats_sub_pressed" binds= ["cnd"]]
+[connection signal="mouse_entered" from="Device/Screen/Stats/radiation" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Device/Screen/Stats/radiation" to="." method="_on_stats_sub_pressed" binds= ["rad"]]
+[connection signal="mouse_entered" from="Device/Screen/Stats/effects" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Device/Screen/Stats/effects" to="." method="_on_stats_sub_pressed" binds= ["eff"]]
+[connection signal="mouse_entered" from="Device/Screen/Stats/special" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Device/Screen/Stats/special" to="." method="_on_stats_sub_pressed" binds= ["special"]]

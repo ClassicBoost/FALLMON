@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://qy3gh37tv2bb"]
+[gd_scene load_steps=16 format=3 uid="uid://qy3gh37tv2bb"]
 
 [ext_resource type="PackedScene" uid="uid://dv6irvu1ye2u5" path="res://source/fallmon/scripts/character/player.tscn" id="1_ain01"]
 [ext_resource type="Texture2D" uid="uid://cx6d286v7d3e" path="res://assets/graphics/tiles/wasteland.png" id="1_y5nw7"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bewkm8xvh732t" path="res://source/fallmon/objects/hud.tscn" id="3_jbwkl"]
 [ext_resource type="Shader" path="res://source/shaders/chromatic.gdshader" id="4_cwb80"]
 [ext_resource type="PackedScene" uid="uid://dpxmx3o7s44ok" path="res://source/fallmon/backend/volume.tscn" id="4_mg5tw"]
+[ext_resource type="PackedScene" uid="uid://tnrqq6pbhkgh" path="res://source/fallmon/objects/pip_dex.tscn" id="4_nsxa5"]
 [ext_resource type="Script" path="res://source/fallmon/scripts/game/RadEffect.gd" id="5_wn47j"]
 [ext_resource type="PackedScene" uid="uid://yqnn64y8b3vj" path="res://source/fallmon/subscenes/pause.tscn" id="6_tduke"]
 [ext_resource type="Script" path="res://source/fallmon/scripts/game/RadEffectGame.gd" id="8_3af6m"]
@@ -98,6 +99,11 @@ position = Vector2(-288, -96)
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="UI" instance=ExtResource("3_jbwkl")]
+
+[node name="PIP-DEX" parent="UI" instance=ExtResource("4_nsxa5")]
+device_open = null
+currentMenu = null
+currentSubMenu = null
 
 [node name="RadEffect" type="ColorRect" parent="UI"]
 process_mode = 3

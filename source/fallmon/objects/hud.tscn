@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bewkm8xvh732t"]
 
-[ext_resource type="Script" path="res://source/fallmon/scripts/hud.gd" id="1_jonow"]
+[ext_resource type="Script" path="res://source/fallmon/scripts/objects/hud.gd" id="1_xqigp"]
 [ext_resource type="Texture2D" uid="uid://da48oo3dvqrou" path="res://assets/graphics/ui/hud.png" id="2_31fvj"]
 [ext_resource type="Texture2D" uid="uid://d1kepqncni5lp" path="res://assets/graphics/portraits/unown.png" id="3_am5am"]
 [ext_resource type="Texture2D" uid="uid://dtbnfthytefxr" path="res://assets/graphics/ui/hp.png" id="4_1hsf7"]
@@ -21,7 +21,7 @@ anchor_bottom = 1.0
 offset_top = -113.0
 offset_right = 1281.0
 grow_vertical = 0
-script = ExtResource("1_jonow")
+script = ExtResource("1_xqigp")
 
 [node name="HP" type="Control" parent="."]
 anchors_preset = 0

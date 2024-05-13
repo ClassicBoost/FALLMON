@@ -383,6 +383,7 @@ stream = ExtResource("13_xpsug")
 stream = ExtResource("12_86gqq")
 
 [node name="ERROR" type="Label" parent="."]
+layout_mode = 0
 offset_left = 320.0
 offset_top = 640.0
 offset_right = 960.0

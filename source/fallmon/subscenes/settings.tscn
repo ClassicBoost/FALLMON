@@ -59,6 +59,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="overlay_info" type="Button" parent="bg"]
+layout_mode = 0
 offset_left = 64.0
 offset_top = 128.0
 offset_right = 448.0

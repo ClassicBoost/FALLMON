@@ -40,6 +40,7 @@ var maxPP:float = 10
 @export var realHP:int = 30
 
 @onready var portraitThingy = get_owner().get_node("UI/HUD/HP/front/portrait")
+@onready var device = get_owner().get_node("UI/PIP-DEX")
 
 # SPECIAL
 @export var strength_default:int = 5
@@ -65,6 +66,18 @@ var moving:bool = false
 var running:bool = false
 var exhausted:bool = false
 
+@export var headCND:float = 200
+@export var chestCND:float = 300
+@export var lArmCND:float = 50
+@export var rArmCND:float = 50
+@export var lLegCND:float = 50
+@export var rLegCND:float = 50
+@export var otherCND:float = 50
+var otherCNDtype:String = ''
+var otherCNDmax:float = 0
+
+var weaponDifficulty:String = ''
+
 # json
 var species_sprite:String = 'example'
 
@@ -75,18 +88,6 @@ func _ready():
 func _physics_process(delta):
 	#save_path = "user://saves/" + charName.to_lower() + ".json"
 	loadData()
-	portraitThingy.expression = 0
-	strength = strength_default
-	perception = perception_default
-	endurance = endurance_default
-	charisma = charisma_default
-	intelligence = intelligence_default
-	agility = agility_default
-	luck = luck_default
-	# $Label.text = str(strength) + str(perception) + str(endurance) + str(charisma) + str(intelligence) + str(agility) + str(luck)
-	maxStamina = agility*10+pkmnSTM
-	maxHealth = 20+(endurance*2)+strength+pkmnHP
-	maxPP = (strength*2)+pkmnPP
 
 	moving = false
 	running = false
@@ -100,6 +101,63 @@ func _physics_process(delta):
 	else:
 		get_json("res://assets/species/data/" + charSpecies.to_lower() + ".json")
 	
+	updateLimits()
+	
+	runPortraitUpdate()
+	
+	if self.velocity.x != 0 or self.velocity.y != 0:
+		moving = true
+		if Input.is_action_pressed("sprint"):
+			running = true
+	
+	if running and moving and not exhausted and (lLegCND >= 10 and rLegCND >= 10):
+		moveSpeed = (300+(agility*2)-(((health/maxHealth)*-1)*80))*((lLegCND/100)+(rLegCND/100))
+		stamina -= 8 * delta
+		anim_player.set_speed_scale(3)
+	else:
+		moveSpeed = (70+agility-(((health/maxHealth)*-1)*80))*((lLegCND/100)+(rLegCND/100))
+		if moving:
+			stamina += agility * (delta/3)
+		else:
+			stamina += (agility) * delta
+		anim_player.set_speed_scale(1)
+	
+	if lLegCND < 10:
+		lLegCND += 0.1 * delta
+	if rLegCND < 10:
+		rLegCND += 0.1 * delta
+	
+	#print(moveSpeed)
+	
+	updateAnim(input_direction)
+
+	if not device.device_open:
+		velocity = (input_direction * moveSpeed) * (delta * 60)
+		move_and_slide()
+	if Input.is_action_just_pressed("device"):
+		device.device_open = !device.device_open
+	
+	new_anim_state()
+	
+	if charName != '' and charName != null:
+		saveChar()
+
+func updateLimits():
+	portraitThingy.expression = 0
+	strength = strength_default
+	perception = perception_default
+	endurance = endurance_default
+	charisma = charisma_default
+	intelligence = intelligence_default
+	agility = agility_default
+	luck = luck_default
+	# $Label.text = str(strength) + str(perception) + str(endurance) + str(charisma) + str(intelligence) + str(agility) + str(luck)
+	maxStamina = agility*10+pkmnSTM
+	maxHealth = 20+(endurance*2)+strength+pkmnHP
+	maxPP = (strength*2)+pkmnPP
+	
+	if radiation < 0:
+		radiation = 0
 	if health > maxHealth:
 		health = maxHealth
 	if stamina > maxStamina:
@@ -111,42 +169,28 @@ func _physics_process(delta):
 		exhausted = true
 	if stamina > 10:
 		exhausted = false
-	
-	runPortraitUpdate()
-	
+	if radiation > 1000:
+		health -= 1
+		radiation -= 1
+	if headCND > 200:
+		headCND = 200
+	if chestCND > 300:
+		chestCND = 300
+	if lArmCND > 50:
+		lArmCND = 50
+	if rArmCND > 50:
+		rArmCND = 50
+	if lLegCND > 50:
+		lLegCND = 50
+	if rLegCND > 50:
+		rLegCND = 50
+	if otherCND > otherCNDmax:
+		otherCND = otherCNDmax	
 	if health < 0:
 		realHP -= 1
 		health += 1
-	
 	if realHP > 30:
 		realHP = 30
-	
-	if self.velocity.x != 0 or self.velocity.y != 0:
-		moving = true
-		if Input.is_action_pressed("sprint"):
-			running = true
-	
-	if running and moving and not exhausted:
-		moveSpeed = 400+(agility*2)
-		stamina -= 8 * delta
-		anim_player.set_speed_scale(3)
-	else:
-		moveSpeed = 130+agility
-		if moving:
-			stamina += agility * (delta/3)
-		else:
-			stamina += (agility) * delta
-		anim_player.set_speed_scale(1)
-	
-	velocity = (input_direction * moveSpeed) * (delta * 60)
-	
-	updateAnim(input_direction)
-
-	move_and_slide()
-	new_anim_state()
-	
-	if charName != '' and charName != null:
-		saveChar()
 
 func runPortraitUpdate():
 	if stamina <= 10 or health <= 10:
@@ -261,7 +305,18 @@ func loadData():
 		agility_default = saved_data["agl"]
 		luck_default = saved_data["luk"]
 		
+		weaponDifficulty = saved_data["weapon_difficulty"]
+		otherCNDtype = saved_data["extra_limb"]
+		
 		if not stopLoading:
+			headCND = saved_data["head_cnd"]
+			chestCND = saved_data["chest_cnd"]
+			lArmCND = saved_data["larm_cnd"]
+			rArmCND = saved_data["rarm_cnd"]
+			lLegCND = saved_data["lleg_cnd"]
+			rLegCND = saved_data["rleg_cnd"]
+			otherCND = saved_data["other_cnd"]
+			
 			input_direction = saved_data["direction"]
 			stamina = saved_data["stamina"]
 			PP = saved_data["pp"]
@@ -270,6 +325,14 @@ func loadData():
 			
 			self.global_position.x = saved_data["pos_x"]
 			self.global_position.y = saved_data["pos_y"]
+			
+			match otherCNDtype:
+				'tail':
+					otherCNDmax = 50
+				'wings':
+					otherCNDmax = 30
+				_:
+					otherCNDmax = 0
 			print("hello, " + charName)
 			stopLoading = true
 		
@@ -307,6 +370,17 @@ func saveChar():
 	saved_data["pp"] = PP
 	saved_data['health'] = health
 	saved_data['real_hp'] = realHP
+	
+	saved_data["head_cnd"] = headCND 
+	saved_data["chest_cnd"] = chestCND 
+	saved_data["larm_cnd"] = lArmCND 
+	saved_data["rarm_cnd"] = rArmCND
+	saved_data["lleg_cnd"] = lLegCND
+	saved_data["rleg_cnd"] = rLegCND
+	saved_data["other_cnd"] = otherCND
+	
+	saved_data["weapon_difficulty"] = weaponDifficulty
+	saved_data["extra_limb"] = otherCNDtype
 	
 	saved_data["pos_x"] = self.global_position.x
 	saved_data["pos_y"] = self.global_position.y
