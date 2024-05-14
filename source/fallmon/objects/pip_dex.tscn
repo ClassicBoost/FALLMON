@@ -1,11 +1,18 @@
-[gd_scene load_steps=13 format=3 uid="uid://tnrqq6pbhkgh"]
+[gd_scene load_steps=26 format=3 uid="uid://tnrqq6pbhkgh"]
 
 [ext_resource type="Texture2D" uid="uid://bv00brvhlvusa" path="res://assets/graphics/pip-dex/bg.png" id="1_csuyn"]
 [ext_resource type="Script" path="res://source/fallmon/scripts/objects/pip_dex.gd" id="1_ji7u5"]
 [ext_resource type="FontFile" uid="uid://u2gi1c8bl7f2" path="res://assets/fonts/tech.ttf" id="3_dckmk"]
 [ext_resource type="AudioStream" uid="uid://c0jg5uvoltpb6" path="res://assets/audios/ambience/device_static.ogg" id="4_knh70"]
 [ext_resource type="AudioStream" uid="uid://irqtie42ed7n" path="res://assets/audios/sounds/device/device_select.ogg" id="5_sijbw"]
-[ext_resource type="AudioStream" uid="uid://btu87w1gnj5xo" path="res://assets/audios/sounds/menus/select.ogg" id="6_x0a1h"]
+[ext_resource type="AudioStream" uid="uid://cvesvvganrcgf" path="res://assets/audios/sounds/device/highlight.ogg" id="6_4rucv"]
+[ext_resource type="AudioStream" uid="uid://uuylr1f8igkh" path="res://assets/audios/sounds/device/switch_tabs.ogg" id="7_mg5sa"]
+[ext_resource type="AudioStream" uid="uid://ngo8pyucajsa" path="res://assets/audios/sounds/device/static_random/1.ogg" id="8_t3td7"]
+[ext_resource type="AudioStream" uid="uid://g8a588fej8b2" path="res://assets/audios/sounds/device/static_random/2.ogg" id="9_u1mmu"]
+[ext_resource type="AudioStream" uid="uid://ci4pf8x867jaw" path="res://assets/audios/sounds/device/static_random/3.ogg" id="10_66suy"]
+[ext_resource type="AudioStream" uid="uid://cxbo0fqcbjd7m" path="res://assets/audios/sounds/device/static_random/4.ogg" id="11_rq4wn"]
+[ext_resource type="AudioStream" uid="uid://cdce8ixthsuf1" path="res://assets/audios/sounds/device/static_random/5.ogg" id="12_8u0xa"]
+[ext_resource type="Shader" path="res://source/shaders/crt.gdshader" id="13_1kvjn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekq7a"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -23,6 +30,25 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3g2v"]
 bg_color = Color(0, 1, 0.564706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0tsa"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a333f"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjqal"]
+bg_color = Color(0, 1, 0.564706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8p3i"]
+bg_color = Color(0, 1, 0.564706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57mhi"]
+bg_color = Color(0, 1, 0.564706, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l0xh1"]
+shader = ExtResource("13_1kvjn")
+shader_parameter/scan_line_size = 1000.0
 
 [node name="PIP-DEX" type="Control"]
 process_mode = 3
@@ -64,6 +90,7 @@ text = "PLAYERNAMESOLONG
 LE: 35/35 // STM: 100/100 // PP: 20/20"
 
 [node name="Stats" type="NinePatchRect" parent="Device/Screen"]
+visible = false
 layout_mode = 0
 offset_right = 568.0
 offset_bottom = 384.0
@@ -88,6 +115,7 @@ text = "[CONDITIONS]"
 alignment = 0
 
 [node name="radiation" type="Button" parent="Device/Screen/Stats"]
+layout_mode = 0
 offset_top = 136.0
 offset_right = 192.0
 offset_bottom = 170.0
@@ -106,6 +134,7 @@ text = "[RADIATION]"
 alignment = 0
 
 [node name="effects" type="Button" parent="Device/Screen/Stats"]
+layout_mode = 0
 offset_top = 176.0
 offset_right = 192.0
 offset_bottom = 210.0
@@ -124,6 +153,7 @@ text = "[EFFECTS]"
 alignment = 0
 
 [node name="special" type="Button" parent="Device/Screen/Stats"]
+layout_mode = 0
 offset_top = 216.0
 offset_right = 192.0
 offset_bottom = 250.0
@@ -142,11 +172,13 @@ text = "[SPECIAL]"
 alignment = 0
 
 [node name="Conditions" type="NinePatchRect" parent="Device/Screen/Stats"]
+visible = false
 layout_mode = 0
 offset_right = 568.0
 offset_bottom = 384.0
 
 [node name="cnd" type="Label" parent="Device/Screen/Stats/Conditions"]
+layout_mode = 0
 offset_left = 192.0
 offset_top = 96.0
 offset_right = 512.0
@@ -191,6 +223,7 @@ theme_override_font_sizes/font_size = 24
 text = "Radiation Exposure:"
 
 [node name="percent" type="Label" parent="Device/Screen/Stats/Radiation"]
+layout_mode = 0
 offset_left = 440.0
 offset_top = 312.0
 offset_right = 560.0
@@ -208,6 +241,7 @@ offset_right = 568.0
 offset_bottom = 384.0
 
 [node name="special" type="Label" parent="Device/Screen/Stats/SPECIAL"]
+layout_mode = 0
 offset_left = 192.0
 offset_top = 96.0
 offset_right = 448.0
@@ -223,6 +257,144 @@ INTELLIGENCE: 0
 AGILITY: 0
 LUCK: 0"
 
+[node name="Inventory" type="NinePatchRect" parent="Device/Screen"]
+layout_mode = 0
+offset_right = 568.0
+offset_bottom = 384.0
+
+[node name="weapons" type="Button" parent="Device/Screen/Inventory"]
+offset_left = 24.0
+offset_top = 344.0
+offset_right = 152.0
+offset_bottom = 378.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_ekq7a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w7rby")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xinp4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_bovod")
+text = "[WEAPONS]"
+
+[node name="armor" type="Button" parent="Device/Screen/Inventory"]
+offset_left = 152.0
+offset_top = 344.0
+offset_right = 280.0
+offset_bottom = 378.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_ekq7a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w7rby")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xinp4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_bovod")
+text = "[ARMOR]"
+
+[node name="aid" type="Button" parent="Device/Screen/Inventory"]
+offset_left = 280.0
+offset_top = 344.0
+offset_right = 408.0
+offset_bottom = 378.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_ekq7a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w7rby")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xinp4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_bovod")
+text = "[AID]"
+
+[node name="others" type="Button" parent="Device/Screen/Inventory"]
+offset_left = 408.0
+offset_top = 344.0
+offset_right = 536.0
+offset_bottom = 378.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_ekq7a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w7rby")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xinp4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_bovod")
+text = "[OTHER]"
+
+[node name="Thingy" type="ColorRect" parent="Device/Screen/Inventory"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 64.0
+offset_right = 392.0
+offset_bottom = 320.0
+color = Color(0, 1, 0.564706, 1)
+
+[node name="info" type="Label" parent="Device/Screen/Inventory"]
+offset_left = 392.0
+offset_top = 64.0
+offset_right = 560.0
+offset_bottom = 320.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 20
+autowrap_mode = 3
+
+[node name="weapon_list" type="ItemList" parent="Device/Screen/Inventory"]
+layout_mode = 0
+offset_top = 64.0
+offset_right = 384.0
+offset_bottom = 320.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hovered_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/guide_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_styles/panel = SubResource("StyleBoxFlat_m0tsa")
+theme_override_styles/focus = SubResource("StyleBoxFlat_a333f")
+theme_override_styles/hovered = SubResource("StyleBoxFlat_mjqal")
+theme_override_styles/selected = SubResource("StyleBoxFlat_s8p3i")
+theme_override_styles/selected_focus = SubResource("StyleBoxFlat_57mhi")
+item_count = 2
+item_0/text = "test"
+item_1/text = "test2"
+
+[node name="stats" type="Button" parent="Device"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 96.0
+offset_right = 256.0
+offset_bottom = 160.0
+text = "STAT"
+
+[node name="inv" type="Button" parent="Device"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 224.0
+offset_right = 256.0
+offset_bottom = 288.0
+text = "INV"
+
+[node name="data" type="Button" parent="Device"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 352.0
+offset_right = 256.0
+offset_bottom = 416.0
+text = "DATA"
+
 [node name="ambience" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_knh70")
 
@@ -230,13 +402,53 @@ stream = ExtResource("4_knh70")
 stream = ExtResource("5_sijbw")
 
 [node name="select" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_x0a1h")
+stream = ExtResource("6_4rucv")
+volume_db = -10.0
+
+[node name="switchTabs" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_mg5sa")
+
+[node name="staticRandom-1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_t3td7")
+
+[node name="staticRandom-2" type="AudioStreamPlayer" parent="staticRandom-1"]
+stream = ExtResource("9_u1mmu")
+
+[node name="staticRandom-3" type="AudioStreamPlayer" parent="staticRandom-1"]
+stream = ExtResource("10_66suy")
+
+[node name="staticRandom-4" type="AudioStreamPlayer" parent="staticRandom-1"]
+stream = ExtResource("11_rq4wn")
+
+[node name="staticRandom-5" type="AudioStreamPlayer" parent="staticRandom-1"]
+stream = ExtResource("12_8u0xa")
+
+[node name="CRT" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_l0xh1")
+offset_left = 512.0
+offset_top = 160.0
+offset_right = 1080.0
+offset_bottom = 544.0
+mouse_filter = 2
 
 [connection signal="mouse_entered" from="Device/Screen/Stats/conditions" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="Device/Screen/Stats/conditions" to="." method="_on_stats_sub_pressed" binds= ["cnd"]]
+[connection signal="pressed" from="Device/Screen/Stats/conditions" to="." method="_on_stats_sub_pressed" binds= ["cnd", true]]
 [connection signal="mouse_entered" from="Device/Screen/Stats/radiation" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="Device/Screen/Stats/radiation" to="." method="_on_stats_sub_pressed" binds= ["rad"]]
+[connection signal="pressed" from="Device/Screen/Stats/radiation" to="." method="_on_stats_sub_pressed" binds= ["rad", true]]
 [connection signal="mouse_entered" from="Device/Screen/Stats/effects" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="Device/Screen/Stats/effects" to="." method="_on_stats_sub_pressed" binds= ["eff"]]
+[connection signal="pressed" from="Device/Screen/Stats/effects" to="." method="_on_stats_sub_pressed" binds= ["eff", true]]
 [connection signal="mouse_entered" from="Device/Screen/Stats/special" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="Device/Screen/Stats/special" to="." method="_on_stats_sub_pressed" binds= ["special"]]
+[connection signal="pressed" from="Device/Screen/Stats/special" to="." method="_on_stats_sub_pressed" binds= ["special", true]]
+[connection signal="mouse_entered" from="Device/Screen/Inventory/weapons" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Device/Screen/Inventory/weapons" to="." method="_on_stats_sub_pressed" binds= ["weapons", true]]
+[connection signal="mouse_entered" from="Device/Screen/Inventory/armor" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Device/Screen/Inventory/armor" to="." method="_on_stats_sub_pressed" binds= ["armor", true]]
+[connection signal="mouse_entered" from="Device/Screen/Inventory/aid" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Device/Screen/Inventory/aid" to="." method="_on_stats_sub_pressed" binds= ["aid", true]]
+[connection signal="mouse_entered" from="Device/Screen/Inventory/others" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Device/Screen/Inventory/others" to="." method="_on_stats_sub_pressed" binds= ["others", true]]
+[connection signal="item_selected" from="Device/Screen/Inventory/weapon_list" to="." method="_on_weapon_list_selected"]
+[connection signal="pressed" from="Device/stats" to="." method="_on_menu_pressed" binds= ["stats"]]
+[connection signal="pressed" from="Device/inv" to="." method="_on_menu_pressed" binds= ["inv"]]
+[connection signal="pressed" from="Device/data" to="." method="_on_menu_pressed" binds= ["data"]]
