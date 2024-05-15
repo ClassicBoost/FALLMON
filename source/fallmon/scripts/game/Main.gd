@@ -35,6 +35,7 @@ func resetSettings():
 	
 	saved_data["shaders"] = true
 	saved_data["overlay"] = true
+	saved_data["smooth-filter"] = false
 	
 	var json = JSON.stringify(saved_data)
 	

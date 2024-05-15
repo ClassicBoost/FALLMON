@@ -84,6 +84,31 @@ text = "ON"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="smooth_filter" type="Button" parent="bg"]
+offset_left = 64.0
+offset_top = 192.0
+offset_right = 448.0
+offset_bottom = 256.0
+theme_override_fonts/font = ExtResource("2_3ky4x")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_8m0rr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h8vuo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_e4h4d")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vuprl")
+text = "SMOOTH FILTER"
+alignment = 0
+
+[node name="setting" type="Label" parent="bg/smooth_filter"]
+layout_mode = 0
+offset_left = 256.0
+offset_right = 384.0
+offset_bottom = 64.0
+theme_override_fonts/font = ExtResource("2_3ky4x")
+theme_override_font_sizes/font_size = 32
+text = "ON"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="leave" type="Button" parent="bg"]
 layout_mode = 0
 offset_left = 64.0
@@ -121,5 +146,8 @@ stream = ExtResource("4_oefm8")
 [connection signal="mouse_entered" from="bg/overlay_info" to="." method="_on_mouse_entered" binds= ["overlay"]]
 [connection signal="mouse_exited" from="bg/overlay_info" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="bg/overlay_info" to="." method="_on_overlay_info_pressed"]
+[connection signal="mouse_entered" from="bg/smooth_filter" to="." method="_on_mouse_entered" binds= ["smooth"]]
+[connection signal="mouse_exited" from="bg/smooth_filter" to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="bg/smooth_filter" to="." method="_on_smooth_filter_pressed"]
 [connection signal="mouse_entered" from="bg/leave" to="." method="_on_mouse_entered" binds= ["nothing"]]
 [connection signal="pressed" from="bg/leave" to="." method="_on_leave_pressed"]

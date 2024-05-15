@@ -377,6 +377,7 @@ item_count = 1
 item_0/text = "Pistol"
 
 [node name="aid_list" type="ItemList" parent="Device/Screen/Inventory"]
+layout_mode = 0
 offset_top = 64.0
 offset_right = 384.0
 offset_bottom = 320.0

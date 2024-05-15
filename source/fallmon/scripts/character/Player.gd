@@ -70,7 +70,8 @@ var weaponDifficulty:String = ''
 # type, intensity, duration
 @export var effects:Array = [
 	['bleeding', 0, 0],
-	['poison', 0, 0]
+	['poison', 0, 0],
+	['healing-sickness', 0, 0]
 ]
 @export var weapons_inventory:Array = [
 	['Pistol', 0]
@@ -139,6 +140,9 @@ func _physics_process(delta):
 	if rLegCND < 10:
 		rLegCND += 0.1 * delta
 	
+	if effects[2][2] > 0:
+		effects[2][2] -= 1 * delta
+	
 	#print(moveSpeed)
 	
 	updateAnim(input_direction)
@@ -162,10 +166,11 @@ func itemCheck():
 	if Input.is_action_just_pressed("useItem"):
 		match currentItemHolding.to_lower():
 			'stimpack':
-				if health[0] > 5 and realHP < 30 and aid_inventory[0][1] > 0:
+				if health[0] > 5 and realHP < 30 and aid_inventory[0][1] > 0 and effects[2][2] <= 0:
 					health[0] -= 5
 					realHP += 5
 					aid_inventory[0][1] -= 1
+					effects[2][2] = 5
 				else:
 					$nah.play()
 			'radaway':
@@ -176,10 +181,11 @@ func itemCheck():
 				else:
 					$nah.play()
 			's-stimpack':
-				if health[0] > 5 and realHP < 30 and aid_inventory[0][1] > 0:
+				if health[0] > 5 and realHP < 30 and aid_inventory[0][1] > 0 and effects[2][2] <= 0:
 					health[0] -= 5
 					realHP += 30
 					aid_inventory[1][1] -= 1
+					effects[2][2] = 5
 				else:
 					$nah.play()
 			'bandage':
@@ -204,9 +210,10 @@ func itemCheck():
 				print('wip!')
 				$nah.play()
 			'heal-spray':
-				if health[0] < health[1] and aid_inventory[7][1] > 0:
+				if health[0] < health[1] and aid_inventory[7][1] > 0 and effects[2][2] <= 0:
 					health[0] += 20
 					aid_inventory[7][1] -= 1
+					effects[2][2] = 5
 				else:
 					$nah.play()
 			_:

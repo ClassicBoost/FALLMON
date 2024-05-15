@@ -20,12 +20,20 @@ boot_splash/show_image=false
 config/icon="res://icons/main.png"
 config/windows_native_icon="res://icons/windows.ico"
 
+[debug]
+
+settings/crash_handler/message.editor="Please include this when reporting the bug on: https://github.com/ClassicBoost/FALLMON/issues"
+
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 mouse_cursor/custom_image="res://icons/bad_curser.png"
+
+[editor]
+
+movie_writer/mjpeg_quality=1.0
 
 [input]
 
@@ -104,4 +112,3 @@ reset={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="mobile"

@@ -4,6 +4,7 @@ var save_path = "user://settings.json"
 
 var shaders:bool = true
 var overlay:bool = true
+var smooth_filter:bool = false
 
 func _ready():
 	loadSettings()
@@ -21,6 +22,11 @@ func _process(_delta):
 	else:
 		$bg/overlay_info/setting.text = 'OFF'
 	
+	if smooth_filter:
+		$bg/smooth_filter/setting.text = 'ON'
+	else:
+		$bg/smooth_filter/setting.text = 'OFF'
+	
 func saveSettings():
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
 	
@@ -28,6 +34,7 @@ func saveSettings():
 	
 	saved_data["shaders"] = shaders
 	saved_data["overlay"] = overlay
+	saved_data["smooth-filter"] = smooth_filter
 	
 	var json = JSON.stringify(saved_data)
 	
@@ -43,6 +50,14 @@ func loadSettings():
 		
 		shaders = saved_data["shaders"]
 		overlay = saved_data["overlay"]
+		smooth_filter = saved_data["smooth-filter"]
+		
+		if smooth_filter:
+			ProjectSettings.set("rendering/textures/canvas_textures/default_texture_filter", 1)
+			ProjectSettings.set("rendering/anti_aliasing/quality/msaa_2d", 4)
+		else:
+			ProjectSettings.set("rendering/textures/canvas_textures/default_texture_filter", 0)
+			ProjectSettings.set("rendering/anti_aliasing/quality/msaa_2d", 0)
 		
 		file.close()
 	else:
@@ -56,6 +71,8 @@ func _on_mouse_entered(info):
 			$description.text = 'Turn this off if you are epileptic\nor game running very slowly'
 		'overlay':
 			$description.text = 'Shows framerate and memory on the top right\nif enabled'
+		'smooth':
+			$description.text = 'If enabled the game, somewhat has an\nanti-aliasing filter'
 		_:
 			$description.text = ''
 
@@ -72,4 +89,9 @@ func _on_mouse_exited():
 
 func _on_overlay_info_pressed():
 	overlay = !overlay
+	$confirm.play()
+
+
+func _on_smooth_filter_pressed():
+	smooth_filter = !smooth_filter
 	$confirm.play()
