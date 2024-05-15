@@ -3,5 +3,6 @@
 	"type": "item",
 	
 	"damage": 55,
-	"ammo": 65
+	"ammo": 65,
+	"cost": 0
 }

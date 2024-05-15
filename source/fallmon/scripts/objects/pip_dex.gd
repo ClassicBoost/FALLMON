@@ -15,6 +15,13 @@ var otherCNDmax:float = 1
 @export var item_damage = 0
 @export var item_ammo = 0
 
+@export var addiction_chance:float = 0
+@export var item_value:int = 0
+var total_item:int = 0
+
+@onready var weapon_item:ItemList = $Device/Screen/Inventory/weapon_list
+@onready var aid_item:ItemList = $Device/Screen/Inventory/aid_list
+
 func _ready():
 	ambience = $ambience
 	ambience.play()
@@ -37,6 +44,11 @@ func _process(_delta):
 	else:
 		ambience.volume_db = -INF
 	
+	if item_description == null or item_description == '':
+		infoTxt.text = 'no description\n\n'
+	else:
+		infoTxt.text = item_description + '\n\n'
+	
 	match currentSubMenu:
 		'cnd':
 			var cndTxt = $Device/Screen/Stats/Conditions/cnd
@@ -52,30 +64,51 @@ func _process(_delta):
 			$Device/Screen/Stats/Radiation/percent.text = str(player.radiation/10) + '%'
 		'special':
 			var specialTxt = $Device/Screen/Stats/SPECIAL/special
-			specialTxt.text = 'STRENGTH: ' + str(player.strength)
-			specialTxt.text += '\nPERCEPTION: ' + str(player.perception)
-			specialTxt.text += '\nENDURANCE: ' + str(player.endurance)
-			specialTxt.text += '\nCHARISMA: ' + str(player.charisma)
-			specialTxt.text += '\nINTELLIGENCE: ' + str(player.intelligence)
-			specialTxt.text += '\nAGILITY: ' + str(player.agility)
-			specialTxt.text += '\nLUCK: ' + str(player.luck)
+			specialTxt.text = 'STRENGTH: ' + str(player.specialStats[0])
+			specialTxt.text += '\nPERCEPTION: ' + str(player.specialStats[1])
+			specialTxt.text += '\nENDURANCE: ' + str(player.specialStats[2])
+			specialTxt.text += '\nCHARISMA: ' + str(player.specialStats[3])
+			specialTxt.text += '\nINTELLIGENCE: ' + str(player.specialStats[4])
+			specialTxt.text += '\nAGILITY: ' + str(player.specialStats[5])
+			specialTxt.text += '\nLUCK: ' + str(player.specialStats[6])
 		'weapons':
-			if item_description == null or item_description == '':
-				infoTxt.text = 'no description\n\n'
-			else:
-				infoTxt.text = item_description + '\n\n'
 			if item_type != '':
 				infoTxt.text += 'Type: ' + item_type + '\n'
 			if item_damage > 0:
 				infoTxt.text += 'DMG: ' + str(item_damage) + '\n'
 			if item_ammo > 0:
 				infoTxt.text += 'AMMO: ' + str(item_ammo) + '\n'
+			
+			weapon_item.set_item_disabled(0, true)
+			
+			if player.weapons_inventory[0][1] > 0:
+				weapon_item.set_item_disabled(0, false)
+		'aid':
+			aid_item.set_item_disabled(0, true)
+			aid_item.set_item_disabled(1, true)
+			if player.aid_inventory[0][1] > 0:
+				aid_item.set_item_disabled(0, false)
+			if player.aid_inventory[1][1] > 0:
+				aid_item.set_item_disabled(1, false)
+			
+	infoTxt.text += 'VALUE: '
+	if item_value > 0:
+		infoTxt.text += str(item_value)
+	else:
+		infoTxt.text += 'no value'
+	
+	if total_item > 0:
+		infoTxt.text += '\nYou have ' + str(total_item)
 	
 	var importantTxt = $Device/Screen/important
-	importantTxt.text = player.charName + ' // ' + player.charSpecies.to_upper()
-	importantTxt.text += '\nHP: ' + str(int(player.health)) + '/' + str(player.maxHealth)
-	importantTxt.text += ' // STM: ' + str(int(player.stamina)) + '/' + str(player.maxStamina) 
-	importantTxt.text += ' // PP: ' + str(int(player.PP)) + '/' + str(player.maxPP)
+	importantTxt.text = player.charName + ' // ' + player.charSpecies.to_upper() + ' // '
+	if player.isFemale:
+		importantTxt.text += 'FEMALE'
+	else:
+		importantTxt.text += 'MALE'
+	importantTxt.text += '\nHP: ' + str(int(player.health[0])) + '/' + str(player.health[1])
+	importantTxt.text += ' // STM: ' + str(int(player.stamina[0])) + '/' + str(player.stamina[1]) 
+	importantTxt.text += ' // PP: ' + str(int(player.PP[0])) + '/' + str(player.PP[1])
 
 func _on_button_mouse_entered():
 	$select.play()
@@ -87,6 +120,7 @@ func _on_stats_sub_pressed(menu, audio):
 	$Device/Screen/Stats/SPECIAL.hide()
 	$Device/Screen/Stats/Conditions.hide()
 	$Device/Screen/Inventory/weapon_list.hide()
+	$Device/Screen/Inventory/aid_list.hide()
 	match menu:
 		'cnd':
 			$Device/Screen/Stats/Conditions.show()
@@ -96,6 +130,8 @@ func _on_stats_sub_pressed(menu, audio):
 			$Device/Screen/Stats/SPECIAL.show()
 		'weapons':
 			$Device/Screen/Inventory/weapon_list.show()
+		'aid':
+			$Device/Screen/Inventory/aid_list.show()
 		_:
 			pass
 	currentSubMenu = menu
@@ -130,17 +166,29 @@ func _on_menu_pressed(menu):
 
 var item_path = "blank"
 
-func loadInfo():
-	if FileAccess.file_exists("res://assets/items/weapons/" + item_path + ".json"):
-		var file = FileAccess.open("res://assets/items/weapons/" + item_path + ".json", FileAccess.READ)
+func loadInfo(category, id):
+	if FileAccess.file_exists("res://assets/items/" + category + "/" + item_path.to_lower() + ".json"):
+		var file = FileAccess.open("res://assets/items/" + category + "/" + item_path.to_lower() + ".json", FileAccess.READ)
 		var json = file.get_as_text()
 		
 		var info_data = JSON.parse_string(json)
 		
 		item_description = info_data["description"]
 		item_type = info_data["type"]
-		item_damage = info_data["damage"]
-		item_ammo = info_data["ammo"]
+		item_value = info_data["cost"]
+		match category:
+			'weapons':
+				item_damage = info_data["damage"]
+				item_ammo = info_data["ammo"]
+				total_item = player.weapons_inventory[id][1]
+			'aid':
+				addiction_chance = info_data["addiction"]
+				total_item = player.aid_inventory[id][1]
+			_:
+				pass
+		
+		
+		player.currentItemHolding = item_path
 		
 		file.close()
 	else:
@@ -150,9 +198,22 @@ func loadInfo():
 func _on_weapon_list_selected(index):
 	$confirm.play()
 	match index:
-		1:
-			item_path = 'test'
+		0:
+			item_path = 'Pistol'
 		_:
 			item_path = 'blank'
 	
-	loadInfo()
+	loadInfo('weapons', index)
+
+
+func _on_aid_list_item_selected(index):
+	$confirm.play()
+	match index:
+		0:
+			item_path = 'StimPack'
+		1:
+			item_path = 'RadAway'
+		_:
+			item_path = 'blank'
+	
+	loadInfo('aid', index)

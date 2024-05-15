@@ -54,7 +54,8 @@ offset_right = 155.0
 offset_bottom = 38.5
 theme_override_styles/background = SubResource("StyleBoxFlat_s5wo2")
 theme_override_styles/fill = SubResource("StyleBoxFlat_v1pc5")
-value = 100.0
+max_value = 30.0
+value = 30.0
 show_percentage = false
 
 [node name="Stamina" type="Control" parent="."]

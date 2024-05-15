@@ -252,6 +252,10 @@ func saveChar():
 	
 	saved_data["pos_x"] = -288
 	saved_data["pos_y"] = -96
+	
+	saved_data['weapon_pistol'] = 0
+	saved_data['stimpacks'] = 0
+	saved_data['radaways'] = 0
 		
 	var json = JSON.stringify(saved_data)
 		

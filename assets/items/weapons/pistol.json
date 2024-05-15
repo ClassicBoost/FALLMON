@@ -1,0 +1,8 @@
+{
+	"description": "",
+	"type": "ranged",
+	
+	"damage": 6,
+	"ammo": 12,
+	"cost": 100
+}

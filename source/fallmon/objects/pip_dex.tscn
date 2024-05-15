@@ -358,6 +358,7 @@ theme_override_font_sizes/font_size = 20
 autowrap_mode = 3
 
 [node name="weapon_list" type="ItemList" parent="Device/Screen/Inventory"]
+visible = false
 layout_mode = 0
 offset_top = 64.0
 offset_right = 384.0
@@ -365,7 +366,7 @@ offset_bottom = 320.0
 theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
 theme_override_colors/font_hovered_color = Color(0, 0, 0, 1)
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
-theme_override_colors/guide_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/guide_color = Color(0, 0, 0, 0)
 theme_override_fonts/font = ExtResource("3_dckmk")
 theme_override_styles/panel = SubResource("StyleBoxFlat_m0tsa")
 theme_override_styles/focus = SubResource("StyleBoxFlat_a333f")
@@ -373,8 +374,26 @@ theme_override_styles/hovered = SubResource("StyleBoxFlat_mjqal")
 theme_override_styles/selected = SubResource("StyleBoxFlat_s8p3i")
 theme_override_styles/selected_focus = SubResource("StyleBoxFlat_57mhi")
 item_count = 2
-item_0/text = "test"
+item_0/text = "Pistol"
 item_1/text = "test2"
+
+[node name="aid_list" type="ItemList" parent="Device/Screen/Inventory"]
+offset_top = 64.0
+offset_right = 384.0
+offset_bottom = 320.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hovered_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/guide_color = Color(0, 0, 0, 0)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_styles/panel = SubResource("StyleBoxFlat_m0tsa")
+theme_override_styles/focus = SubResource("StyleBoxFlat_a333f")
+theme_override_styles/hovered = SubResource("StyleBoxFlat_mjqal")
+theme_override_styles/selected = SubResource("StyleBoxFlat_s8p3i")
+theme_override_styles/selected_focus = SubResource("StyleBoxFlat_57mhi")
+item_count = 2
+item_0/text = "Stim Pack"
+item_1/text = "Rad Away"
 
 [node name="Data" type="NinePatchRect" parent="Device/Screen"]
 layout_mode = 0
@@ -460,6 +479,7 @@ mouse_filter = 2
 [connection signal="mouse_entered" from="Device/Screen/Inventory/others" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Device/Screen/Inventory/others" to="." method="_on_stats_sub_pressed" binds= ["others", true]]
 [connection signal="item_selected" from="Device/Screen/Inventory/weapon_list" to="." method="_on_weapon_list_selected"]
+[connection signal="item_selected" from="Device/Screen/Inventory/aid_list" to="." method="_on_aid_list_item_selected"]
 [connection signal="pressed" from="Device/stats" to="." method="_on_menu_pressed" binds= ["stats"]]
 [connection signal="pressed" from="Device/inv" to="." method="_on_menu_pressed" binds= ["inv"]]
 [connection signal="pressed" from="Device/data" to="." method="_on_menu_pressed" binds= ["data"]]

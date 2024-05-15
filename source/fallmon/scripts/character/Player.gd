@@ -28,14 +28,9 @@ var save_path = "user://saves/saved_game.json"
 
 @export var isFemale:bool = false
 
-@export var health:float = 999
-var maxHealth:float = 35
-
-@export var stamina:float = 999
-var maxStamina:float = 50
-
-@export var PP:float = 10
-var maxPP:float = 10
+@export var health:Array = [999, 35]
+@export var stamina:Array = [999, 50]
+@export var PP:Array = [10, 10]
 
 @export var realHP:int = 30
 
@@ -50,13 +45,7 @@ var maxPP:float = 10
 @export var intelligence_default:int = 5
 @export var agility_default:int = 5
 @export var luck_default:int = 5
-var strength:int = 3
-var perception:int = 3
-var endurance:int = 3
-var charisma:int = 3
-var intelligence:int = 3
-var agility:int = 3
-var luck:int = 3
+var specialStats:Array = [3, 3, 3, 3, 3, 3, 3]
 
 var input_direction = Vector2(0,0)
 
@@ -77,6 +66,19 @@ var otherCNDtype:String = ''
 var otherCNDmax:float = 0
 
 var weaponDifficulty:String = ''
+
+@export var effects:Array = [
+	['bleeding', false]
+]
+@export var weapons_inventory:Array = [
+	['Pistol', 0]
+]
+@export var aid_inventory:Array = [
+	['Stimpacks', 0],
+	['Radaways', 0]
+]
+
+@export var currentItemHolding:String = ''
 
 # json
 var species_sprite:String = 'example'
@@ -111,15 +113,15 @@ func _physics_process(delta):
 			running = true
 	
 	if running and moving and not exhausted and (lLegCND >= 10 and rLegCND >= 10):
-		moveSpeed = (300+(agility*2)-(((health/maxHealth)*-1)*80))*((lLegCND/100)+(rLegCND/100))
-		stamina -= 8 * delta
+		moveSpeed = (300+(specialStats[5]*2)-(((health[0]/health[1])*-1)*80))*((lLegCND/100)+(rLegCND/100))
+		stamina[0] -= 8 * delta
 		anim_player.set_speed_scale(3)
 	else:
-		moveSpeed = (70+agility-(((health/maxHealth)*-1)*80))*((lLegCND/100)+(rLegCND/100))
+		moveSpeed = (70+specialStats[5]-(((health[0]/health[1])*-1)*80))*((lLegCND/100)+(rLegCND/100))
 		if moving:
-			stamina += agility * (delta/3)
+			stamina[0] += specialStats[5] * (delta/3)
 		else:
-			stamina += (agility) * delta
+			stamina[0] += (specialStats[5]) * delta
 		anim_player.set_speed_scale(1)
 	
 	if lLegCND < 10:
@@ -141,36 +143,60 @@ func _physics_process(delta):
 	
 	if charName != '' and charName != null:
 		saveChar()
+	
+	itemCheck()
+
+func itemCheck():
+	if currentItemHolding != '':
+		$item.text = 'holding: ' + currentItemHolding
+	if Input.is_action_just_pressed("useItem"):
+		match currentItemHolding.to_lower():
+			'stimpack':
+				if health[0] > 5 and realHP < 30 and aid_inventory[0][1] > 0:
+					health[0] -= 5
+					realHP += 5
+					aid_inventory[0][1] -= 1
+				else:
+					$nah.play()
+			'radaway':
+				if health[0] > 5 and radiation > 0 and aid_inventory[1][1] > 0:
+					health[0] -= 5
+					radiation -= 50
+					aid_inventory[1][1] -= 1
+				else:
+					$nah.play()
+			_:
+				pass
 
 func updateLimits():
 	portraitThingy.expression = 0
-	strength = strength_default
-	perception = perception_default
-	endurance = endurance_default
-	charisma = charisma_default
-	intelligence = intelligence_default
-	agility = agility_default
-	luck = luck_default
+	specialStats[0] = strength_default
+	specialStats[1] = perception_default
+	specialStats[2] = endurance_default
+	specialStats[3] = charisma_default
+	specialStats[4] = intelligence_default
+	specialStats[5] = agility_default
+	specialStats[6] = luck_default
 	# $Label.text = str(strength) + str(perception) + str(endurance) + str(charisma) + str(intelligence) + str(agility) + str(luck)
-	maxStamina = agility*10+pkmnSTM
-	maxHealth = 20+(endurance*2)+strength+pkmnHP
-	maxPP = (strength*2)+pkmnPP
+	stamina[1] = specialStats[5]*10+pkmnSTM
+	health[1] = 20+(specialStats[2]*2)+specialStats[0]+pkmnHP
+	PP[1] = (specialStats[0]*2)+pkmnPP
 	
 	if radiation < 0:
 		radiation = 0
-	if health > maxHealth:
-		health = maxHealth
-	if stamina > maxStamina:
-		stamina = maxStamina
-	if PP > maxPP:
-		PP = maxPP
-	if stamina < 0:
-		stamina = 0
+	if health[0] > health[1]:
+		health[0] = health[1]
+	if stamina[0] > stamina[1]:
+		stamina[0] = stamina[1]
+	if PP[0] > PP[1]:
+		PP[0] = PP[1]
+	if stamina[0] < 0:
+		stamina[0] = 0
 		exhausted = true
-	if stamina > 10:
+	if stamina[0] > 10:
 		exhausted = false
 	if radiation > 1000:
-		health -= 1
+		health[0] -= 1
 		radiation -= 1
 	if headCND > 200:
 		headCND = 200
@@ -185,17 +211,17 @@ func updateLimits():
 	if rLegCND > 50:
 		rLegCND = 50
 	if otherCND > otherCNDmax:
-		otherCND = otherCNDmax	
-	if health < 0:
+		otherCND = otherCNDmax
+	if health[0] < 0:
 		realHP -= 1
-		health += 1
+		health[0] += 1
 	if realHP > 30:
 		realHP = 30
 
 func runPortraitUpdate():
-	if stamina <= 10 or health <= 10:
+	if stamina[0] <= 10 or health[0] <= 10:
 		portraitThingy.expression = 2
-	if health <= 4:
+	if health[0] <= 4:
 		portraitThingy.expression = 13
 
 func updateAnim(anim:Vector2):
@@ -311,6 +337,9 @@ func loadData():
 		otherCNDtype = saved_data["extra_limb"]
 		
 		if not stopLoading:
+			weapons_inventory[0][1] = saved_data['weapon_pistol']
+			aid_inventory[0][1] = saved_data['stimpacks']
+			aid_inventory[1][1] = saved_data['radaways']
 			headCND = saved_data["head_cnd"]
 			chestCND = saved_data["chest_cnd"]
 			lArmCND = saved_data["larm_cnd"]
@@ -320,9 +349,9 @@ func loadData():
 			otherCND = saved_data["other_cnd"]
 			
 			input_direction = saved_data["direction"]
-			stamina = saved_data["stamina"]
-			PP = saved_data["pp"]
-			health = saved_data['health']
+			stamina[0] = saved_data["stamina"]
+			PP[0] = saved_data["pp"]
+			health[0] = saved_data['health']
 			realHP = saved_data['real_hp']
 			
 			self.global_position.x = saved_data["pos_x"]
@@ -368,9 +397,9 @@ func saveChar():
 	saved_data["luk"] = luck_default
 	
 	saved_data["direction"] = input_direction
-	saved_data["stamina"] = stamina
-	saved_data["pp"] = PP
-	saved_data['health'] = health
+	saved_data["stamina"] = stamina[0]
+	saved_data["pp"] = PP[0]
+	saved_data['health'] = health[0]
 	saved_data['real_hp'] = realHP
 	
 	saved_data["head_cnd"] = headCND 
@@ -383,6 +412,12 @@ func saveChar():
 	
 	saved_data["weapon_difficulty"] = weaponDifficulty
 	saved_data["extra_limb"] = otherCNDtype
+	
+	#inventory
+	saved_data['weapon_pistol'] = weapons_inventory[0][1]
+	
+	saved_data['stimpacks'] = aid_inventory[0][1]
+	saved_data['radaways'] = aid_inventory[1][1]
 	
 	saved_data["pos_x"] = self.global_position.x
 	saved_data["pos_y"] = self.global_position.y

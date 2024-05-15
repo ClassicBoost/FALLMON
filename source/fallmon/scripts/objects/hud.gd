@@ -18,8 +18,9 @@ func _process(delta):
 	if $Stamina.modulate.a > 0.5 and highlighted != 'stamina':
 		$Stamina.modulate.a -= 0.1 * delta
 	
-	$HP/front/healthBar.value = (player.health/player.maxHealth) * 100
-	$Stamina/stamina/staminaBar.value = (player.stamina/player.maxStamina) * 100
+	$HP/front/healthBar.value = (player.health[0]/player.health[1]) * 100
+	$HP/front/realHP.value = (player.realHP)
+	$Stamina/stamina/staminaBar.value = (player.stamina[0]/player.stamina[1]) * 100
 	
 	portraitSprite.texture = load("res://assets/graphics/portraits/" + portrait + ".png")
 	if portraitSprite.texture == null:  # prevent crashing

@@ -110,6 +110,7 @@ text = "OPEN SAVES"
 alignment = 2
 
 [node name="SAVES" type="Button" parent="NinePatchRect"]
+layout_mode = 0
 offset_left = 832.0
 offset_top = 640.0
 offset_right = 1216.0
