@@ -2,7 +2,16 @@ extends Node2D
 
 var shaders:bool = true
 func _ready():
-	pass
+	var file = FileAccess.open("user://zarade.json", FileAccess.WRITE)
+	
+	var saved_data = {}
+	
+	saved_data["name"] = ''
+	
+	var json = JSON.stringify(saved_data)
+	
+	file.store_string(json)
+	file.close()
 
 func _process(_delta):
 	#if Input.is_action_just_pressed("debug2") and OS.is_debug_build():

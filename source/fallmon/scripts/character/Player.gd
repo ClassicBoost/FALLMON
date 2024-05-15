@@ -274,18 +274,20 @@ func get_json(json_path:String):
 		checkPackage = !checkPackage # check to see if the sprite exists in the package folder
 		
 func loadData():
-	var file_two = FileAccess.open("user://zarade.json", FileAccess.READ)
-	var json_two = file_two.get_as_text()
-		
-	var saved_data_two = JSON.parse_string(json_two)
-		
-	charName = saved_data_two["name"]
+	if not stopLoading:
+		var file_two = FileAccess.open("user://zarade.json", FileAccess.READ)
+		var json_two = file_two.get_as_text()
+			
+		var saved_data_two = JSON.parse_string(json_two)
+			
+		save_path = saved_data_two["name"]
 	if FileAccess.file_exists(save_path):
 		var file = FileAccess.open(save_path, FileAccess.READ)
 		var json = file.get_as_text()
 		
 		var saved_data = JSON.parse_string(json)
 		
+		charName = saved_data["name"]
 		pkmnType = saved_data["type"]
 		pkmnHP = saved_data['hp_pkmn']
 		pkmnSTM = saved_data['stm_pkmn']

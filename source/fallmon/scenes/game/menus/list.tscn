@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddjmq0gtiqxpo"]
+[gd_scene load_steps=12 format=3 uid="uid://ddjmq0gtiqxpo"]
 
 [ext_resource type="Script" path="res://source/fallmon/scripts/game/menus/char_list.gd" id="1_fnofj"]
 [ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_tc7mr"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://5kqmh8lm2c3p" path="res://assets/audios/sounds/menus/vhs-change.ogg" id="4_ls1xn"]
 [ext_resource type="FontFile" uid="uid://u2gi1c8bl7f2" path="res://assets/fonts/tech.ttf" id="5_dmvm1"]
 [ext_resource type="AudioStream" uid="uid://bgqdqq38sug5f" path="res://assets/audios/sounds/ui/nah.ogg" id="6_ks70h"]
+[ext_resource type="Theme" uid="uid://m0g8wa04saye" path="res://source/themes/files.tres" id="7_xecog"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gq04o"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -96,6 +97,20 @@ alignment = 0
 visible = false
 layout_mode = 0
 offset_left = 832.0
+offset_top = 576.0
+offset_right = 1216.0
+offset_bottom = 640.0
+theme_override_fonts/font = ExtResource("2_tc7mr")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_gq04o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_soli4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0llmq")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0ib8o")
+text = "OPEN SAVES"
+alignment = 2
+
+[node name="SAVES" type="Button" parent="NinePatchRect"]
+offset_left = 832.0
 offset_top = 640.0
 offset_right = 1216.0
 offset_bottom = 704.0
@@ -105,7 +120,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_gq04o")
 theme_override_styles/hover = SubResource("StyleBoxFlat_soli4")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_0llmq")
 theme_override_styles/focus = SubResource("StyleBoxFlat_0ib8o")
-text = "OPEN SAVES"
+text = "SAVE FOLDER"
 alignment = 2
 
 [node name="Panel" type="Panel" parent="."]
@@ -138,6 +153,22 @@ volume_db = -10.0
 [node name="nah" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_ks70h")
 
+[node name="FileDialog" type="FileDialog" parent="."]
+transparent_bg = true
+title = "Open a File"
+position = Vector2i(400, 84)
+size = Vector2i(800, 500)
+wrap_controls = false
+transient = false
+unresizable = true
+borderless = true
+mouse_passthrough = true
+theme = ExtResource("7_xecog")
+ok_button_text = "Open"
+file_mode = 0
+access = 1
+root_subfolder = "user://saves/"
+
 [connection signal="mouse_entered" from="NinePatchRect/PLAY" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="NinePatchRect/PLAY" to="." method="_on_play_pressed"]
 [connection signal="mouse_entered" from="NinePatchRect/NEW" to="." method="_on_mouse_entered"]
@@ -148,4 +179,7 @@ stream = ExtResource("6_ks70h")
 [connection signal="pressed" from="NinePatchRect/BACK" to="." method="_on_back_pressed"]
 [connection signal="mouse_entered" from="NinePatchRect/SAVE_FOLDER" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="NinePatchRect/SAVE_FOLDER" to="." method="_on_save_folder_pressed"]
+[connection signal="mouse_entered" from="NinePatchRect/SAVES" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="NinePatchRect/SAVES" to="." method="_on_saves_pressed"]
 [connection signal="text_changed" from="LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

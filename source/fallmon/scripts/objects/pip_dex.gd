@@ -20,6 +20,8 @@ func _ready():
 	ambience.play()
 	$Device/Screen/Stats/Conditions.show()
 	$Device/Screen/Stats.show()
+	$Device/Screen/Inventory.hide()
+	$Device/Screen/Data.hide()
 	
 func _process(_delta):
 	if device_open:

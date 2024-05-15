@@ -1,0 +1,33 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://m0g8wa04saye"]
+
+[ext_resource type="FontFile" uid="uid://u2gi1c8bl7f2" path="res://assets/fonts/tech.ttf" id="1_c0fm1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ub05"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v0oiy"]
+bg_color = Color(0, 0.231373, 0.0784314, 1)
+
+[resource]
+default_font = ExtResource("1_c0fm1")
+Button/colors/font_color = Color(0, 1, 0.564706, 1)
+Button/colors/font_focus_color = Color(0, 1, 0.564706, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_8ub05")
+FileDialog/colors/file_disabled_color = Color(0, 0, 0, 1)
+FileDialog/colors/file_icon_color = Color(0, 1, 0.564706, 1)
+FileDialog/colors/folder_icon_color = Color(0, 0, 0, 1)
+FileDialog/fonts/font = ExtResource("1_c0fm1")
+FileDialog/icons/back_folder = null
+FileDialog/icons/file = null
+FileDialog/icons/folder = null
+FileDialog/icons/forward_folder = null
+FileDialog/icons/parent_folder = null
+FileDialog/icons/reload = null
+FileDialog/icons/toggle_hidden = null
+HBoxContainer/styles/bg = SubResource("StyleBoxFlat_v0oiy")
+Label/colors/font_color = Color(0, 1, 0.564706, 1)
+LineEdit/colors/font_color = Color(0, 1, 0.564706, 1)
+TextEdit/colors/font_color = Color(0, 1, 0.564706, 1)
+Tree/colors/font_color = Color(0, 1, 0.564706, 1)
+Tree/colors/font_outline_color = Color(0, 1, 0.564706, 1)
+Tree/colors/font_selected_color = Color(0, 1, 0.564706, 1)

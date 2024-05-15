@@ -263,6 +263,7 @@ offset_right = 568.0
 offset_bottom = 384.0
 
 [node name="weapons" type="Button" parent="Device/Screen/Inventory"]
+layout_mode = 0
 offset_left = 24.0
 offset_top = 344.0
 offset_right = 152.0
@@ -281,6 +282,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_bovod")
 text = "[WEAPONS]"
 
 [node name="armor" type="Button" parent="Device/Screen/Inventory"]
+layout_mode = 0
 offset_left = 152.0
 offset_top = 344.0
 offset_right = 280.0
@@ -299,6 +301,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_bovod")
 text = "[ARMOR]"
 
 [node name="aid" type="Button" parent="Device/Screen/Inventory"]
+layout_mode = 0
 offset_left = 280.0
 offset_top = 344.0
 offset_right = 408.0
@@ -317,6 +320,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_bovod")
 text = "[AID]"
 
 [node name="others" type="Button" parent="Device/Screen/Inventory"]
+layout_mode = 0
 offset_left = 408.0
 offset_top = 344.0
 offset_right = 536.0
@@ -343,6 +347,7 @@ offset_bottom = 320.0
 color = Color(0, 1, 0.564706, 1)
 
 [node name="info" type="Label" parent="Device/Screen/Inventory"]
+layout_mode = 0
 offset_left = 392.0
 offset_top = 64.0
 offset_right = 560.0
@@ -370,6 +375,11 @@ theme_override_styles/selected_focus = SubResource("StyleBoxFlat_57mhi")
 item_count = 2
 item_0/text = "test"
 item_1/text = "test2"
+
+[node name="Data" type="NinePatchRect" parent="Device/Screen"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="stats" type="Button" parent="Device"]
 layout_mode = 0
@@ -426,6 +436,7 @@ stream = ExtResource("12_8u0xa")
 [node name="CRT" type="ColorRect" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_l0xh1")
+layout_mode = 0
 offset_left = 512.0
 offset_top = 160.0
 offset_right = 1080.0

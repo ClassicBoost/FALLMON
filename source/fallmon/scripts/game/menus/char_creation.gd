@@ -204,13 +204,13 @@ func loadPokemon():
 
 var save_path:String = "user://saves/saved_game.json"
 func saveChar():
-	#save_path = "user://saves/" + str(charName.to_lower()) + ".json"
+	save_path = "user://saves/" + str(charName.to_lower()) + ".json"
 	
 	print("user://saves/" + charName.to_lower() + ".json")
-	#if FileAccess.file_exists(save_path):
-	#	$nah.play()
-	#	print('File with this name already exists')
-	#	pass
+	if FileAccess.file_exists(save_path):
+		$nah.play()
+		print('File with this name already exists')
+		pass
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
 	
 	var saved_data = {}
