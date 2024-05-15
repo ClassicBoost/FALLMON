@@ -151,26 +151,18 @@ func _on_name_text_changed(new_text):
 	charName = str(new_text)
 	print('Character name is now: ' + str(new_text))
 
-
+var speciesList:Array = [
+	'Pikachu',
+	'Snivy',
+	'Tepig',
+	'Oshawott',
+	'Axew',
+	'Riolu',
+	'Wooper'
+]
 func _on_species_selected(index):
 	$confirm.play()
-	match index:
-		0:
-			charSpecies = 'pikachu'
-		1:
-			charSpecies = 'snivy'
-		2:
-			charSpecies = 'tepig'
-		3:
-			charSpecies = 'oshawott'
-		4:
-			charSpecies = 'axew'
-		5:
-			charSpecies = 'riolu'
-		6:
-			charSpecies = 'wooper'
-		_:
-			pass
+	charSpecies = speciesList[index].to_lower()
 	speciesInfo = "res://assets/species/data/" + str(charSpecies) + ".json"
 	print('Species swapped to ' + str(charSpecies.to_upper()))
 
@@ -256,6 +248,14 @@ func saveChar():
 	saved_data['weapon_pistol'] = 0
 	saved_data['stimpacks'] = 0
 	saved_data['radaways'] = 0
+	saved_data['s-stimpacks'] = 0
+	saved_data['antidote'] = 0
+	saved_data['bandage'] = 0
+	saved_data['doctors-bag'] = 0
+	saved_data['medical-kit'] = 0
+	saved_data['first-aid-kit'] = 0
+	saved_data['heal-spray'] = 0
+	saved_data['blood-pack'] = 0
 		
 	var json = JSON.stringify(saved_data)
 		

@@ -1,0 +1,7 @@
+{
+	"description": "Heals a limb of your choice",
+	"type": "healing",
+
+	"addiction": 0,
+	"cost": 900
+}

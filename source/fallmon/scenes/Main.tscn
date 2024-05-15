@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://source/fallmon/scripts/game/Main.gd" id="1_iohxc"]
 [ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_cl3hb"]
-[ext_resource type="Texture2D" uid="uid://x26p64rpf8d2" path="res://assets/title/classic.png" id="3_b4wnj"]
+[ext_resource type="Texture2D" uid="uid://x26p64rpf8d2" path="res://assets/graphics/title/classic.png" id="3_33nbk"]
 [ext_resource type="Shader" path="res://source/shaders/crt.gdshader" id="3_p3psp"]
-[ext_resource type="Texture2D" uid="uid://s8hnyki7esl4" path="res://assets/title/godot.png" id="4_1jmgl"]
-[ext_resource type="PackedScene" uid="uid://bufodnhbl7i07" path="res://source/fallmon/backend/overlay.tscn" id="6_r3hql"]
+[ext_resource type="Texture2D" uid="uid://s8hnyki7esl4" path="res://assets/graphics/title/godot.png" id="4_y7gyp"]
 [ext_resource type="PackedScene" uid="uid://dpxmx3o7s44ok" path="res://source/fallmon/backend/volume.tscn" id="7_uw64s"]
+[ext_resource type="FontFile" uid="uid://u2gi1c8bl7f2" path="res://assets/fonts/tech.ttf" id="8_huk1x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lq6io"]
 shader = ExtResource("3_p3psp")
@@ -36,13 +36,13 @@ vertical_alignment = 1
 visible = false
 position = Vector2(640, 440)
 scale = Vector2(0.776667, 0.776667)
-texture = ExtResource("3_b4wnj")
+texture = ExtResource("3_33nbk")
 
 [node name="godot" type="Sprite2D" parent="ColorRect"]
 visible = false
 position = Vector2(640, 384)
 scale = Vector2(0.686667, 0.686667)
-texture = ExtResource("4_1jmgl")
+texture = ExtResource("4_y7gyp")
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -59,6 +59,12 @@ offset_bottom = 719.0
 
 [node name="Overlay" type="CanvasLayer" parent="."]
 
-[node name="Overlay" parent="Overlay" instance=ExtResource("6_r3hql")]
-
 [node name="Volume" parent="Overlay" instance=ExtResource("7_uw64s")]
+
+[node name="Label2" type="Label" parent="."]
+offset_top = 696.0
+offset_right = 282.0
+offset_bottom = 719.0
+theme_override_fonts/font = ExtResource("8_huk1x")
+theme_override_font_sizes/font_size = 18
+text = "Press R to reset all settings"

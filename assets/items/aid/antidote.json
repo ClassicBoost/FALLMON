@@ -1,0 +1,7 @@
+{
+	"description": "Cures poison",
+	"type": "healing",
+
+	"addiction": 0,
+	"cost": 100
+}

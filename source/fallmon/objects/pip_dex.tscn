@@ -373,9 +373,8 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_a333f")
 theme_override_styles/hovered = SubResource("StyleBoxFlat_mjqal")
 theme_override_styles/selected = SubResource("StyleBoxFlat_s8p3i")
 theme_override_styles/selected_focus = SubResource("StyleBoxFlat_57mhi")
-item_count = 2
+item_count = 1
 item_0/text = "Pistol"
-item_1/text = "test2"
 
 [node name="aid_list" type="ItemList" parent="Device/Screen/Inventory"]
 offset_top = 64.0
@@ -391,9 +390,17 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_a333f")
 theme_override_styles/hovered = SubResource("StyleBoxFlat_mjqal")
 theme_override_styles/selected = SubResource("StyleBoxFlat_s8p3i")
 theme_override_styles/selected_focus = SubResource("StyleBoxFlat_57mhi")
-item_count = 2
+item_count = 10
 item_0/text = "Stim Pack"
-item_1/text = "Rad Away"
+item_1/text = "S. Stimpack"
+item_2/text = "Rad Away"
+item_3/text = "Doctor's Bag"
+item_4/text = "First Aid Kit"
+item_5/text = "Medic Kit"
+item_6/text = "Bandage"
+item_7/text = "Heal Spray"
+item_8/text = "Antidote"
+item_9/text = "Blood Pack"
 
 [node name="Data" type="NinePatchRect" parent="Device/Screen"]
 layout_mode = 0

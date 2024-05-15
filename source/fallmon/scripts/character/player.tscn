@@ -718,7 +718,6 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(4, 4)
 script = ExtResource("1_hg1fh")
-realHP = 5
 
 [node name="sprites" type="Sprite2D" parent="."]
 texture = ExtResource("2_ilhtl")

@@ -1,0 +1,7 @@
+{
+	"description": "Heals all of your HP, but slightly hurts you a bit",
+	"type": "stimpack",
+
+	"addiction": 0,
+	"cost": 300
+}

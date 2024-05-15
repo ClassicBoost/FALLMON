@@ -1,6 +1,6 @@
 {
 	"description": "Heals by 5 HP, but slightly hurts you a bit",
-	"type": "healing",
+	"type": "stimpack",
 
 	"addiction": 0,
 	"cost": 100

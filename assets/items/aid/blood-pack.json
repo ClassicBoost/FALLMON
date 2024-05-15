@@ -1,0 +1,7 @@
+{
+	"description": "Heals 1 HP",
+	"type": "healing",
+
+	"addiction": 0,
+	"cost": 10
+}

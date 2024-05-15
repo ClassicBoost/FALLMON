@@ -38,13 +38,13 @@ var save_path = "user://saves/saved_game.json"
 @onready var device = get_owner().get_node("UI/PIP-DEX")
 
 # SPECIAL
-@export var strength_default:int = 5
-@export var perception_default:int = 5
-@export var endurance_default:int = 5
-@export var charisma_default:int = 5
-@export var intelligence_default:int = 5
-@export var agility_default:int = 5
-@export var luck_default:int = 5
+var strength_default:int = 5
+var perception_default:int = 5
+var endurance_default:int = 5
+var charisma_default:int = 5
+var intelligence_default:int = 5
+var agility_default:int = 5
+var luck_default:int = 5
 var specialStats:Array = [3, 3, 3, 3, 3, 3, 3]
 
 var input_direction = Vector2(0,0)
@@ -67,15 +67,25 @@ var otherCNDmax:float = 0
 
 var weaponDifficulty:String = ''
 
+# type, intensity, duration
 @export var effects:Array = [
-	['bleeding', false]
+	['bleeding', 0, 0],
+	['poison', 0, 0]
 ]
 @export var weapons_inventory:Array = [
 	['Pistol', 0]
 ]
 @export var aid_inventory:Array = [
-	['Stimpacks', 0],
-	['Radaways', 0]
+	["Stimpacks", 0],
+	["S. Stimpacks", 0],
+	["Radaways", 0],
+	["Doctor's Bag", 0],
+	["First Aid Kit", 0],
+	["Medic Kit", 0],
+	["Bandage", 0],
+	["Heal Spray", 0],
+	["Antidote", 0],
+	["Blood Pack", 0]
 ]
 
 @export var currentItemHolding:String = ''
@@ -162,7 +172,41 @@ func itemCheck():
 				if health[0] > 5 and radiation > 0 and aid_inventory[1][1] > 0:
 					health[0] -= 5
 					radiation -= 50
+					aid_inventory[2][1] -= 1
+				else:
+					$nah.play()
+			's-stimpack':
+				if health[0] > 5 and realHP < 30 and aid_inventory[0][1] > 0:
+					health[0] -= 5
+					realHP += 30
 					aid_inventory[1][1] -= 1
+				else:
+					$nah.play()
+			'bandage':
+				if effects[0][2] > 0 and aid_inventory[6][1] > 0:
+					effects[0][2] = 0
+					aid_inventory[6][1] -= 1
+				else:
+					$nah.play()
+			'antidote':
+				if effects[1][2] > 0 and aid_inventory[8][1] > 0:
+					effects[1][2] = 0
+					aid_inventory[8][1] -= 1
+				else:
+					$nah.play()
+			'blood-pack':
+				if realHP < 30 and aid_inventory[9][1] > 0:
+					realHP += 1
+					aid_inventory[9][1] -= 1
+				else:
+					$nah.play()
+			'doctors-bag','first-aid-kit','medic-kit':
+				print('wip!')
+				$nah.play()
+			'heal-spray':
+				if health[0] < health[1] and aid_inventory[7][1] > 0:
+					health[0] += 20
+					aid_inventory[7][1] -= 1
 				else:
 					$nah.play()
 			_:
@@ -323,7 +367,6 @@ func loadData():
 		
 		charName = saved_data["name"]
 		charSpecies = saved_data["species"]
-		isFemale = saved_data["female"]
 		
 		strength_default = saved_data["str"]
 		perception_default = saved_data["per"]
@@ -337,9 +380,18 @@ func loadData():
 		otherCNDtype = saved_data["extra_limb"]
 		
 		if not stopLoading:
+			isFemale = saved_data["female"]
 			weapons_inventory[0][1] = saved_data['weapon_pistol']
 			aid_inventory[0][1] = saved_data['stimpacks']
-			aid_inventory[1][1] = saved_data['radaways']
+			aid_inventory[2][1] = saved_data['radaways']
+			aid_inventory[1][1] = saved_data['s-stimpacks']
+			aid_inventory[3][1] = saved_data['doctors-bag']
+			aid_inventory[4][1] = saved_data['first-aid-kit']
+			aid_inventory[5][1] = saved_data['medical-kit']
+			aid_inventory[6][1] = saved_data['bandage']
+			aid_inventory[7][1] = saved_data['heal-spray']
+			aid_inventory[8][1] = saved_data['antidote']
+			aid_inventory[9][1] = saved_data['blood-pack']
 			headCND = saved_data["head_cnd"]
 			chestCND = saved_data["chest_cnd"]
 			lArmCND = saved_data["larm_cnd"]
@@ -417,7 +469,15 @@ func saveChar():
 	saved_data['weapon_pistol'] = weapons_inventory[0][1]
 	
 	saved_data['stimpacks'] = aid_inventory[0][1]
-	saved_data['radaways'] = aid_inventory[1][1]
+	saved_data['s-stimpacks'] = aid_inventory[1][1]
+	saved_data['radaways'] = aid_inventory[2][1]
+	saved_data['doctors-bag'] =  aid_inventory[3][1]
+	saved_data['first-aid-kit'] =  aid_inventory[4][1]
+	saved_data['medical-kit'] =  aid_inventory[5][1]
+	saved_data['bandage'] = aid_inventory[6][1]
+	saved_data['heal-spray'] =  aid_inventory[7][1]
+	saved_data['antidote'] = aid_inventory[8][1]
+	saved_data['blood-pack'] =  aid_inventory[9][1]
 	
 	saved_data["pos_x"] = self.global_position.x
 	saved_data["pos_y"] = self.global_position.y

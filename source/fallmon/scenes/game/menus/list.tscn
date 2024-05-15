@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ddjmq0gtiqxpo"]
+[gd_scene load_steps=13 format=3 uid="uid://ddjmq0gtiqxpo"]
 
 [ext_resource type="Script" path="res://source/fallmon/scripts/game/menus/char_list.gd" id="1_fnofj"]
 [ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_tc7mr"]
@@ -16,6 +16,9 @@ bg_color = Color(0.345098, 0.345098, 0.345098, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0llmq"]
 bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8204x"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ib8o"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -43,6 +46,7 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_gq04o")
 theme_override_styles/hover = SubResource("StyleBoxFlat_soli4")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_0llmq")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_8204x")
 theme_override_styles/focus = SubResource("StyleBoxFlat_0ib8o")
 text = "PLAY"
 alignment = 0
@@ -121,7 +125,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_gq04o")
 theme_override_styles/hover = SubResource("StyleBoxFlat_soli4")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_0llmq")
 theme_override_styles/focus = SubResource("StyleBoxFlat_0ib8o")
-text = "SAVE FOLDER"
+text = "OPEN SAVE FOLDER"
 alignment = 2
 
 [node name="Panel" type="Panel" parent="."]
@@ -166,9 +170,11 @@ borderless = true
 mouse_passthrough = true
 theme = ExtResource("7_xecog")
 ok_button_text = "Open"
+dialog_autowrap = true
 file_mode = 0
 access = 1
 root_subfolder = "user://saves/"
+filters = PackedStringArray("*.json")
 
 [connection signal="mouse_entered" from="NinePatchRect/PLAY" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="NinePatchRect/PLAY" to="." method="_on_play_pressed"]

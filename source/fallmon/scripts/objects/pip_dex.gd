@@ -88,7 +88,7 @@ func _process(_delta):
 			aid_item.set_item_disabled(1, true)
 			if player.aid_inventory[0][1] > 0:
 				aid_item.set_item_disabled(0, false)
-			if player.aid_inventory[1][1] > 0:
+			if player.aid_inventory[2][1] > 0:
 				aid_item.set_item_disabled(1, false)
 			
 	infoTxt.text += 'VALUE: '
@@ -205,15 +205,21 @@ func _on_weapon_list_selected(index):
 	
 	loadInfo('weapons', index)
 
+var aid_item_ids:Array = [
+	'StimPack',
+	'S-StimPack',
+	'RadAway',
+	'Doctors-Bag',
+	'First-Aid-Kit',
+	'Medic-Kit',
+	'Bandage',
+	'Heal-Spray',
+	'AntiDote',
+	'Blood-Pack'
+]
 
 func _on_aid_list_item_selected(index):
 	$confirm.play()
-	match index:
-		0:
-			item_path = 'StimPack'
-		1:
-			item_path = 'RadAway'
-		_:
-			item_path = 'blank'
+	item_path = aid_item_ids[index]
 	
 	loadInfo('aid', index)

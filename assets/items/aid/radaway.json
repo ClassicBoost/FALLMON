@@ -1,6 +1,6 @@
 {
 	"description": "Removes 50 radiation, but slightly hurts you a bit",
-	"type": "healing",
+	"type": "radaway",
 
 	"addiction": 0.05,
 	"cost": 115

@@ -1,0 +1,7 @@
+{
+	"description": "Heals your energy by 20",
+	"type": "stimpack",
+
+	"addiction": 0,
+	"cost": 80
+}
