@@ -427,5 +427,6 @@ vertical_alignment = 1
 [connection signal="pressed" from="SPECIAL/LUK UP/LUK DOWN" to="." method="_on_special_stat_pressed" binds= ["luk", false]]
 [connection signal="text_changed" from="Top/Name" to="." method="_on_name_text_changed"]
 [connection signal="item_selected" from="Top/SpeciesList" to="." method="_on_species_selected"]
+[connection signal="mouse_entered" from="Top/SpeciesList" to="." method="_on_mouse_entered"]
 [connection signal="mouse_entered" from="Top/Gender" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="Top/Gender" to="." method="_on_gender_pressed"]

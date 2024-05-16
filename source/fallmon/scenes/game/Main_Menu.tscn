@@ -78,6 +78,21 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_u3d2t")
 text = "CONFIGURATION"
 alignment = 0
 
+[node name="CREDITS" type="Button" parent="ColorRect"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 512.0
+offset_right = 448.0
+offset_bottom = 576.0
+theme_override_fonts/font = ExtResource("2_npo1v")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_5sytj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kvsmi")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rm5fl")
+theme_override_styles/focus = SubResource("StyleBoxFlat_u3d2t")
+text = "CREDITS + GITHUB"
+alignment = 0
+
 [node name="EXIT" type="Button" parent="ColorRect"]
 layout_mode = 0
 offset_left = 64.0
@@ -146,5 +161,7 @@ volume_db = -10.0
 [connection signal="pressed" from="ColorRect/PLAY" to="." method="_on_play_pressed"]
 [connection signal="mouse_entered" from="ColorRect/SETTINGS" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="ColorRect/SETTINGS" to="." method="_on_settings_pressed"]
+[connection signal="mouse_entered" from="ColorRect/CREDITS" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="ColorRect/CREDITS" to="." method="_on_credits_pressed"]
 [connection signal="mouse_entered" from="ColorRect/EXIT" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="ColorRect/EXIT" to="." method="_on_exit_pressed"]

@@ -61,7 +61,7 @@ func _process(_delta):
 				cndTxt.text += '\n' + player.otherCNDtype.to_upper() + ': ' + str((player.otherCND/player.otherCNDmax)*100) + '%'
 		'rad':
 			$Device/Screen/Stats/Radiation/rad_bar.value = player.radiation
-			$Device/Screen/Stats/Radiation/percent.text = str(player.radiation/10) + '%'
+			$Device/Screen/Stats/Radiation/percent.text = str(float(int(player.radiation))/10) + '%'
 		'special':
 			var specialTxt = $Device/Screen/Stats/SPECIAL/special
 			specialTxt.text = 'STRENGTH: ' + str(player.specialStats[0])
@@ -79,18 +79,21 @@ func _process(_delta):
 			if item_ammo > 0:
 				infoTxt.text += 'AMMO: ' + str(item_ammo) + '\n'
 			
-			weapon_item.set_item_disabled(0, true)
-			
-			if player.weapons_inventory[0][1] > 0:
-				weapon_item.set_item_disabled(0, false)
+			var weaponList:ItemList = $Device/Screen/Inventory/weapon_list
+			for i in range(0,weaponList.get_item_count()):
+				weaponList.set_item_disabled(i,true)
+				weaponList.set_item_tooltip_enabled(i,false)
+				if player.weapons_inventory[i][1] > 0:
+					weaponList.set_item_disabled(i, false)
 		'aid':
-			aid_item.set_item_disabled(0, true)
-			aid_item.set_item_disabled(1, true)
-			if player.aid_inventory[0][1] > 0:
-				aid_item.set_item_disabled(0, false)
-			if player.aid_inventory[2][1] > 0:
-				aid_item.set_item_disabled(1, false)
+			var aidList:ItemList = $Device/Screen/Inventory/aid_list
 			
+			for i in range(0,aidList.get_item_count()):
+				aidList.set_item_disabled(i,true)
+				aidList.set_item_tooltip_enabled(i,false)
+				if player.aid_inventory[i][1] > 0:
+					aid_item.set_item_disabled(i, false)
+	
 	infoTxt.text += 'VALUE: '
 	if item_value > 0:
 		infoTxt.text += str(item_value)
@@ -202,7 +205,7 @@ func _on_weapon_list_selected(index):
 			item_path = 'Pistol'
 		_:
 			item_path = 'blank'
-	
+
 	loadInfo('weapons', index)
 
 var aid_item_ids:Array = [
@@ -221,5 +224,5 @@ var aid_item_ids:Array = [
 func _on_aid_list_item_selected(index):
 	$confirm.play()
 	item_path = aid_item_ids[index]
-	
+
 	loadInfo('aid', index)

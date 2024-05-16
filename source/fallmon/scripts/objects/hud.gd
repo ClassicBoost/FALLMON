@@ -8,6 +8,9 @@ var highlighted:String = ''
 @onready var portraitThingy = get_owner().get_node("UI/HUD/HP/front/portrait")
 var portrait:String = 'unown'
 
+@onready var healthBar:TextureProgressBar = $HP/front/healthBar
+@onready var staminaBar:TextureProgressBar = $Stamina/stamina/staminaBar
+
 func _ready():
 	image.modulate.a = 0.5
 	$Stamina.modulate.a = 0.5
@@ -18,9 +21,11 @@ func _process(delta):
 	if $Stamina.modulate.a > 0.5 and highlighted != 'stamina':
 		$Stamina.modulate.a -= 0.1 * delta
 	
-	$HP/front/healthBar.value = (player.health[0]/player.health[1]) * 100
+	healthBar.value = player.health[0]
+	healthBar.max_value = player.health[1]
 	$HP/front/realHP.value = (player.realHP)
-	$Stamina/stamina/staminaBar.value = (player.stamina[0]/player.stamina[1]) * 100
+	staminaBar.value = player.stamina[0]
+	staminaBar.max_value = player.stamina[1]
 	
 	portraitSprite.texture = load("res://assets/graphics/portraits/" + portrait + ".png")
 	if portraitSprite.texture == null:  # prevent crashing

@@ -37,6 +37,7 @@ func _process(delta):
 		
 	timer -= 1 * delta
 	
+	@warning_ignore("narrowing_conversion")
 	game_volume = volumeNum
 	
 	saveSettings()
@@ -50,6 +51,7 @@ func _process(delta):
 		$Panel/ProgressBar.value = volumeNum
 
 func _on_progress_bar_value_changed(value):
+	@warning_ignore("narrowing_conversion")
 	AudioServer.set_bus_volume_db(volumeNum, linear_to_db(value))
 
 func saveSettings():		

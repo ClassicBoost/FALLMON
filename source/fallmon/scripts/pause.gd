@@ -4,6 +4,7 @@ var paused:bool = false
 var shaders:bool = true
 var time = Time.get_datetime_dict_from_system()
 var pm = ''
+@onready var player = get_owner().get_node("Player")
 
 func _ready():
 	pass
@@ -26,6 +27,7 @@ func _process(_delta):
 		pm = 'AM '
 	
 	time = Time.get_datetime_dict_from_system()
+	$bg/saved.text = 'Last Saved: ' + str(float(int(player.saveTimer*10))/10) + 's'
 	$bg/time.text = pm + ("%02d:%02d:%02d" % [time.hour, time.minute, time.second]) + "\n" + ("%02d/%02d/----" % [time.day, time.month])
 	
 	loadSettings()

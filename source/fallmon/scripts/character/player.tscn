@@ -1,9 +1,10 @@
-[gd_scene load_steps=57 format=3 uid="uid://dv6irvu1ye2u5"]
+[gd_scene load_steps=58 format=3 uid="uid://dv6irvu1ye2u5"]
 
 [ext_resource type="Script" path="res://source/fallmon/scripts/character/Player.gd" id="1_hg1fh"]
 [ext_resource type="Texture2D" uid="uid://dxsyb53kcofth" path="res://assets/species/sprites/wooper-male/walk.png" id="2_ilhtl"]
 [ext_resource type="AudioStream" uid="uid://bgqdqq38sug5f" path="res://assets/audios/sounds/ui/nah.ogg" id="3_1osdy"]
 [ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="4_db8yv"]
+[ext_resource type="AudioStream" uid="uid://6eusqa0i2h0x" path="res://assets/audios/sounds/player/radiation.ogg" id="5_u5d22"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ua8rh"]
 
@@ -716,8 +717,10 @@ states/Start/position = Vector2(195, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_d7mx1")]
 
 [node name="Player" type="CharacterBody2D"]
+process_mode = 3
 scale = Vector2(4, 4)
 script = ExtResource("1_hg1fh")
+aid_inventory = [["Stimpacks", 1], ["S. Stimpacks", 1], ["Radaways", 99], ["Doctor's Bag", 0], ["First Aid Kit", 0], ["Medic Kit", 0], ["Bandage", 0], ["Heal Spray", 99], ["Antidote", 0], ["Blood Pack", 0]]
 
 [node name="sprites" type="Sprite2D" parent="."]
 texture = ExtResource("2_ilhtl")
@@ -779,3 +782,6 @@ theme_override_fonts/font = ExtResource("4_db8yv")
 theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="radiationSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_u5d22")

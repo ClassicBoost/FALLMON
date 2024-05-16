@@ -48,6 +48,8 @@ var totalLUK = 0
 
 func _ready():
 	preload("res://source/fallmon/scenes/game/testing_room.tscn").instantiate()
+	for i in range(0,$Top/SpeciesList.get_item_count()):
+		$Top/SpeciesList.set_item_tooltip_enabled(i,false)
 		
 func _process(_delta):
 	$SPECIAL/Text.text = 'STRENGTH: ' + str(startStr) + ' (' + str(startStr+pkmnSTR) + ')'
@@ -256,6 +258,7 @@ func saveChar():
 	saved_data['first-aid-kit'] = 0
 	saved_data['heal-spray'] = 0
 	saved_data['blood-pack'] = 0
+	saved_data['radiation'] = 0
 		
 	var json = JSON.stringify(saved_data)
 		

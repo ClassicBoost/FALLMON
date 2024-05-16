@@ -14,8 +14,8 @@ func _ready():
 	file.close()
 
 func _process(_delta):
-	#if Input.is_action_just_pressed("debug2") and OS.is_debug_build():
-	#	get_tree().change_scene_to_file("res://source/fallmon/scenes/game/testing_room.tscn")
+	if Input.is_action_just_pressed("debug2") and OS.is_debug_build():
+		get_tree().change_scene_to_file("res://source/fallmon/scenes/game/menus/debug_room.tscn")
 							
 	loadSettings()
 	if shaders:
@@ -58,3 +58,7 @@ func _on_play_pressed():
 
 func _on_intro_pressed():
 	get_tree().change_scene_to_file("res://source/fallmon/scenes/game/video.tscn")
+
+
+func _on_credits_pressed():
+	OS.shell_open('https://github.com/ClassicBoost/FALLMON')

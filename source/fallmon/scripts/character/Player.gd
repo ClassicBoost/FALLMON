@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 var moveSpeed:float = 130
 
+var saveTimer:float = 0
+
 @onready var animation_tree = $AnimationTree
 @onready var sprite = $sprites
 
@@ -28,14 +30,15 @@ var save_path = "user://saves/saved_game.json"
 
 @export var isFemale:bool = false
 
-@export var health:Array = [999, 35]
-@export var stamina:Array = [999, 50]
-@export var PP:Array = [10, 10]
+@export var health:Array = [35.0, 35.0]
+@export var stamina:Array = [35.0, 50.0]
+@export var PP:Array = [10.0, 10.0]
 
 @export var realHP:int = 30
 
 @onready var portraitThingy = get_owner().get_node("UI/HUD/HP/front/portrait")
 @onready var device = get_owner().get_node("UI/PIP-DEX")
+@onready var pauseThingy = get_owner().get_node("UI/Pause")
 
 # SPECIAL
 var strength_default:int = 5
@@ -50,6 +53,7 @@ var specialStats:Array = [3, 3, 3, 3, 3, 3, 3]
 var input_direction = Vector2(0,0)
 
 @export var radiation:float = 0
+var lastRadiation:float = 0
 
 var moving:bool = false
 var running:bool = false
@@ -97,6 +101,8 @@ var species_sprite:String = 'example'
 func _ready():
 	updateAnim(Vector2(0, 1))
 	stopLoading = false
+	$radiationSound.play()
+	$radiationSound.volume_db = -INF
 
 func _physics_process(delta):
 	#save_path = "user://saves/" + charName.to_lower() + ".json"
@@ -123,31 +129,42 @@ func _physics_process(delta):
 		if Input.is_action_pressed("sprint"):
 			running = true
 	
-	if running and moving and not exhausted and (lLegCND >= 10 and rLegCND >= 10):
-		moveSpeed = (300+(specialStats[5]*2)-(((health[0]/health[1])*-1)*80))*((lLegCND/100)+(rLegCND/100))
-		stamina[0] -= 8 * delta
-		anim_player.set_speed_scale(3)
-	else:
-		moveSpeed = (70+specialStats[5]-(((health[0]/health[1])*-1)*80))*((lLegCND/100)+(rLegCND/100))
-		if moving:
-			stamina[0] += specialStats[5] * (delta/3)
+	if radiation > lastRadiation:
+		$radiationSound.volume_db = 0
+	
+	$radiationSound.volume_db -= 20 * delta
+	lastRadiation = radiation
+	
+	if not pauseThingy.paused:
+		if running and moving and not exhausted and (lLegCND >= 10 and rLegCND >= 10):
+			moveSpeed = (300+(specialStats[5]*2)-(((health[0]/health[1])*-1)*80))*((lLegCND/100)+(rLegCND/100))
+			stamina[0] -= 8 * delta
+			anim_player.set_speed_scale(3)
 		else:
-			stamina[0] += (specialStats[5]) * delta
-		anim_player.set_speed_scale(1)
-	
-	if lLegCND < 10:
-		lLegCND += 0.1 * delta
-	if rLegCND < 10:
-		rLegCND += 0.1 * delta
-	
-	if effects[2][2] > 0:
-		effects[2][2] -= 1 * delta
+			moveSpeed = (70+specialStats[5]-(((health[0]/health[1])*-1)*80))*((lLegCND/100)+(rLegCND/100))
+			if moving:
+				stamina[0] += specialStats[5] * (delta/3)
+			else:
+				stamina[0] += (specialStats[5]) * delta
+			anim_player.set_speed_scale(1)
+		
+		if lLegCND < 10:
+			lLegCND += 0.1 * delta
+		if rLegCND < 10:
+			rLegCND += 0.1 * delta
+		
+		if effects[2][2] > 0:
+			effects[2][2] -= 1 * delta
 	
 	#print(moveSpeed)
 	
-	updateAnim(input_direction)
+	if not device.device_open and not pauseThingy.paused:
+		updateAnim(input_direction)
+		animation_tree.active = true
+	else:
+		animation_tree.active = false
 
-	if not device.device_open:
+	if not device.device_open and not pauseThingy.paused:
 		velocity = (input_direction * moveSpeed) * (delta * 60)
 		move_and_slide()
 	if Input.is_action_just_pressed("device"):
@@ -155,8 +172,11 @@ func _physics_process(delta):
 	
 	new_anim_state()
 	
-	if charName != '' and charName != null:
+	saveTimer += 1 * delta
+	
+	if charName != '' and charName != null and saveTimer > 5:
 		saveChar()
+		saveTimer = 0
 	
 	itemCheck()
 
@@ -174,16 +194,16 @@ func itemCheck():
 				else:
 					$nah.play()
 			'radaway':
-				if health[0] > 5 and radiation > 0 and aid_inventory[1][1] > 0:
+				if health[0] > 5 and radiation > 0 and aid_inventory[2][1] > 0:
 					health[0] -= 5
 					radiation -= 50
 					aid_inventory[2][1] -= 1
 				else:
 					$nah.play()
 			's-stimpack':
-				if health[0] > 5 and realHP < 30 and aid_inventory[0][1] > 0 and effects[2][2] <= 0:
+				if health[0] > 5 and realHP < 30 and aid_inventory[1][1] > 0 and effects[2][2] <= 0:
 					health[0] -= 5
-					realHP += 30
+					realHP = 999
 					aid_inventory[1][1] -= 1
 					effects[2][2] = 5
 				else:
@@ -246,9 +266,9 @@ func updateLimits():
 		exhausted = true
 	if stamina[0] > 10:
 		exhausted = false
-	if radiation > 1000:
+	if radiation > 1050:
 		health[0] -= 1
-		radiation -= 1
+		radiation = 1050
 	if headCND > 200:
 		headCND = 200
 	if chestCND > 300:
@@ -270,7 +290,7 @@ func updateLimits():
 		realHP = 30
 
 func runPortraitUpdate():
-	if stamina[0] <= 10 or health[0] <= 10:
+	if stamina[0] <= (stamina[1]*0.3) or health[0] <= 10:
 		portraitThingy.expression = 2
 	if health[0] <= 4:
 		portraitThingy.expression = 13
@@ -388,6 +408,7 @@ func loadData():
 		
 		if not stopLoading:
 			isFemale = saved_data["female"]
+			radiation = saved_data["radiation"]
 			weapons_inventory[0][1] = saved_data['weapon_pistol']
 			aid_inventory[0][1] = saved_data['stimpacks']
 			aid_inventory[2][1] = saved_data['radaways']
@@ -461,6 +482,8 @@ func saveChar():
 	saved_data['health'] = health[0]
 	saved_data['real_hp'] = realHP
 	
+	saved_data["radiation"] = radiation
+	
 	saved_data["head_cnd"] = headCND 
 	saved_data["chest_cnd"] = chestCND 
 	saved_data["larm_cnd"] = lArmCND 
@@ -490,6 +513,8 @@ func saveChar():
 	saved_data["pos_y"] = self.global_position.y
 	
 	var json = JSON.stringify(saved_data)
+	
+	#print('game saved')
 		
 	file.store_string(json)
 	file.close()
