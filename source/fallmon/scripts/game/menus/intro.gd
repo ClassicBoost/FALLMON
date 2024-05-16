@@ -4,6 +4,9 @@ var timer:float = 1
 var wait:float = 1
 func _ready():
 	$skip.position.y = 900
+	
+	if OS.has_feature("mobile"):
+		$Overlay/Skip.show()
 
 func _process(delta):
 	if Input.is_anything_pressed() and wait < 0:
@@ -19,4 +22,8 @@ func _process(delta):
 		get_tree().change_scene_to_file("res://source/fallmon/scenes/game/Main_Menu.tscn")
 
 func _on_video_stream_player_finished():
+	get_tree().change_scene_to_file("res://source/fallmon/scenes/game/Main_Menu.tscn")
+
+
+func _on_skip_pressed():
 	get_tree().change_scene_to_file("res://source/fallmon/scenes/game/Main_Menu.tscn")

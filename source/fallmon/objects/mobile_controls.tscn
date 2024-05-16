@@ -1,0 +1,120 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4ne1j81rsndy"]
+
+[ext_resource type="Script" path="res://source/fallmon/scripts/objects/mobile_controls.gd" id="1_d463h"]
+[ext_resource type="FontFile" uid="uid://u2gi1c8bl7f2" path="res://assets/fonts/tech.ttf" id="2_r7v1l"]
+
+[node name="MobileControls" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1_d463h")
+
+[node name="overlay" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="pause" type="Button" parent="overlay"]
+layout_mode = 0
+offset_left = 1152.0
+offset_right = 1280.0
+offset_bottom = 128.0
+theme_override_fonts/font = ExtResource("2_r7v1l")
+theme_override_font_sizes/font_size = 24
+text = "PAUSE"
+
+[node name="device" type="Button" parent="overlay"]
+layout_mode = 0
+offset_left = 1144.0
+offset_top = 576.0
+offset_right = 1272.0
+offset_bottom = 704.0
+theme_override_fonts/font = ExtResource("2_r7v1l")
+theme_override_font_sizes/font_size = 24
+text = "DEVICE"
+
+[node name="item" type="Button" parent="overlay"]
+layout_mode = 0
+offset_left = 984.0
+offset_top = 576.0
+offset_right = 1112.0
+offset_bottom = 704.0
+theme_override_fonts/font = ExtResource("2_r7v1l")
+theme_override_font_sizes/font_size = 24
+text = "ITEM"
+
+[node name="left" type="Button" parent="overlay"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 576.0
+offset_right = 192.0
+offset_bottom = 704.0
+theme_override_fonts/font = ExtResource("2_r7v1l")
+theme_override_font_sizes/font_size = 24
+text = "LEFT"
+
+[node name="down" type="Button" parent="overlay"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 576.0
+offset_right = 352.0
+offset_bottom = 704.0
+theme_override_fonts/font = ExtResource("2_r7v1l")
+theme_override_font_sizes/font_size = 24
+text = "DOWN"
+
+[node name="right" type="Button" parent="overlay"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 576.0
+offset_right = 512.0
+offset_bottom = 704.0
+theme_override_fonts/font = ExtResource("2_r7v1l")
+theme_override_font_sizes/font_size = 24
+text = "RIGHT"
+
+[node name="up" type="Button" parent="overlay"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 416.0
+offset_right = 352.0
+offset_bottom = 544.0
+theme_override_fonts/font = ExtResource("2_r7v1l")
+theme_override_font_sizes/font_size = 24
+text = "UP"
+
+[node name="interact" type="Button" parent="overlay"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 416.0
+offset_right = 512.0
+offset_bottom = 544.0
+theme_override_fonts/font = ExtResource("2_r7v1l")
+theme_override_font_sizes/font_size = 24
+text = "USE"
+
+[node name="sprint" type="Button" parent="overlay"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 416.0
+offset_right = 192.0
+offset_bottom = 544.0
+theme_override_fonts/font = ExtResource("2_r7v1l")
+theme_override_font_sizes/font_size = 24
+text = "SPRINT"
+
+[connection signal="pressed" from="overlay/pause" to="." method="_on_pause_pressed"]
+[connection signal="pressed" from="overlay/device" to="." method="_on_device_pressed"]
+[connection signal="pressed" from="overlay/item" to="." method="_on_item_pressed"]
+[connection signal="button_down" from="overlay/left" to="." method="_on_left_pressed"]
+[connection signal="button_up" from="overlay/left" to="." method="_on_left_button_up"]
+[connection signal="button_down" from="overlay/down" to="." method="_on_down_pressed"]
+[connection signal="button_up" from="overlay/down" to="." method="_on_down_button_up"]
+[connection signal="button_down" from="overlay/right" to="." method="_on_right_pressed"]
+[connection signal="button_up" from="overlay/right" to="." method="_on_right_button_up"]
+[connection signal="button_down" from="overlay/up" to="." method="_on_up_pressed"]
+[connection signal="button_up" from="overlay/up" to="." method="_on_up_button_up"]
+[connection signal="pressed" from="overlay/interact" to="." method="_on_interact_pressed"]
+[connection signal="button_down" from="overlay/sprint" to="." method="_on_sprint_pressed"]
+[connection signal="button_up" from="overlay/sprint" to="." method="_on_sprint_button_up"]

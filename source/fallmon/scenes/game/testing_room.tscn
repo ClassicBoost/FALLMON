@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://qy3gh37tv2bb"]
+[gd_scene load_steps=19 format=3 uid="uid://qy3gh37tv2bb"]
 
 [ext_resource type="PackedScene" uid="uid://dv6irvu1ye2u5" path="res://source/fallmon/scripts/character/player.tscn" id="1_ain01"]
 [ext_resource type="Script" path="res://source/fallmon/scripts/game/rooms/testing_room.gd" id="1_jeyvt"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://source/fallmon/scripts/game/RadEffect.gd" id="5_wn47j"]
 [ext_resource type="PackedScene" uid="uid://yqnn64y8b3vj" path="res://source/fallmon/subscenes/pause.tscn" id="6_tduke"]
 [ext_resource type="Script" path="res://source/fallmon/scripts/game/RadEffectGame.gd" id="8_3af6m"]
+[ext_resource type="PackedScene" uid="uid://d4ne1j81rsndy" path="res://source/fallmon/objects/mobile_controls.tscn" id="8_v5m6p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbeek"]
 texture = ExtResource("1_y5nw7")
@@ -120,6 +121,10 @@ offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
 script = ExtResource("5_wn47j")
+
+[node name="MobileControls" parent="UI" instance=ExtResource("8_v5m6p")]
+process_mode = 3
+mouse_filter = 2
 
 [node name="Pause" parent="UI" instance=ExtResource("6_tduke")]
 visible = false
