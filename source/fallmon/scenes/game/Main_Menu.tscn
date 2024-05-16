@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c7aevpcfajec0"]
+[gd_scene load_steps=15 format=3 uid="uid://c7aevpcfajec0"]
 
 [ext_resource type="Script" path="res://source/fallmon/scripts/game/menus/Main_Menu.gd" id="1_6tvsw"]
 [ext_resource type="PackedScene" uid="uid://bufodnhbl7i07" path="res://source/fallmon/backend/overlay.tscn" id="1_6ydkv"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_npo1v"]
 [ext_resource type="PackedScene" uid="uid://dpxmx3o7s44ok" path="res://source/fallmon/backend/volume.tscn" id="2_uos3y"]
 [ext_resource type="PackedScene" uid="uid://glxt465a7cxc" path="res://source/fallmon/subscenes/settings.tscn" id="2_ykjtb"]
+[ext_resource type="Texture2D" uid="uid://vko46yfh7jgn" path="res://assets/graphics/title/wtf.png" id="3_h8pqo"]
 [ext_resource type="AudioStream" uid="uid://c2oosn0afscwm" path="res://assets/audios/sounds/menus/confirm.ogg" id="7_gunb1"]
 [ext_resource type="AudioStream" uid="uid://5kqmh8lm2c3p" path="res://assets/audios/sounds/menus/vhs-change.ogg" id="8_6y828"]
 
@@ -131,6 +132,10 @@ theme_override_font_sizes/font_size = 20
 text = "placeholder"
 horizontal_alignment = 2
 vertical_alignment = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="ColorRect"]
+position = Vector2(944, 312)
+texture = ExtResource("3_h8pqo")
 
 [node name="Settings" parent="." instance=ExtResource("2_ykjtb")]
 visible = false
