@@ -39,6 +39,7 @@ var save_path = "user://saves/saved_game.json"
 @onready var portraitThingy = get_owner().get_node("UI/HUD/HP/front/portrait")
 @onready var device = get_owner().get_node("UI/PIP-DEX")
 @onready var pauseThingy = get_owner().get_node("UI/Pause")
+@onready var time = get_owner().get_node("UI/Time")
 
 # SPECIAL
 var strength_default:int = 5
@@ -70,6 +71,12 @@ var otherCNDtype:String = ''
 var otherCNDmax:float = 0
 
 var weaponDifficulty:String = ''
+
+@export var saturations:Array = [
+	100,
+	100,
+	100
+]
 
 # type, intensity, duration
 @export var effects:Array = [
@@ -134,6 +141,13 @@ func _physics_process(delta):
 	
 	$radiationSound.volume_db -= 20 * delta
 	lastRadiation = radiation
+	
+	saturations[0] -= 0.017 * delta
+	saturations[1] -= 0.04 * delta
+	if not moving:
+		saturations[2] -= 0.0001 * delta
+	else:
+		saturations[2] -= (0.0002*moveSpeed) * delta
 	
 	if not pauseThingy.paused:
 		if running and moving and not exhausted and (lLegCND >= 10 and rLegCND >= 10):
@@ -253,6 +267,18 @@ func updateLimits():
 	health[1] = 20+(specialStats[2]*2)+specialStats[0]+pkmnHP
 	PP[1] = (specialStats[0]*2)+pkmnPP
 	
+	if saturations[0] > 100:
+		saturations[0] = 100
+	if saturations[1] > 100:
+		saturations[1] = 100
+	if saturations[2] > 100 or health[0] < 0:
+		saturations[2] = 100
+	if saturations[0] < 0:
+		saturations[0] = 0
+	if saturations[1] < 0:
+		saturations[1] = 0
+	if saturations[2] < 0:
+		saturations[2] = 0
 	if radiation < 0:
 		radiation = 0
 	if health[0] > health[1]:
@@ -434,6 +460,13 @@ func loadData():
 			health[0] = saved_data['health']
 			realHP = saved_data['real_hp']
 			
+			time.localTime = saved_data["time"]
+			time.day = saved_data["day"]
+			
+			saturations[0] = saved_data["hunger"]
+			saturations[1] = saved_data["thirst"]
+			saturations[2] = saved_data["sleep"]
+			
 			self.global_position.x = saved_data["pos_x"]
 			self.global_position.y = saved_data["pos_y"]
 			
@@ -494,6 +527,13 @@ func saveChar():
 	
 	saved_data["weapon_difficulty"] = weaponDifficulty
 	saved_data["extra_limb"] = otherCNDtype
+	
+	saved_data["time"] = time.localTime
+	saved_data["day"] = time.day
+	
+	saved_data["hunger"] = saturations[0]
+	saved_data["thirst"] = saturations[1]
+	saved_data["sleep"] = saturations[2]
 	
 	#inventory
 	saved_data['weapon_pistol'] = weapons_inventory[0][1]

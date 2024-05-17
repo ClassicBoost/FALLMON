@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b7ph6x07iis4v"]
+
+[node name="Time" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="blah" type="ColorRect" parent="NinePatchRect"]
+layout_mode = 2
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0.0470588, 0.745098)

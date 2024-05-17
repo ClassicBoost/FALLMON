@@ -89,8 +89,18 @@ theme_override_font_sizes/font_size = 20
 text = "PLAYERNAMESOLONG
 LE: 35/35 // STM: 100/100 // PP: 20/20"
 
+[node name="time" type="Label" parent="Device/Screen"]
+layout_mode = 0
+offset_left = 323.0
+offset_right = 568.0
+offset_bottom = 49.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 20
+text = "8:30 AM | Sunday"
+horizontal_alignment = 2
+
 [node name="Stats" type="NinePatchRect" parent="Device/Screen"]
-visible = false
 layout_mode = 0
 offset_right = 568.0
 offset_bottom = 384.0
@@ -152,11 +162,30 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_bovod")
 text = "[EFFECTS]"
 alignment = 0
 
-[node name="special" type="Button" parent="Device/Screen/Stats"]
+[node name="saturation" type="Button" parent="Device/Screen/Stats"]
 layout_mode = 0
 offset_top = 216.0
 offset_right = 192.0
 offset_bottom = 250.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 0.564706, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_ekq7a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w7rby")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xinp4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_bovod")
+text = "[SATURATION]"
+alignment = 0
+
+[node name="special" type="Button" parent="Device/Screen/Stats"]
+layout_mode = 0
+offset_top = 256.0
+offset_right = 192.0
+offset_bottom = 290.0
 theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
 theme_override_colors/font_pressed_color = Color(0, 1, 0.564706, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 0.564706, 1)
@@ -258,7 +287,134 @@ INTELLIGENCE: 0
 AGILITY: 0
 LUCK: 0"
 
+[node name="Saturation" type="NinePatchRect" parent="Device/Screen/Stats"]
+visible = false
+layout_mode = 0
+offset_right = 568.0
+offset_bottom = 384.0
+
+[node name="0" type="NinePatchRect" parent="Device/Screen/Stats/Saturation"]
+layout_mode = 0
+offset_right = 568.0
+offset_bottom = 384.0
+
+[node name="bar" type="ProgressBar" parent="Device/Screen/Stats/Saturation/0"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 96.0
+offset_right = 552.0
+offset_bottom = 120.0
+theme_override_styles/background = SubResource("StyleBoxFlat_svs15")
+theme_override_styles/fill = SubResource("StyleBoxFlat_f3g2v")
+step = 0.001
+value = 100.0
+show_percentage = false
+
+[node name="label" type="Label" parent="Device/Screen/Stats/Saturation/0"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 120.0
+offset_right = 560.0
+offset_bottom = 176.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 24
+text = "Hunger:"
+
+[node name="percent" type="Label" parent="Device/Screen/Stats/Saturation/0"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 120.0
+offset_right = 560.0
+offset_bottom = 176.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 46
+text = "100%"
+horizontal_alignment = 2
+
+[node name="1" type="NinePatchRect" parent="Device/Screen/Stats/Saturation"]
+layout_mode = 0
+offset_right = 568.0
+offset_bottom = 384.0
+
+[node name="bar" type="ProgressBar" parent="Device/Screen/Stats/Saturation/1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 184.0
+offset_right = 552.0
+offset_bottom = 208.0
+theme_override_styles/background = SubResource("StyleBoxFlat_svs15")
+theme_override_styles/fill = SubResource("StyleBoxFlat_f3g2v")
+step = 0.001
+value = 100.0
+show_percentage = false
+
+[node name="label" type="Label" parent="Device/Screen/Stats/Saturation/1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 208.0
+offset_right = 560.0
+offset_bottom = 264.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 24
+text = "Thirst:"
+
+[node name="percent" type="Label" parent="Device/Screen/Stats/Saturation/1"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 208.0
+offset_right = 560.0
+offset_bottom = 264.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 46
+text = "100%"
+horizontal_alignment = 2
+
+[node name="2" type="NinePatchRect" parent="Device/Screen/Stats/Saturation"]
+layout_mode = 0
+offset_right = 568.0
+offset_bottom = 384.0
+
+[node name="bar" type="ProgressBar" parent="Device/Screen/Stats/Saturation/2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 272.0
+offset_right = 552.0
+offset_bottom = 296.0
+theme_override_styles/background = SubResource("StyleBoxFlat_svs15")
+theme_override_styles/fill = SubResource("StyleBoxFlat_f3g2v")
+step = 0.001
+value = 100.0
+show_percentage = false
+
+[node name="label" type="Label" parent="Device/Screen/Stats/Saturation/2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 296.0
+offset_right = 560.0
+offset_bottom = 352.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 24
+text = "Sleep:"
+
+[node name="percent" type="Label" parent="Device/Screen/Stats/Saturation/2"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 296.0
+offset_right = 560.0
+offset_bottom = 352.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 46
+text = "100%"
+horizontal_alignment = 2
+
 [node name="Inventory" type="NinePatchRect" parent="Device/Screen"]
+visible = false
 layout_mode = 0
 offset_right = 568.0
 offset_bottom = 384.0
@@ -477,6 +633,8 @@ mouse_filter = 2
 [connection signal="pressed" from="Device/Screen/Stats/radiation" to="." method="_on_stats_sub_pressed" binds= ["rad", true]]
 [connection signal="mouse_entered" from="Device/Screen/Stats/effects" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Device/Screen/Stats/effects" to="." method="_on_stats_sub_pressed" binds= ["eff", true]]
+[connection signal="mouse_entered" from="Device/Screen/Stats/saturation" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Device/Screen/Stats/saturation" to="." method="_on_stats_sub_pressed" binds= ["sat", true]]
 [connection signal="mouse_entered" from="Device/Screen/Stats/special" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Device/Screen/Stats/special" to="." method="_on_stats_sub_pressed" binds= ["special", true]]
 [connection signal="mouse_entered" from="Device/Screen/Inventory/weapons" to="." method="_on_button_mouse_entered"]

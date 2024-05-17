@@ -5,6 +5,7 @@ extends Control
 @export var currentSubMenu:String = 'cnd'
 
 @onready var player = get_owner().get_node("Player")
+@onready var time = get_owner().get_node("UI/Time")
 
 @onready var ambience:AudioStreamPlayer
 
@@ -19,8 +20,24 @@ var otherCNDmax:float = 1
 @export var item_value:int = 0
 var total_item:int = 0
 
+var hour:int = 8
+
 @onready var weapon_item:ItemList = $Device/Screen/Inventory/weapon_list
 @onready var aid_item:ItemList = $Device/Screen/Inventory/aid_list
+
+@onready var clock:Label = $Device/Screen/time
+
+var weeks:int = 0
+
+var dayOfTheWeek:Array = [
+	'Sunday',
+	'Monday',
+	'Tuesday',
+	'Wendesday',
+	'Thursday',
+	'Friday',
+	'Saturday'
+]
 
 func _ready():
 	ambience = $ambience
@@ -49,6 +66,18 @@ func _process(_delta):
 	else:
 		infoTxt.text = item_description + '\n\n'
 	
+	hour = int(time.localTime/60)
+	weeks = int(time.day/7)
+	
+	clock.text = str(int(time.localTime/60)) + ':'
+	
+	if int(time.localTime-(60*hour)) < 10:
+		clock.text += '0'
+	
+	clock.text += str(int(time.localTime-(60*hour)))
+	
+	clock.text += ' | ' + dayOfTheWeek[(time.day - (weeks*7))]
+	
 	match currentSubMenu:
 		'cnd':
 			var cndTxt = $Device/Screen/Stats/Conditions/cnd
@@ -71,6 +100,10 @@ func _process(_delta):
 			specialTxt.text += '\nINTELLIGENCE: ' + str(player.specialStats[4])
 			specialTxt.text += '\nAGILITY: ' + str(player.specialStats[5])
 			specialTxt.text += '\nLUCK: ' + str(player.specialStats[6])
+		'sat':
+			for i in range(0,3): # idk why I can't just put 2, but whatever it works it works
+				get_node("Device/Screen/Stats/Saturation/" + str(i) + "/bar").value = player.saturations[i]
+				get_node("Device/Screen/Stats/Saturation/" + str(i) + "/percent").text = str(int(player.saturations[i])) + '%'
 		'weapons':
 			if item_type != '':
 				infoTxt.text += 'Type: ' + item_type + '\n'
@@ -124,6 +157,7 @@ func _on_stats_sub_pressed(menu, audio):
 	$Device/Screen/Stats/Conditions.hide()
 	$Device/Screen/Inventory/weapon_list.hide()
 	$Device/Screen/Inventory/aid_list.hide()
+	$Device/Screen/Stats/Saturation.hide()
 	match menu:
 		'cnd':
 			$Device/Screen/Stats/Conditions.show()
@@ -135,6 +169,8 @@ func _on_stats_sub_pressed(menu, audio):
 			$Device/Screen/Inventory/weapon_list.show()
 		'aid':
 			$Device/Screen/Inventory/aid_list.show()
+		'sat':
+			$Device/Screen/Stats/Saturation.show()
 		_:
 			pass
 	currentSubMenu = menu

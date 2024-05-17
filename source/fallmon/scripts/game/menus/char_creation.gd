@@ -236,6 +236,9 @@ func saveChar():
 	saved_data["extra_limb"] = pkmnLMB
 	saved_data['direction'] = Vector2(0,1)
 	
+	saved_data["time"] = 510
+	saved_data["day"] = 0
+	
 	saved_data["head_cnd"] = 200 
 	saved_data["chest_cnd"] = 300 
 	saved_data["larm_cnd"] = 50 
