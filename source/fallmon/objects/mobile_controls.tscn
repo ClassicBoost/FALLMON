@@ -86,9 +86,9 @@ text = "UP"
 
 [node name="interact" type="Button" parent="overlay"]
 layout_mode = 0
-offset_left = 384.0
+offset_left = 984.0
 offset_top = 416.0
-offset_right = 512.0
+offset_right = 1112.0
 offset_bottom = 544.0
 theme_override_fonts/font = ExtResource("2_r7v1l")
 theme_override_font_sizes/font_size = 24
@@ -96,9 +96,9 @@ text = "USE"
 
 [node name="sprint" type="Button" parent="overlay"]
 layout_mode = 0
-offset_left = 64.0
+offset_left = 1144.0
 offset_top = 416.0
-offset_right = 192.0
+offset_right = 1272.0
 offset_bottom = 544.0
 theme_override_fonts/font = ExtResource("2_r7v1l")
 theme_override_font_sizes/font_size = 24
