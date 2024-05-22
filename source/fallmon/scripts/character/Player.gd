@@ -60,15 +60,17 @@ var moving:bool = false
 var running:bool = false
 var exhausted:bool = false
 
-@export var headCND:float = 200
-@export var chestCND:float = 300
-@export var lArmCND:float = 50
-@export var rArmCND:float = 50
-@export var lLegCND:float = 50
-@export var rLegCND:float = 50
-@export var otherCND:float = 50
 var otherCNDtype:String = ''
-var otherCNDmax:float = 0
+
+@export var conditions:Array = [
+	['Head', 200.0, 200.0],
+	['Chest', 300.0, 300.0],
+	['Left Arm', 50.0, 50.0],
+	['Right Arm', 50.0, 50.0],
+	['Left Leg', 50.0, 50.0],
+	['Right Leg', 50.0, 50.0],
+	['', 50.0, 50.0],
+]
 
 var weaponDifficulty:String = ''
 
@@ -150,22 +152,21 @@ func _physics_process(delta):
 		saturations[2] -= (0.0002*moveSpeed) * delta
 	
 	if not pauseThingy.paused:
-		if running and moving and not exhausted and (lLegCND >= 10 and rLegCND >= 10):
-			moveSpeed = (300+(specialStats[5]*2)-(((health[0]/health[1])*-1)*80))*((lLegCND/100)+(rLegCND/100))
+		if running and moving and not exhausted and (conditions[4][1] >= 10 and conditions[5][1] >= 10):
+			moveSpeed = (300+(specialStats[5]*2)-(((health[0]/health[1])*-1)*80))*((conditions[4][1]/100)+(conditions[5][1]/100))
 			stamina[0] -= 8 * delta
 			anim_player.set_speed_scale(3)
 		else:
-			moveSpeed = (70+specialStats[5]-(((health[0]/health[1])*-1)*80))*((lLegCND/100)+(rLegCND/100))
+			moveSpeed = (70+specialStats[5]-(((health[0]/health[1])*-1)*80))*((conditions[4][1]/100)+(conditions[5][1]/100))
 			if moving:
 				stamina[0] += specialStats[5] * (delta/3)
 			else:
 				stamina[0] += (specialStats[5]) * delta
 			anim_player.set_speed_scale(1)
 		
-		if lLegCND < 10:
-			lLegCND += 0.1 * delta
-		if rLegCND < 10:
-			rLegCND += 0.1 * delta
+		for i in range(4,5):
+			if conditions[i][1] < 10:
+				conditions[i][1] += 0.1 * delta
 		
 		if effects[2][2] > 0:
 			effects[2][2] -= 1 * delta
@@ -295,20 +296,9 @@ func updateLimits():
 	if radiation > 1050:
 		health[0] -= 1
 		radiation = 1050
-	if headCND > 200:
-		headCND = 200
-	if chestCND > 300:
-		chestCND = 300
-	if lArmCND > 50:
-		lArmCND = 50
-	if rArmCND > 50:
-		rArmCND = 50
-	if lLegCND > 50:
-		lLegCND = 50
-	if rLegCND > 50:
-		rLegCND = 50
-	if otherCND > otherCNDmax:
-		otherCND = otherCNDmax
+	for i in range(0,conditions.size()):
+		if conditions[i][1] > conditions[i][2]:
+			conditions[i][1] = conditions[i][2]
 	if health[0] < 0:
 		realHP -= 1
 		health[0] += 1
@@ -446,13 +436,13 @@ func loadData():
 			aid_inventory[7][1] = saved_data['heal-spray']
 			aid_inventory[8][1] = saved_data['antidote']
 			aid_inventory[9][1] = saved_data['blood-pack']
-			headCND = saved_data["head_cnd"]
-			chestCND = saved_data["chest_cnd"]
-			lArmCND = saved_data["larm_cnd"]
-			rArmCND = saved_data["rarm_cnd"]
-			lLegCND = saved_data["lleg_cnd"]
-			rLegCND = saved_data["rleg_cnd"]
-			otherCND = saved_data["other_cnd"]
+			conditions[0][1] = saved_data["head_cnd"]
+			conditions[1][1] = saved_data["chest_cnd"]
+			conditions[2][1] = saved_data["larm_cnd"]
+			conditions[3][1] = saved_data["rarm_cnd"]
+			conditions[4][1] = saved_data["lleg_cnd"]
+			conditions[5][1] = saved_data["rleg_cnd"]
+			conditions[6][1] = saved_data["other_cnd"]
 			
 			input_direction = saved_data["direction"]
 			stamina[0] = saved_data["stamina"]
@@ -472,11 +462,13 @@ func loadData():
 			
 			match otherCNDtype:
 				'tail':
-					otherCNDmax = 50
+					conditions[6][2] = 50
 				'wings':
-					otherCNDmax = 30
+					conditions[6][2] = 30
 				_:
-					otherCNDmax = 0
+					conditions[6][2] = 0
+				
+			conditions[6][0] = otherCNDtype.to_upper()
 			print("hello, " + charName)
 			stopLoading = true
 		
@@ -517,13 +509,13 @@ func saveChar():
 	
 	saved_data["radiation"] = radiation
 	
-	saved_data["head_cnd"] = headCND 
-	saved_data["chest_cnd"] = chestCND 
-	saved_data["larm_cnd"] = lArmCND 
-	saved_data["rarm_cnd"] = rArmCND
-	saved_data["lleg_cnd"] = lLegCND
-	saved_data["rleg_cnd"] = rLegCND
-	saved_data["other_cnd"] = otherCND
+	saved_data["head_cnd"] = conditions[0][1] 
+	saved_data["chest_cnd"] = conditions[1][1] 
+	saved_data["larm_cnd"] = conditions[2][1] 
+	saved_data["rarm_cnd"] = conditions[3][1]
+	saved_data["lleg_cnd"] = conditions[4][1]
+	saved_data["rleg_cnd"] = conditions[5][1]
+	saved_data["other_cnd"] = conditions[6][1]
 	
 	saved_data["weapon_difficulty"] = weaponDifficulty
 	saved_data["extra_limb"] = otherCNDtype

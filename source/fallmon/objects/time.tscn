@@ -1,10 +1,13 @@
-[gd_scene format=3 uid="uid://b7ph6x07iis4v"]
+[gd_scene load_steps=2 format=3 uid="uid://b7ph6x07iis4v"]
+
+[ext_resource type="Script" path="res://source/fallmon/scripts/objects/time.gd" id="1_jf3i5"]
 
 [node name="Time" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_jf3i5")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 0

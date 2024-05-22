@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://c756371ycxn35"]
+
+[ext_resource type="PackedScene" uid="uid://cww460cqunk85" path="res://source/fallmon/scenes/vr/character_body_3d.tscn" id="1_rhkmc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ntk67"]
+size = Vector3(1, 0.0875854, 1)
+
+[sub_resource type="Environment" id="Environment_eqlel"]
+background_energy_multiplier = 0.0
+ambient_light_energy = 0.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -0.221731, -0.26167, 0.307068)
+size = Vector3(1.55322, 0.0162964, 1.61414)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CSGBox3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0368347, 0)
+shape = SubResource("BoxShape3D_ntk67")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0705814, 0)
+size = Vector3(1.55322, 0.0162964, 1.61414)
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_rhkmc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.733003, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_eqlel")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16938, 0)

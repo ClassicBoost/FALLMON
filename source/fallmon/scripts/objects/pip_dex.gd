@@ -81,13 +81,10 @@ func _process(_delta):
 	match currentSubMenu:
 		'cnd':
 			var cndTxt = $Device/Screen/Stats/Conditions/cnd
-			
-			cndTxt.text = 'HEAD: ' + str(int(player.headCND/2)) + '%'
-			cndTxt.text += '\nCHEST: ' + str(int(player.chestCND/3)) + '%'
-			cndTxt.text += '\nARMS - L: ' + str(int(player.lArmCND*2)) + '% | R: ' + str(int(player.rArmCND*2)) + '%'
-			cndTxt.text += '\nLEGS - L: ' + str(int(player.lLegCND*2)) + '% | R: ' + str(int(player.rLegCND*2)) + '%'
-			if player.otherCNDtype != '':
-				cndTxt.text += '\n' + player.otherCNDtype.to_upper() + ': ' + str((player.otherCND/player.otherCNDmax)*100) + '%'
+			cndTxt.text = ''
+			for i in range(0,player.conditions.size()):
+				if player.conditions[i][0] != '':
+					cndTxt.text += player.conditions[i][0].to_upper() + ': ' + str(int(player.conditions[i][1]/player.conditions[i][2])*100) + '%\n'
 		'rad':
 			$Device/Screen/Stats/Radiation/rad_bar.value = player.radiation
 			$Device/Screen/Stats/Radiation/percent.text = str(float(int(player.radiation))/10) + '%'
