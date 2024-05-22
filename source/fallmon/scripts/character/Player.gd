@@ -263,23 +263,14 @@ func updateLimits():
 	specialStats[4] = intelligence_default
 	specialStats[5] = agility_default
 	specialStats[6] = luck_default
-	# $Label.text = str(strength) + str(perception) + str(endurance) + str(charisma) + str(intelligence) + str(agility) + str(luck)
 	stamina[1] = specialStats[5]*10+pkmnSTM
 	health[1] = 20+(specialStats[2]*2)+specialStats[0]+pkmnHP
 	PP[1] = (specialStats[0]*2)+pkmnPP
-	
-	if saturations[0] > 100:
-		saturations[0] = 100
-	if saturations[1] > 100:
-		saturations[1] = 100
-	if saturations[2] > 100 or health[0] < 0:
-		saturations[2] = 100
-	if saturations[0] < 0:
-		saturations[0] = 0
-	if saturations[1] < 0:
-		saturations[1] = 0
-	if saturations[2] < 0:
-		saturations[2] = 0
+	for i in range(0,2):
+		if saturations[i] > 100 or health[0] < 0:
+			saturations[i] = 100
+		if saturations[i] < 0:
+			saturations[i] = 0
 	if radiation < 0:
 		radiation = 0
 	if health[0] > health[1]:
