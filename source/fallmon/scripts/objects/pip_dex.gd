@@ -29,6 +29,9 @@ var hour:int = 8
 
 var weeks:int = 0
 
+@onready var weaponList:ItemList = $Device/Screen/Inventory/weapon_list
+@onready var aidList:ItemList = $Device/Screen/Inventory/aid_list
+
 var dayOfTheWeek:Array = [
 	'Sunday',
 	'Monday',
@@ -109,21 +112,20 @@ func _process(_delta):
 			if item_ammo > 0:
 				infoTxt.text += 'AMMO: ' + str(item_ammo) + '\n'
 			
-			var weaponList:ItemList = $Device/Screen/Inventory/weapon_list
 			for i in range(0,weaponList.get_item_count()):
 				weaponList.set_item_disabled(i,true)
 				weaponList.set_item_tooltip_enabled(i,false)
 				if player.weapons_inventory[i][1] > 0:
 					weaponList.set_item_disabled(i, false)
 		'aid':
-			var aidList:ItemList = $Device/Screen/Inventory/aid_list
-			
 			for i in range(0,aidList.get_item_count()):
 				aidList.set_item_disabled(i,true)
 				aidList.set_item_tooltip_enabled(i,false)
 				if player.aid_inventory[i][1] > 0:
 					aid_item.set_item_disabled(i, false)
-	
+	if player.heldRtimer < 0.1:
+		aidList.deselect_all()
+		weaponList.deselect_all()
 	infoTxt.text += 'VALUE: '
 	if item_value > 0:
 		infoTxt.text += str(item_value)

@@ -193,11 +193,20 @@ func _physics_process(delta):
 		saveChar()
 		saveTimer = 0
 	
-	itemCheck()
+	itemCheck(delta)
 
-func itemCheck():
+var heldRtimer = 1
+func itemCheck(delta):
 	if currentItemHolding != '':
 		$item.text = 'holding: ' + currentItemHolding
+		if Input.is_action_pressed("reset") and not device.device_open and not pauseThingy.paused:
+			heldRtimer -= 1 * delta
+			if heldRtimer < 0:
+				heldRtimer = 1
+				currentItemHolding = ''
+				$item.text = ''
+		else:
+			heldRtimer = 1
 	if Input.is_action_just_pressed("useItem"):
 		match currentItemHolding.to_lower():
 			'stimpack':
