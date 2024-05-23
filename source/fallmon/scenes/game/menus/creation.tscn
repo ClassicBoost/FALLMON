@@ -373,6 +373,24 @@ max_value = 50.0
 value = 16.0
 prefix = "AGE:"
 
+[node name="Traits" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 192.0
+offset_right = 832.0
+offset_bottom = 720.0
+
+[node name="TraitsList" type="ItemList" parent="Traits"]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 320.0
+theme_override_fonts/font = ExtResource("3_33re6")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/panel = SubResource("StyleBoxFlat_ackta")
+theme_override_styles/focus = SubResource("StyleBoxFlat_5566x")
+select_mode = 1
+allow_rmb_select = true
+
 [node name="confirm" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_6o5s4")
 
@@ -430,3 +448,5 @@ vertical_alignment = 1
 [connection signal="mouse_entered" from="Top/SpeciesList" to="." method="_on_mouse_entered"]
 [connection signal="mouse_entered" from="Top/Gender" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="Top/Gender" to="." method="_on_gender_pressed"]
+[connection signal="item_selected" from="Traits/TraitsList" to="." method="_on_species_selected"]
+[connection signal="mouse_entered" from="Traits/TraitsList" to="." method="_on_mouse_entered"]

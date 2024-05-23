@@ -62,6 +62,12 @@ var exhausted:bool = false
 
 var otherCNDtype:String = ''
 
+@export var bodyTemp:float = 37.0
+@export var termias:Array = [
+	38, #hyper
+	35 #hypo
+]
+
 @export var conditions:Array = [
 	['Head', 200.0, 200.0],
 	['Chest', 300.0, 300.0],
@@ -101,8 +107,10 @@ var weaponDifficulty:String = ''
 	["Antidote", 0],
 	["Blood Pack", 0]
 ]
+@export var traits:Array = []
 
 @export var currentItemHolding:String = ''
+@onready var itembg:TextureRect = $Item_BG
 
 # json
 var species_sprite:String = 'example'
@@ -195,18 +203,39 @@ func _physics_process(delta):
 	
 	itemCheck(delta)
 
-var heldRtimer = 1
+var heldRtimer:float = 1
+var goBackUp:bool = false
+var stupidFloat:float = 0
 func itemCheck(delta):
+	itembg.texture = load("res://assets/graphics/items/none.png")
 	if currentItemHolding != '':
-		$item.text = 'holding: ' + currentItemHolding
+		itembg.texture = load("res://assets/graphics/items/" + currentItemHolding.to_lower() + ".png")
+		itembg.modulate.a = 1
 		if Input.is_action_pressed("reset") and not device.device_open and not pauseThingy.paused:
 			heldRtimer -= 1 * delta
 			if heldRtimer < 0:
 				heldRtimer = 1
 				currentItemHolding = ''
-				$item.text = ''
 		else:
 			heldRtimer = 1
+	else:
+		itembg.modulate.a -= 1 * delta
+	
+	if itembg.texture == null: # prevent crashing
+		itembg.texture = load("res://assets/graphics/missing.png")
+	
+	if goBackUp:
+		itembg.position.y -= 6 * delta
+		stupidFloat -= 6 * delta
+	else:
+		itembg.position.y += 6 * delta
+		stupidFloat += 6 * delta
+	
+	if stupidFloat > 6:
+		goBackUp = true
+	elif stupidFloat < 0:
+		goBackUp = false
+	
 	if Input.is_action_just_pressed("useItem"):
 		match currentItemHolding.to_lower():
 			'stimpack':
@@ -450,6 +479,8 @@ func loadData():
 			health[0] = saved_data['health']
 			realHP = saved_data['real_hp']
 			
+			bodyTemp = saved_data["body_temp"]
+			
 			time.localTime = saved_data["time"]
 			time.day = saved_data["day"]
 			
@@ -516,6 +547,8 @@ func saveChar():
 	saved_data["lleg_cnd"] = conditions[4][1]
 	saved_data["rleg_cnd"] = conditions[5][1]
 	saved_data["other_cnd"] = conditions[6][1]
+	
+	saved_data["body_temp"] = bodyTemp
 	
 	saved_data["weapon_difficulty"] = weaponDifficulty
 	saved_data["extra_limb"] = otherCNDtype

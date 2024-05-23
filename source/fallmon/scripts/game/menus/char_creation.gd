@@ -239,6 +239,9 @@ func saveChar():
 	saved_data["time"] = 510
 	saved_data["day"] = 0
 	
+	saved_data["body_temp"] = 37
+	# I know ice types exists but like, just spawning in you would overheat quickly
+	
 	saved_data["head_cnd"] = 200 
 	saved_data["chest_cnd"] = 300 
 	saved_data["larm_cnd"] = 50 
@@ -262,6 +265,10 @@ func saveChar():
 	saved_data['heal-spray'] = 0
 	saved_data['blood-pack'] = 0
 	saved_data['radiation'] = 0
+	
+	saved_data["hunger"] = 100.9
+	saved_data["thirst"] = 100.9
+	saved_data["sleep"] = 100.9
 		
 	var json = JSON.stringify(saved_data)
 		
