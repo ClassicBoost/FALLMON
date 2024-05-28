@@ -224,19 +224,20 @@ func itemCheck(delta):
 	if itembg.texture == null: # prevent crashing
 		itembg.texture = load("res://assets/graphics/missing.png")
 	
-	if goBackUp:
-		itembg.position.y -= 6 * delta
-		stupidFloat -= 6 * delta
-	else:
-		itembg.position.y += 6 * delta
-		stupidFloat += 6 * delta
+	if not pauseThingy.paused:
+		if goBackUp:
+			itembg.position.y -= 6 * delta
+			stupidFloat -= 6 * delta
+		else:
+			itembg.position.y += 6 * delta
+			stupidFloat += 6 * delta
 	
 	if stupidFloat > 6:
 		goBackUp = true
 	elif stupidFloat < 0:
 		goBackUp = false
 	
-	if Input.is_action_just_pressed("useItem"):
+	if Input.is_action_just_pressed("useItem") and not pauseThingy.paused:
 		match currentItemHolding.to_lower():
 			'stimpack':
 				if health[0] > 5 and realHP < 30 and aid_inventory[0][1] > 0 and effects[2][2] <= 0:
