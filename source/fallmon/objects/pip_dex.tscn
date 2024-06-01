@@ -81,24 +81,27 @@ offset_bottom = 448.0
 
 [node name="important" type="Label" parent="Device/Screen"]
 layout_mode = 0
-offset_right = 411.0
-offset_bottom = 49.0
-theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
-theme_override_fonts/font = ExtResource("3_dckmk")
-theme_override_font_sizes/font_size = 20
-text = "PLAYERNAMESOLONG
-LE: 35/35 // STM: 100/100 // PP: 20/20"
-
-[node name="time" type="Label" parent="Device/Screen"]
-layout_mode = 0
-offset_left = 323.0
 offset_right = 568.0
 offset_bottom = 49.0
 theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
 theme_override_fonts/font = ExtResource("3_dckmk")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
+text = "PLAYERNAMESOLONG
+LE: 35/35 // STM: 100/100 // PP: 20/20"
+horizontal_alignment = 3
+
+[node name="time" type="Label" parent="Device/Screen"]
+layout_mode = 0
+offset_left = 323.0
+offset_top = 336.0
+offset_right = 568.0
+offset_bottom = 385.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 16
 text = "8:30 AM | Sunday"
 horizontal_alignment = 2
+vertical_alignment = 2
 
 [node name="Stats" type="NinePatchRect" parent="Device/Screen"]
 layout_mode = 0
@@ -315,11 +318,22 @@ layout_mode = 0
 offset_left = 192.0
 offset_top = 120.0
 offset_right = 560.0
-offset_bottom = 176.0
+offset_bottom = 152.0
 theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
 theme_override_fonts/font = ExtResource("3_dckmk")
 theme_override_font_sizes/font_size = 24
 text = "Hunger:"
+
+[node name="info" type="Label" parent="Device/Screen/Stats/Saturation/0"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 144.0
+offset_right = 560.0
+offset_bottom = 176.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 24
+text = "Lorem Ispum"
 
 [node name="percent" type="Label" parent="Device/Screen/Stats/Saturation/0"]
 layout_mode = 0
@@ -361,6 +375,17 @@ theme_override_fonts/font = ExtResource("3_dckmk")
 theme_override_font_sizes/font_size = 24
 text = "Thirst:"
 
+[node name="info" type="Label" parent="Device/Screen/Stats/Saturation/1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 232.0
+offset_right = 560.0
+offset_bottom = 264.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 24
+text = "Lorem Ispum"
+
 [node name="percent" type="Label" parent="Device/Screen/Stats/Saturation/1"]
 layout_mode = 0
 offset_left = 440.0
@@ -400,6 +425,17 @@ theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
 theme_override_fonts/font = ExtResource("3_dckmk")
 theme_override_font_sizes/font_size = 24
 text = "Sleep:"
+
+[node name="info" type="Label" parent="Device/Screen/Stats/Saturation/2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 320.0
+offset_right = 560.0
+offset_bottom = 352.0
+theme_override_colors/font_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/font = ExtResource("3_dckmk")
+theme_override_font_sizes/font_size = 24
+text = "Lorem Ispum"
 
 [node name="percent" type="Label" parent="Device/Screen/Stats/Saturation/2"]
 layout_mode = 0
@@ -549,16 +585,16 @@ theme_override_styles/hovered = SubResource("StyleBoxFlat_mjqal")
 theme_override_styles/selected = SubResource("StyleBoxFlat_s8p3i")
 theme_override_styles/selected_focus = SubResource("StyleBoxFlat_57mhi")
 item_count = 10
-item_0/text = "Stim Pack"
-item_1/text = "S. Stimpack"
-item_2/text = "Rad Away"
-item_3/text = "Doctor's Bag"
-item_4/text = "First Aid Kit"
-item_5/text = "Medic Kit"
+item_0/text = "StimPack"
+item_1/text = "S-Stimpack"
+item_2/text = "RadAway"
+item_3/text = "Doctors-Bag"
+item_4/text = "First-Aid-Kit"
+item_5/text = "Medic-Kit"
 item_6/text = "Bandage"
-item_7/text = "Heal Spray"
+item_7/text = "Heal-Spray"
 item_8/text = "Antidote"
-item_9/text = "Blood Pack"
+item_9/text = "Blood-Pack"
 
 [node name="Data" type="NinePatchRect" parent="Device/Screen"]
 layout_mode = 0

@@ -1,6 +1,5 @@
 [gd_scene load_steps=22 format=3 uid="uid://qy3gh37tv2bb"]
 
-[ext_resource type="PackedScene" uid="uid://dv6irvu1ye2u5" path="res://source/fallmon/scripts/character/player.tscn" id="1_ain01"]
 [ext_resource type="Script" path="res://source/fallmon/scripts/game/rooms/testing_room.gd" id="1_jeyvt"]
 [ext_resource type="Texture2D" uid="uid://cx6d286v7d3e" path="res://assets/graphics/tiles/wasteland.png" id="1_y5nw7"]
 [ext_resource type="PackedScene" uid="uid://bufodnhbl7i07" path="res://source/fallmon/backend/overlay.tscn" id="3_ickg2"]
@@ -8,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://by1ij2o4esoq4" path="res://assets/audios/music/hl2 beta radio.mp3" id="3_qntql"]
 [ext_resource type="PackedScene" uid="uid://b7ph6x07iis4v" path="res://source/fallmon/objects/time.tscn" id="4_4f1wi"]
 [ext_resource type="Shader" path="res://source/shaders/chromatic.gdshader" id="4_cwb80"]
+[ext_resource type="PackedScene" uid="uid://1njm0jxdean5" path="res://source/fallmon/objects/player.tscn" id="4_e16lq"]
 [ext_resource type="PackedScene" uid="uid://dpxmx3o7s44ok" path="res://source/fallmon/backend/volume.tscn" id="4_mg5tw"]
 [ext_resource type="PackedScene" uid="uid://tnrqq6pbhkgh" path="res://source/fallmon/objects/pip_dex.tscn" id="4_nsxa5"]
 [ext_resource type="Script" path="res://source/fallmon/scripts/game/RadEffect.gd" id="5_wn47j"]
@@ -17,10 +17,6 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbeek"]
 texture = ExtResource("1_y5nw7")
-0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
@@ -155,6 +151,9 @@ texture = ExtResource("1_y5nw7")
 2:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:2/0/physics_layer_0/angular_velocity = 0.0
 2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSet" id="TileSet_vdyw2"]
 physics_layer_0/collision_layer = 1
@@ -224,7 +223,7 @@ autoplay = true
 max_distance = 1500.0
 panning_strength = 3.0
 
-[node name="Player" parent="." instance=ExtResource("1_ain01")]
+[node name="Player" parent="." instance=ExtResource("4_e16lq")]
 editor_description = "Need to fix the animation code, if the player switches animations to quickly they may disappear for a moment"
 position = Vector2(-288, -96)
 

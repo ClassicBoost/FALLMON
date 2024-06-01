@@ -87,7 +87,7 @@ func _process(_delta):
 			cndTxt.text = ''
 			for i in range(0,player.conditions.size()):
 				if player.conditions[i][0] != '':
-					cndTxt.text += player.conditions[i][0].to_upper() + ': ' + str(int(player.conditions[i][1]/player.conditions[i][2])*100) + '%\n'
+					cndTxt.text += player.conditions[i][0].capitalize() + ': ' + str(int(player.conditions[i][1]/player.conditions[i][2])*100) + '%\n'
 		'rad':
 			$Device/Screen/Stats/Radiation/rad_bar.value = player.radiation
 			$Device/Screen/Stats/Radiation/percent.text = str(float(int(player.radiation))/10) + '%'
@@ -101,9 +101,18 @@ func _process(_delta):
 			specialTxt.text += '\nAGILITY: ' + str(player.specialStats[5])
 			specialTxt.text += '\nLUCK: ' + str(player.specialStats[6])
 		'sat':
+			var saturationTitle:Array = [
+				'',
+				'',
+				'',
+			]
+			saturationTitle[0] = player.hgrTitle
+			saturationTitle[1] = player.thsTitle
+			saturationTitle[2] = player.slpTitle
 			for i in range(0,3): # idk why I can't just put 2, but whatever it works it works
 				get_node("Device/Screen/Stats/Saturation/" + str(i) + "/bar").value = player.saturations[i]
 				get_node("Device/Screen/Stats/Saturation/" + str(i) + "/percent").text = str(int(player.saturations[i])) + '%'
+				get_node("Device/Screen/Stats/Saturation/" + str(i) + "/info").text = str(saturationTitle[i])
 		'weapons':
 			if item_type != '':
 				infoTxt.text += 'Type: ' + item_type + '\n'
@@ -134,16 +143,21 @@ func _process(_delta):
 	
 	if total_item > 0:
 		infoTxt.text += '\nYou have ' + str(total_item)
+	var next = player.charLevel
+	@warning_ignore("integer_division")
+	var actualXP:int = player.totalExp - (next*(next-1)/2)*1000
 	
 	var importantTxt = $Device/Screen/important
-	importantTxt.text = player.charName + ' // ' + player.charSpecies.to_upper() + ' // '
+	importantTxt.text = ''
+	importantTxt.text += 'HP: ' + str(int(player.health[0])) + '/' + str(player.health[1])
+	importantTxt.text += ' // STM: ' + str(int(player.stamina[0])) + '/' + str(player.stamina[1]) 
+	importantTxt.text += ' // PP: ' + str(int(player.PP[0])) + '/' + str(player.PP[1])
+	importantTxt.text += ' // LVL: ' + str(int(player.charLevel)) + ' (' + str(actualXP) + '/' + str(player.exp_to_next) + ')'
+	importantTxt.text += '\n' + player.charName + ' // ' + player.charSpecies.to_upper() + ' // '
 	if player.isFemale:
 		importantTxt.text += 'FEMALE'
 	else:
 		importantTxt.text += 'MALE'
-	importantTxt.text += '\nHP: ' + str(int(player.health[0])) + '/' + str(player.health[1])
-	importantTxt.text += ' // STM: ' + str(int(player.stamina[0])) + '/' + str(player.stamina[1]) 
-	importantTxt.text += ' // PP: ' + str(int(player.PP[0])) + '/' + str(player.PP[1])
 
 func _on_button_mouse_entered():
 	$select.play()
@@ -235,29 +249,12 @@ func loadInfo(category, id):
 @onready var infoTxt = $Device/Screen/Inventory/info
 func _on_weapon_list_selected(index):
 	$confirm.play()
-	match index:
-		0:
-			item_path = 'Pistol'
-		_:
-			item_path = 'blank'
+	item_path = weaponList.get_item_text(index).to_lower()
 
 	loadInfo('weapons', index)
 
-var aid_item_ids:Array = [
-	'StimPack',
-	'S-StimPack',
-	'RadAway',
-	'Doctors-Bag',
-	'First-Aid-Kit',
-	'Medic-Kit',
-	'Bandage',
-	'Heal-Spray',
-	'AntiDote',
-	'Blood-Pack'
-]
-
 func _on_aid_list_item_selected(index):
 	$confirm.play()
-	item_path = aid_item_ids[index]
+	item_path = aidList.get_item_text(index).to_lower()
 
 	loadInfo('aid', index)

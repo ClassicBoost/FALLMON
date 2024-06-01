@@ -62,6 +62,10 @@ var exhausted:bool = false
 
 var otherCNDtype:String = ''
 
+@export var charLevel:int = 1
+@export var totalExp:int = 0
+var exp_to_next:int = 1000
+
 @export var bodyTemp:float = 37.0
 @export var termias:Array = [
 	38, #hyper
@@ -112,14 +116,16 @@ var weaponDifficulty:String = ''
 @export var currentItemHolding:String = ''
 @onready var itembg:TextureRect = $Item_BG
 
+@onready var fanfire:AudioStreamPlayer = $fanfire
+var soundToPlay:String = ''
+
 # json
 var species_sprite:String = 'example'
 
 func _ready():
 	updateAnim(Vector2(0, 1))
 	stopLoading = false
-	$radiationSound.play()
-	$radiationSound.volume_db = -INF
+	fanfire.volume_db = -INF
 
 func _physics_process(delta):
 	#save_path = "user://saves/" + charName.to_lower() + ".json"
@@ -146,18 +152,27 @@ func _physics_process(delta):
 		if Input.is_action_pressed("sprint"):
 			running = true
 	
-	if radiation > lastRadiation:
-		$radiationSound.volume_db = 0
+	if !fanfire.playing and soundToPlay == 'radiation':
+		playFanfire()
 	
-	$radiationSound.volume_db -= 20 * delta
+	if radiation > lastRadiation:
+		fanfire.volume_db = 0
+		soundToPlay = "radiation"
+	
+	if soundToPlay == 'radiation':
+		fanfire.volume_db -= 20 * delta
+	else:
+		fanfire.volume_db = 0
 	lastRadiation = radiation
 	
-	saturations[0] -= 0.017 * delta
-	saturations[1] -= 0.04 * delta
-	if not moving:
-		saturations[2] -= 0.0001 * delta
-	else:
-		saturations[2] -= (0.0002*moveSpeed) * delta
+	var next = charLevel + 1
+	@warning_ignore("integer_division")
+	exp_to_next = (next*(next-1)/2)*1000
+	
+	if totalExp >= exp_to_next:
+		charLevel += 1
+		soundToPlay = 'level_pmd'
+		playFanfire()
 	
 	if not pauseThingy.paused:
 		if running and moving and not exhausted and (conditions[4][1] >= 10 and conditions[5][1] >= 10):
@@ -201,7 +216,77 @@ func _physics_process(delta):
 		saveChar()
 		saveTimer = 0
 	
+	saturationsUpdate(delta)
 	itemCheck(delta)
+
+func playFanfire():
+	if soundToPlay != '':
+		fanfire.stream = load("res://assets/audios/sounds/player/" + soundToPlay + ".ogg")
+	
+	fanfire.play()
+
+var saturationTitle:Array = [
+	['','Peckish','Hungry','Very Hungry','Starving'],
+	['','Perched','Thirsty','Very Thirsty','Dehydrated'],
+	['','Tired','Very Tired','Falling Over','Fainted'],
+]
+var saturationEffects:Array = [
+	[[0,0,0],[0,0,1],[0,1,2],[1,2,3],[2,3,4]],
+	[[0,0,0],[0,0,1],[0,1,2],[1,2,3],[2,3,4]],
+	[[0],[1],[3],[5],[5]],
+]
+var hgrTitle = ''
+var thsTitle = ''
+var slpTitle = ''
+func saturationsUpdate(delta):
+	saturations[0] -= 0.017 * delta
+	saturations[1] -= 0.04 * delta
+	if not moving:
+		saturations[2] -= 0.0001 * delta
+	else:
+		saturations[2] -= (0.0002*moveSpeed) * delta
+	
+	var hgrShit = 0
+	var thsShit = 0
+	var slpShit = 0
+	if saturations[0] < 80:
+		hgrShit = 1
+	if saturations[0] < 50:
+		hgrShit = 2
+	if saturations[0] < 20:
+		hgrShit = 3
+	if saturations[0] <= 0:
+		hgrShit = 4
+	
+	if (saturations[0] <= 0 or saturations[1] <= 0) and health[0] > 0 and not pauseThingy.paused:
+		health[0] -= 0.2 * delta
+	
+	if saturations[1] < 80:
+		thsShit = 1
+	if saturations[1] < 50:
+		thsShit = 2
+	if saturations[1] < 20:
+		thsShit = 3
+	if saturations[1] <= 0:
+		thsShit = 4
+	
+	if saturations[2] < 85:
+		slpShit = 1
+	if saturations[2] < 40:
+		slpShit = 2
+	if saturations[2] < 15:
+		slpShit = 3
+	if saturations[2] <= 0:
+		slpShit = 4
+	
+	specialStats[0] -= saturationEffects[0][hgrShit][0]
+	specialStats[1] -= saturationEffects[0][thsShit][1]
+	specialStats[2] -= saturationEffects[0][hgrShit][1]
+	specialStats[4] -= saturationEffects[0][thsShit][2]
+	specialStats[5] -= saturationEffects[0][hgrShit][2] + saturationEffects[1][thsShit][2] + saturationEffects[2][slpShit][0]
+	hgrTitle = saturationTitle[0][hgrShit]
+	thsTitle = saturationTitle[1][thsShit]
+	slpTitle = saturationTitle[2][slpShit]
 
 var heldRtimer:float = 1
 var goBackUp:bool = false
@@ -453,6 +538,8 @@ func loadData():
 		otherCNDtype = saved_data["extra_limb"]
 		
 		if not stopLoading:
+			charLevel = saved_data['level']
+			totalExp = saved_data['exp']
 			isFemale = saved_data["female"]
 			radiation = saved_data["radiation"]
 			weapons_inventory[0][1] = saved_data['weapon_pistol']
@@ -574,6 +661,9 @@ func saveChar():
 	saved_data['heal-spray'] =  aid_inventory[7][1]
 	saved_data['antidote'] = aid_inventory[8][1]
 	saved_data['blood-pack'] =  aid_inventory[9][1]
+	
+	saved_data['level'] = charLevel
+	saved_data['exp'] = totalExp
 	
 	saved_data["pos_x"] = self.global_position.x
 	saved_data["pos_y"] = self.global_position.y

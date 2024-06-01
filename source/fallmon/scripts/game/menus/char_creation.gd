@@ -269,6 +269,9 @@ func saveChar():
 	saved_data["hunger"] = 100.9
 	saved_data["thirst"] = 100.9
 	saved_data["sleep"] = 100.9
+	
+	saved_data['level'] = 1
+	saved_data['exp'] = 0
 		
 	var json = JSON.stringify(saved_data)
 		

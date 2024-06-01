@@ -1,11 +1,11 @@
-[gd_scene load_steps=59 format=3 uid="uid://dv6irvu1ye2u5"]
+[gd_scene load_steps=59 format=3 uid="uid://1njm0jxdean5"]
 
-[ext_resource type="Script" path="res://source/fallmon/scripts/character/Player.gd" id="1_hg1fh"]
-[ext_resource type="Texture2D" uid="uid://dxsyb53kcofth" path="res://assets/species/sprites/wooper-male/walk.png" id="2_ilhtl"]
-[ext_resource type="AudioStream" uid="uid://bgqdqq38sug5f" path="res://assets/audios/sounds/ui/nah.ogg" id="3_1osdy"]
-[ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="4_db8yv"]
-[ext_resource type="AudioStream" uid="uid://6eusqa0i2h0x" path="res://assets/audios/sounds/player/radiation.ogg" id="5_u5d22"]
-[ext_resource type="Texture2D" uid="uid://bx4q7p80xlfte" path="res://assets/graphics/items/none.png" id="6_8h2qa"]
+[ext_resource type="Script" path="res://source/fallmon/scripts/character/Player.gd" id="1_irhsv"]
+[ext_resource type="Texture2D" uid="uid://dxsyb53kcofth" path="res://assets/species/sprites/wooper-male/walk.png" id="2_d8hwu"]
+[ext_resource type="AudioStream" uid="uid://bgqdqq38sug5f" path="res://assets/audios/sounds/ui/nah.ogg" id="3_b50ef"]
+[ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="4_ql3ej"]
+[ext_resource type="AudioStream" uid="uid://6eusqa0i2h0x" path="res://assets/audios/sounds/player/radiation.ogg" id="5_c6u6o"]
+[ext_resource type="Texture2D" uid="uid://bx4q7p80xlfte" path="res://assets/graphics/items/none.png" id="6_e71fh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ua8rh"]
 
@@ -720,11 +720,10 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 [node name="Player" type="CharacterBody2D"]
 process_mode = 3
 scale = Vector2(4, 4)
-script = ExtResource("1_hg1fh")
-aid_inventory = [["Stimpacks", 1], ["S. Stimpacks", 0], ["Radaways", 0], ["Doctor's Bag", 0], ["First Aid Kit", 0], ["Medic Kit", 0], ["Bandage", 0], ["Heal Spray", 0], ["Antidote", 0], ["Blood Pack", 0]]
+script = ExtResource("1_irhsv")
 
 [node name="sprites" type="Sprite2D" parent="."]
-texture = ExtResource("2_ilhtl")
+texture = ExtResource("2_d8hwu")
 hframes = 8
 vframes = 8
 frame = 1
@@ -771,7 +770,7 @@ offset_right = 40.0
 offset_bottom = 35.0
 
 [node name="nah" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_1osdy")
+stream = ExtResource("3_b50ef")
 
 [node name="item" type="Label" parent="."]
 texture_filter = 1
@@ -779,18 +778,18 @@ offset_left = -56.0
 offset_top = -50.0
 offset_right = 56.0
 offset_bottom = -23.0
-theme_override_fonts/font = ExtResource("4_db8yv")
+theme_override_fonts/font = ExtResource("4_ql3ej")
 theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="radiationSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_u5d22")
+[node name="fanfire" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_c6u6o")
 
 [node name="Item_BG" type="TextureRect" parent="."]
 offset_left = -10.0
 offset_top = -40.0
 offset_right = 10.0
 offset_bottom = -20.0
-texture = ExtResource("6_8h2qa")
+texture = ExtResource("6_e71fh")
 expand_mode = 1
