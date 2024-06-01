@@ -153,18 +153,9 @@ func _on_name_text_changed(new_text):
 	charName = str(new_text)
 	print('Character name is now: ' + str(new_text))
 
-var speciesList:Array = [
-	'Pikachu',
-	'Snivy',
-	'Tepig',
-	'Oshawott',
-	'Axew',
-	'Riolu',
-	'Wooper'
-]
 func _on_species_selected(index):
 	$confirm.play()
-	charSpecies = speciesList[index].to_lower()
+	charSpecies = $Top/SpeciesList.get_item_text(index).to_lower()
 	speciesInfo = "res://assets/species/data/" + str(charSpecies) + ".json"
 	print('Species swapped to ' + str(charSpecies.to_upper()))
 
