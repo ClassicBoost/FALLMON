@@ -1,13 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://bufodnhbl7i07"]
+[gd_scene load_steps=4 format=3 uid="uid://bufodnhbl7i07"]
 
 [ext_resource type="Script" path="res://source/fallmon/scripts/Overlay.gd" id="1_4xn0t"]
 [ext_resource type="FontFile" uid="uid://ci51a1kbarqd3" path="res://assets/fonts/vcr.ttf" id="2_2vnf5"]
+[ext_resource type="FontFile" uid="uid://u2gi1c8bl7f2" path="res://assets/fonts/tech.ttf" id="2_lgncq"]
 
 [node name="Overlay" type="Control"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_4xn0t")
+
+[node name="errors" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 721.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_lgncq")
+theme_override_font_sizes/font_size = 48
+text = "1 ERRORS"
+horizontal_alignment = 2
+vertical_alignment = 2
 
 [node name="counter" type="Label" parent="."]
 layout_mode = 0

@@ -258,3 +258,6 @@ func _on_aid_list_item_selected(index):
 	item_path = aidList.get_item_text(index).to_lower()
 
 	loadInfo('aid', index)
+
+func _on_power_pressed():
+	device_open = false

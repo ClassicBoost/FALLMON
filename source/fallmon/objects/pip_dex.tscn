@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://tnrqq6pbhkgh"]
+[gd_scene load_steps=30 format=3 uid="uid://tnrqq6pbhkgh"]
 
 [ext_resource type="Texture2D" uid="uid://bv00brvhlvusa" path="res://assets/graphics/pip-dex/bg.png" id="1_csuyn"]
 [ext_resource type="Script" path="res://source/fallmon/scripts/objects/pip_dex.gd" id="1_ji7u5"]
@@ -45,6 +45,18 @@ bg_color = Color(0, 1, 0.564706, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57mhi"]
 bg_color = Color(0, 1, 0.564706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ngwi"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3wv44"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h8tew"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_feh5c"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l0xh1"]
 shader = ExtResource("13_1kvjn")
@@ -603,27 +615,47 @@ offset_bottom = 40.0
 
 [node name="stats" type="Button" parent="Device"]
 layout_mode = 0
-offset_left = 192.0
-offset_top = 96.0
-offset_right = 256.0
-offset_bottom = 160.0
-text = "STAT"
+offset_left = 248.0
+offset_top = 216.0
+offset_right = 304.0
+offset_bottom = 272.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_5ngwi")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3wv44")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h8tew")
+theme_override_styles/focus = SubResource("StyleBoxFlat_feh5c")
 
 [node name="inv" type="Button" parent="Device"]
 layout_mode = 0
-offset_left = 192.0
-offset_top = 224.0
-offset_right = 256.0
-offset_bottom = 288.0
-text = "INV"
+offset_left = 248.0
+offset_top = 288.0
+offset_right = 304.0
+offset_bottom = 344.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_feh5c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_feh5c")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_feh5c")
+theme_override_styles/focus = SubResource("StyleBoxFlat_feh5c")
 
 [node name="data" type="Button" parent="Device"]
 layout_mode = 0
-offset_left = 192.0
-offset_top = 352.0
-offset_right = 256.0
-offset_bottom = 416.0
-text = "DATA"
+offset_left = 248.0
+offset_top = 368.0
+offset_right = 304.0
+offset_bottom = 424.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_feh5c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_feh5c")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_feh5c")
+theme_override_styles/focus = SubResource("StyleBoxFlat_feh5c")
+
+[node name="power" type="Button" parent="Device"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 454.0
+offset_right = 58.0
+offset_bottom = 503.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_feh5c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_feh5c")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_feh5c")
+theme_override_styles/focus = SubResource("StyleBoxFlat_feh5c")
 
 [node name="ambience" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_knh70")
@@ -686,3 +718,4 @@ mouse_filter = 2
 [connection signal="pressed" from="Device/stats" to="." method="_on_menu_pressed" binds= ["stats"]]
 [connection signal="pressed" from="Device/inv" to="." method="_on_menu_pressed" binds= ["inv"]]
 [connection signal="pressed" from="Device/data" to="." method="_on_menu_pressed" binds= ["data"]]
+[connection signal="pressed" from="Device/power" to="." method="_on_power_pressed"]

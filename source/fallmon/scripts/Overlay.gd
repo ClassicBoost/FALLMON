@@ -4,6 +4,8 @@ var save_path = "user://settings.json"
 var fps_counter:bool = true
 var timeInState:float = 0
 var showDebug:bool = false
+var totalErrors:int = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if OS.is_debug_build():
@@ -15,6 +17,8 @@ func _process(delta):
 	var fps = Engine.get_frames_per_second()
 	
 	$counter.text = ''
+	
+	$errors.text = ''
 	
 	if fps_counter:
 		$counter.text += str(fps) + ' FPS'

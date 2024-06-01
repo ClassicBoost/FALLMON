@@ -764,10 +764,13 @@ anim_player = NodePath("../fours")
 parameters/Idle/blend_position = Vector2(0, 1)
 
 [node name="Label" type="Label" parent="."]
-visible = false
-offset_top = 12.0
-offset_right = 40.0
-offset_bottom = 35.0
+offset_left = -154.0
+offset_top = -74.0
+offset_right = -114.0
+offset_bottom = -25.0
+theme_override_font_sizes/font_size = 6
+text = "X: 0
+Y: 0"
 
 [node name="nah" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_b50ef")

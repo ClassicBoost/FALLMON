@@ -169,6 +169,10 @@ func _physics_process(delta):
 	@warning_ignore("integer_division")
 	exp_to_next = (next*(next-1)/2)*1000
 	
+	if OS.is_debug_build():
+		$Label.text = 'X: ' + str(int(self.position.x))
+		$Label.text += '\nY: ' + str(int(self.position.y))
+	
 	if totalExp >= exp_to_next:
 		charLevel += 1
 		soundToPlay = 'level_pmd'
