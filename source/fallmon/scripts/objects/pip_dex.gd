@@ -87,7 +87,10 @@ func _process(_delta):
 			cndTxt.text = ''
 			for i in range(0,player.conditions.size()):
 				if player.conditions[i][0] != '':
-					cndTxt.text += player.conditions[i][0].capitalize() + ': ' + str(int(player.conditions[i][1]/player.conditions[i][2])*100) + '%\n'
+					cndTxt.text += player.conditions[i][0].capitalize() + ': ' + str(float(player.conditions[i][1]/player.conditions[i][2])*100) + '%'
+					if str(player.conditions[i][3]) != '':
+						cndTxt.text += ' - ' + str(player.conditions[i][3])
+					cndTxt.text += '\n'
 		'rad':
 			$Device/Screen/Stats/Radiation/rad_bar.value = player.radiation
 			$Device/Screen/Stats/Radiation/percent.text = str(float(int(player.radiation))/10) + '%'

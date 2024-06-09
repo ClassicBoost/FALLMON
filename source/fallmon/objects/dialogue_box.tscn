@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://d185eb3jfg7oi"]
+
+[ext_resource type="Script" path="res://source/fallmon/scripts/objects/dialogue_box.gd" id="1_raqcf"]
+[ext_resource type="Texture2D" uid="uid://bahjh8nfmu02d" path="res://assets/graphics/pip-dex/dialogue_box.png" id="2_fol21"]
+[ext_resource type="Texture2D" uid="uid://bxnpncjxmjoxi" path="res://assets/graphics/portraits/creation/unown.png" id="3_j6ko1"]
+[ext_resource type="FontFile" uid="uid://u2gi1c8bl7f2" path="res://assets/fonts/tech.ttf" id="4_sgr4l"]
+
+[node name="Dialogue" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_raqcf")
+
+[node name="bg" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 72.0
+offset_right = 1029.0
+offset_bottom = 633.0
+texture = ExtResource("2_fol21")
+
+[node name="other guy" type="TextureRect" parent="bg"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 24.0
+offset_right = 241.0
+offset_bottom = 248.0
+texture = ExtResource("3_j6ko1")
+
+[node name="text" type="RichTextLabel" parent="bg/other guy"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 290.0
+offset_right = 502.0
+offset_bottom = 512.0
+theme_override_colors/default_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/normal_font = ExtResource("4_sgr4l")
+text = "I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB I'M DUMB "
+
+[node name="you" type="TextureRect" parent="bg"]
+layout_mode = 0
+offset_left = 532.0
+offset_top = 315.0
+offset_right = 756.0
+offset_bottom = 539.0
+texture = ExtResource("3_j6ko1")
+flip_h = true
+
+[node name="text" type="RichTextLabel" parent="bg/you"]
+layout_mode = 0
+offset_left = -278.0
+offset_top = -290.0
+offset_right = 226.0
+offset_bottom = -68.0
+theme_override_colors/default_color = Color(0, 1, 0.564706, 1)
+theme_override_fonts/normal_font = ExtResource("4_sgr4l")
+text = "This box can be edited. Time to spew out random shit to fill in this box"

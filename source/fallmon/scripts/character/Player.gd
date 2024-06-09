@@ -73,13 +73,13 @@ var exp_to_next:int = 1000
 ]
 
 @export var conditions:Array = [
-	['Head', 200.0, 200.0],
-	['Chest', 300.0, 300.0],
-	['Left Arm', 50.0, 50.0],
-	['Right Arm', 50.0, 50.0],
-	['Left Leg', 50.0, 50.0],
-	['Right Leg', 50.0, 50.0],
-	['', 50.0, 50.0],
+	['Head', 200.0, 200.0, ''],
+	['Chest', 300.0, 300.0, ''],
+	['Left Arm', 50.0, 50.0, ''],
+	['Right Arm', 50.0, 50.0, ''],
+	['Left Leg', 50.0, 50.0, ''],
+	['Right Leg', 50.0, 50.0, ''],
+	['', 50.0, 50.0, ''],
 ]
 
 var weaponDifficulty:String = ''
@@ -222,12 +222,27 @@ func _physics_process(delta):
 	
 	saturationsUpdate(delta)
 	itemCheck(delta)
+	lmbUpdate()
 
 func playFanfire():
 	if soundToPlay != '':
 		fanfire.stream = load("res://assets/audios/sounds/player/" + soundToPlay + ".ogg")
 	
 	fanfire.play()
+
+func lmbUpdate():
+	for i in range(0,conditions.size()):
+		conditions[i][3] = ''
+		if conditions[i][1] < float(conditions[i][2]):
+			conditions[i][3] = 'Damged'
+		if conditions[i][1] < float(conditions[i][2] * 0.9):
+			conditions[i][3] = 'Badly Damaged'
+		if conditions[i][1] < float(conditions[i][2] * 0.67):
+			conditions[i][3] = 'Sprained'
+		if conditions[i][1] < float(conditions[i][2] * 0.33):
+			conditions[i][3] = 'Injured'
+		if conditions[i][1] <= 0:
+			conditions[i][3] = 'Crippled'
 
 var saturationTitle:Array = [
 	['','Peckish','Hungry','Very Hungry','Starving'],
